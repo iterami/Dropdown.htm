@@ -65,11 +65,13 @@ function coin_fall(){
     /*if there are purple buttons and it is time to add one*/
     if(get('frames-per-purple').value > 0 && frame_purple === parseInt(get('frames-per-purple').value - 1)){
         temp_newpurppos = Math.floor(Math.random() * 13);
+
         falling_coins.push([
             temp_newpurppos,/*x*/
             0,/*y*/
             -1/*point value*/
         ]);
+
         get(temp_newpurppos).style.backgroundColor = color_purple;
         frame_purple = -1
     }
@@ -79,11 +81,13 @@ function coin_fall(){
         do{
             temp_neworangepos = Math.floor(Math.random() * 13)
         }while(temp_neworangepos === temp_newpurppos);
+
         falling_coins.push([
             temp_neworangepos,/*x*/
             0,/*y*/
             1/*point value*/
         ]);
+
         get(temp_neworangepos).style.backgroundColor = color_orange;
         frame_orange = -1
     }
@@ -139,7 +143,7 @@ function player_move(){
             player_x = 0;
 
             /*set new player button to player color*/
-            get(195+player_x).style.backgroundColor = color_player
+            get(195 + player_x).style.backgroundColor = color_player
         }
     }
 }
@@ -273,7 +277,7 @@ function start(){
     player_x = 6;
 
     /*max time mode*/
-    if(get('game-mode-select').value==1){
+    if(get('game-mode-select').value == 1){
         get('time').innerHTML = get('time-max').innerHTML = get('max-time').value;
         get('score-max').innerHTML = '';
         get('time-max-span').style.display = get('max-time').value > 0?'inline':'none';
@@ -283,12 +287,12 @@ function start(){
     }else{
         get('time').innerHTML = 0;
         get('time-max-span').style.display = 'none';
-        get('score-max').innerHTML = get('max-points').value > 0 ? ' out of <b>'+get('max-points').value+'</b>' : '';
+        get('score-max').innerHTML = get('max-points').value > 0 ? ' out of <b>' + get('max-points').value + '</b>' : '';
         interval_time = setInterval('time_interval(0)',100)
     }
 
-    interval_coins=setInterval('coin_fall()',(get('ms-per-coin-move').value > 0) ? get('ms-per-coin-move').value : 100);
-    interval_player=setInterval('player_move()',(get('ms-per-player-move').value > 0) ? get('ms-per-player-move').value : 100);
+    interval_coins = setInterval('coin_fall()',(get('ms-per-coin-move').value > 0) ? get('ms-per-coin-move').value : 100);
+    interval_player = setInterval('player_move()',(get('ms-per-player-move').value > 0) ? get('ms-per-player-move').value : 100);
     save()
 }
 
