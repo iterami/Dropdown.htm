@@ -280,7 +280,7 @@ function start(){
     if(get('game-mode-select').value == 1){
         get('time').innerHTML = get('time-max').innerHTML = get('max-time').value;
         get('score-max').innerHTML = '';
-        get('time-max-span').style.display = get('max-time').value > 0?'inline':'none';
+        get('time-max-span').style.display = get('max-time').value > 0 ? 'inline' : 'none';
         interval_time = setInterval('time_interval(1)',100)
 
     /*max points mode*/
@@ -382,6 +382,7 @@ get('lol-a-table').style.marginTop = get('y-margin').value + 'px';
 window.onkeydown = function(e){
     i = window.event ? event : e;
     i = i.charCode ? i.charCode : i.keyCode;
+
     if(String.fromCharCode(i) === get('move-keys').value[0]){/*left move key*/
         key_left = 1
     }else if(String.fromCharCode(i) === get('move-keys').value[1]){/*right move key*/
@@ -397,6 +398,7 @@ window.onkeydown = function(e){
 window.onkeyup = function(e){
     i = window.event ? event : e;
     i = i.charCode ? i.charCode : i.keyCode;
+
     if(String.fromCharCode(i) === get('move-keys').value[0]){
         key_left = 0
     }else if(String.fromCharCode(i) === get('move-keys').value[1]){
