@@ -11,6 +11,7 @@ function coin_fall(){
                 /* if it is a purple coins and catching purple coins ends the game, end the game */
                 if(falling_coins[i][2] < 0 && get('purple-catch-select').value == 0){
                     stop();
+
                 }else{
                     /* else adjust the score by the point value of the coin */
                     get('score').innerHTML = parseInt(get('score').innerHTML, 10) + falling_coins[i][2];
@@ -28,12 +29,14 @@ function coin_fall(){
             get(falling_coins[i][0] + 13 * falling_coins[i][1]).style.backgroundColor = color_empty;
             falling_coins[i][1] += 1;
             get(falling_coins[i][0] + 13 * falling_coins[i][1]).style.backgroundColor = (falling_coins[i][2] === 1) ? color_orange : color_purple;
+
         }else{
             /* if it is an orange coin */
             if(falling_coins[i][2] === 1){
                 /* if missing an orange coin causes game to end, end the game */
                 if(get('orange-miss-select').value == 1){
                     stop();
+
                 }else{
                     /* if missing an orange coin decreases score, decrease score */
                     if(get('orange-miss-select').value == 2){
@@ -47,6 +50,7 @@ function coin_fall(){
                     /* restart function */
                     coin_fall();
                 }
+
             }else{
                 /* delete and ignore purple coin */
                 get(falling_coins[i][0] + 13 * falling_coins[i][1]).style.backgroundColor = color_empty;
@@ -123,6 +127,7 @@ function player_move(){
             /* set new player button to player color */
             get(195 + player_x).style.backgroundColor = color_player;
         }
+
     }else if(key_right){
         if(player_x < 12){
             /* set current player button to empty color */
@@ -210,7 +215,7 @@ function save(){
             );
         }
     }while(i--);
-    j = 0
+    j = 0;
 }
 
 function set_settings_disable(i){
@@ -297,8 +302,14 @@ function start(){
         interval_time = setInterval('time_interval(0)', 100);
     }
 
-    interval_coins = setInterval('coin_fall()',(get('ms-per-coin-move').value > 0) ? get('ms-per-coin-move').value : 100);
-    interval_player = setInterval('player_move()',(get('ms-per-player-move').value > 0) ? get('ms-per-player-move').value : 100);
+    interval_coins = setInterval(
+        'coin_fall()',
+        get('ms-per-coin-move').value > 0 ? get('ms-per-coin-move').value : 100
+    );
+    interval_player = setInterval(
+        'player_move()',
+        get('ms-per-player-move').value > 0 ? get('ms-per-player-move').value : 100
+    );
 
     save();
 }
@@ -317,28 +328,30 @@ function stop(){
 }
 
 function time_interval(mode){
-    /* max time mode */
     if(mode){
+        /* max time mode game over*/
         if(parseFloat(get('time').innerHTML) <= 0 && get('max-time').value > 0){
             stop();
+
+        /* increase time */
         }else{
             get('time').innerHTML = ((parseFloat(get('time').innerHTML) + ((get('game-mode-select').value == 1
                                    && get('max-time').value > 0) ? -.1 : .1)).toFixed(1));
         }
 
-    /* max points mode */
+    /* max points mode game over */
+    }else if(get('max-points').value > 0 && parseInt(get('score').innerHTML) >= get('max-points').value){
+        stop();
+
+    /* increase time */
     }else{
-        if(get('max-points').value > 0 && parseInt(get('score').innerHTML) >= get('max-points').value){
-            stop();
-        }else{
-            get('time').innerHTML = ((parseFloat(get('time').innerHTML) + ((get('game-mode-select').value == 1
+        get('time').innerHTML = ((parseFloat(get('time').innerHTML) + ((get('game-mode-select').value == 1
                                    && get('max-time').value > 0) ? -.1 : .1)).toFixed(1));
-        }
     }
 }
 
 var color_empty = 'rgb(99, 99, 99)';
-var color_player = 'rgb(0, 225, 0)';
+var color_player = 'rgb(0, 200, 0)';
 var color_orange = 'rgb(255, 155, 0)';
 var color_purple = 'rgb(225, 0, 225)';
 var falling_coins = [];
