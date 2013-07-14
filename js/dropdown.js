@@ -1,62 +1,62 @@
 function coin_fall(){
     j = falling_coins.length;
     for(i = 0; i < j; i++){
-        /* if coin is not at the bottom of the game area */
+        // if coin is not at the bottom of the game area
         if(falling_coins[i][1] < 15){
-            /* if coin is at a y position to be caught and it is directly above the player */
+            // if coin is at a y position to be caught and it is directly above the player
             if(falling_coins[i][1] === 14 && get(195 + falling_coins[i][0]).style.backgroundColor === color_player){
-                /* set button color to empty */
+                // set button color to empty
                 get(182 + falling_coins[i][0]).style.backgroundColor=color_empty;
 
-                /* if it is a purple coins and catching purple coins ends the game, end the game */
+                // if it is a purple coins and catching purple coins ends the game, end the game
                 if(falling_coins[i][2] < 0 && get('purple-catch-select').value == 0){
                     stop();
 
                 }else{
-                    /* else adjust the score by the point value of the coin */
+                    // else adjust the score by the point value of the coin
                     get('score').innerHTML = parseInt(get('score').innerHTML, 10) + falling_coins[i][2];
 
-                    /* remove the coin */
+                    // remove the coin
                     falling_coins.splice(i, 1);
 
-                    /* restart coin_fall function */
+                    // restart coin_fall function
                     coin_fall();
                     return;
                 }
             }
 
-            /* update coin y value and draw it in its new position */
+            // update coin y value and draw it in its new position
             get(falling_coins[i][0] + 13 * falling_coins[i][1]).style.backgroundColor = color_empty;
             falling_coins[i][1] += 1;
             get(falling_coins[i][0] + 13 * falling_coins[i][1]).style.backgroundColor = (falling_coins[i][2] === 1) ? color_orange : color_purple;
 
         }else{
-            /* if it is an orange coin */
+            // if it is an orange coin
             if(falling_coins[i][2] === 1){
-                /* if missing an orange coin causes game to end, end the game */
+                // if missing an orange coin causes game to end, end the game
                 if(get('orange-miss-select').value == 1){
                     stop();
 
                 }else{
-                    /* if missing an orange coin decreases score, decrease score */
+                    // if missing an orange coin decreases score, decrease score
                     if(get('orange-miss-select').value == 2){
                         get('score').innerHTML = parseInt(get('score').innerHTML, 10) - 1;
                     }
 
-                    /* delete orange coin */
+                    // delete orange coin
                     get(falling_coins[i][0] + 13 * falling_coins[i][1]).style.backgroundColor = color_empty;
                     falling_coins.splice(i, 1);
 
-                    /* restart function */
+                    // restart function
                     coin_fall();
                 }
 
             }else{
-                /* delete and ignore purple coin */
+                // delete and ignore purple coin
                 get(falling_coins[i][0] + 13 * falling_coins[i][1]).style.backgroundColor = color_empty;
                 falling_coins.splice(i, 1);
 
-                /* restart function */
+                // restart function
                 coin_fall();
             }
             return;
@@ -66,88 +66,88 @@ function coin_fall(){
     var temp_newpurppos = -1;
     var temp_neworangepos = -1;
 
-    /* if there are purple buttons and it is time to add one */
+    // if there are purple buttons and it is time to add one
     if(get('frames-per-purple').value > 0 && frame_purple === parseInt(get('frames-per-purple').value - 1)){
         temp_newpurppos = Math.floor(Math.random() * 13);
 
         falling_coins.push([
-            temp_newpurppos,/* x */
-            0,/* y */
-            -1/* point value */
+            temp_newpurppos,// x
+            0,// y
+            -1// point value
         ]);
 
         get(temp_newpurppos).style.backgroundColor = color_purple;
         frame_purple = -1;
     }
 
-    /* if it is time to add an orange button */
+    // if it is time to add an orange button
     if(frame_orange === 9){
         do{
             temp_neworangepos = Math.floor(Math.random() * 13);
         }while(temp_neworangepos === temp_newpurppos);
 
         falling_coins.push([
-            temp_neworangepos,/* x */
-            0,/* y */
-            1/* point value */
+            temp_neworangepos,// x
+            0,// y
+            1// point value
         ]);
 
         get(temp_neworangepos).style.backgroundColor = color_orange;
         frame_orange = -1;
     }
 
-    /* increase frame counters */
+    // increase frame counters
     frame_orange += 1;
     frame_purple += 1;
 
-    /* draw player button just in case it was overwritten */
+    // draw player button just in case it was overwritten
     get(195 + player_x).style.backgroundColor = color_player;
 }
 
 function player_move(){
     if(key_left){
         if(player_x > 0){
-            /* set current player button to empty color */
+            // set current player button to empty color
             get(195 + player_x).style.backgroundColor = color_empty;
 
-            /* update player position */
+            // update player position
             player_x -= 1;
 
-            /* set new player button to player color */
+            // set new player button to player color
             get(195 + player_x).style.backgroundColor = color_player;
 
-        /* check if player can wrap around left side of game area */
+        // check if player can wrap around left side of game area
         }else if(get('wrap-select').value == 1 || get('wrap-select').value == 2){
-            /* set current player button to empty color */
+            // set current player button to empty color
             get(195 + player_x).style.backgroundColor = color_empty;
 
-            /* update player position */
+            // update player position
             player_x = 12;
 
-            /* set new player button to player color */
+            // set new player button to player color
             get(195 + player_x).style.backgroundColor = color_player;
         }
 
     }else if(key_right){
         if(player_x < 12){
-            /* set current player button to empty color */
+            // set current player button to empty color
             get(195 + player_x).style.backgroundColor = color_empty;
 
-            /* update player position */
+            // update player position
             player_x += 1;
 
-            /* set new player button to player color */
+            // set new player button to player color
             get(195 + player_x).style.backgroundColor = color_player;
 
-        /* check if player can wrap around right side of game area */
+        // check if player can wrap around right side of game area
         }else if(get('wrap-select').value == 1 || get('wrap-select').value == 3){
-            /* set current player button to empty color */
+            // set current player button to empty color
             get(195 + player_x).style.backgroundColor = color_empty;
 
-            /* update player position */
+            // update player position
             player_x = 0;
 
-            /* set new player button to player color */
+            // set new player button to player color
             get(195 + player_x).style.backgroundColor = color_player;
         }
     }
@@ -188,7 +188,7 @@ function reset(){
 }
 
 function save(){
-    /* save settings in localStorage if they differ from default */
+    // save settings in localStorage if they differ from default
     i = 12;
     j = [
         'ms-per-coin-move',
@@ -219,7 +219,7 @@ function save(){
 }
 
 function set_settings_disable(i){
-    /* i==1 settings disabled, i==0 settings enabled */
+    // i==1 settings disabled, i==0 settings enabled
     get('frames-per-purple').disabled = i;
     get('game-mode-select').disabled = i;
     get('max-points').disabled = i;
@@ -243,7 +243,7 @@ function showhide_settings(){
 }
 
 function start(){
-    /* validate settings */
+    // validate settings
     if(isNaN(get('audio-volume').value)){
         get('audio-volume').value = 1;
     }
@@ -263,11 +263,11 @@ function start(){
         get('ms-per-player-move').value = 100;
     }
 
-    /* setup margin-top of game */
+    // setup margin-top of game
     get('y-margin').value = 0;
     get('lol-a-table').style.marginTop = get('y-margin').value + 'px';
 
-    /* reset colors of buttons */
+    // reset colors of buttons
     i = 207;
     do{
         get(i).style.backgroundColor = color_empty;
@@ -287,14 +287,14 @@ function start(){
     get('score').innerHTML = 0;
     player_x = 6;
 
-    /* max time mode */
+    // max time mode
     if(get('game-mode-select').value == 1){
         get('time').innerHTML = get('time-max').innerHTML = get('max-time').value;
         get('score-max').innerHTML = '';
         get('time-max-span').style.display = get('max-time').value > 0 ? 'inline' : 'none';
         interval_time = setInterval('time_interval(1)', 100);
 
-    /* max points mode */
+    // max points mode
     }else{
         get('time').innerHTML = 0;
         get('time-max-span').style.display = 'none';
@@ -329,21 +329,21 @@ function stop(){
 
 function time_interval(mode){
     if(mode){
-        /* max time mode game over*/
+        // max time mode game over*/
         if(parseFloat(get('time').innerHTML) <= 0 && get('max-time').value > 0){
             stop();
 
-        /* increase time */
+        // increase time
         }else{
             get('time').innerHTML = ((parseFloat(get('time').innerHTML) + ((get('game-mode-select').value == 1
                                    && get('max-time').value > 0) ? -.1 : .1)).toFixed(1));
         }
 
-    /* max points mode game over */
+    // max points mode game over
     }else if(get('max-points').value > 0 && parseInt(get('score').innerHTML) >= get('max-points').value){
         stop();
 
-    /* increase time */
+    // increase time
     }else{
         get('time').innerHTML = ((parseFloat(get('time').innerHTML) + ((get('game-mode-select').value == 1
                                    && get('max-time').value > 0) ? -.1 : .1)).toFixed(1));
@@ -367,7 +367,7 @@ var key_right = 0;
 var ls = window.localStorage;
 var player_x = 6;
 
-/* setup game area */
+// setup game area
 for(i = 0; i < 208; i++){
     if(i % 13 === 0 && i !== 0){
         j.push('<br>');
@@ -378,7 +378,7 @@ j[217] = '<input class=buttons disabled id=201 style="background:' + color_playe
 get('game-area').innerHTML = j.join('');
 j = 0;
 
-/* fetch settings from localStorage if they exist, and update settings inputs with defaults or localStorage values */
+// fetch settings from localStorage if they exist, and update settings inputs with defaults or localStorage values
 get('game-mode-select').value = ls.getItem('dropdown-8') === null ? 1 : 0;
 get('move-keys').value = ls.getItem('dropdown-11') === null ? 'AD' : ls.getItem('dropdown-11');
 if(ls.getItem('dropdown-12') === null){
@@ -397,7 +397,7 @@ get('orange-miss-select').value = ls.getItem('dropdown-3') === null ? 1 : parseI
 get('purple-catch-select').value = ls.getItem('dropdown-10') === null ? 1 : 0;
 get('wrap-select').value = ls.getItem('dropdown-6') === null ? 0 : parseInt(ls.getItem('dropdown-6'));
 
-/* setup game margin-top */
+// setup game margin-top
 get('y-margin').value = ls.getItem('dropdown-7') === null ? 0 : parseInt(ls.getItem('dropdown-7'));
 get('lol-a-table').style.marginTop = get('y-margin').value + 'px';
 
@@ -405,17 +405,17 @@ window.onkeydown = function(e){
     i = window.event ? event : e;
     i = i.charCode ? i.charCode : i.keyCode;
 
-    if(String.fromCharCode(i) === get('move-keys').value[0]){/* left move key */
+    if(String.fromCharCode(i) === get('move-keys').value[0]){// left move key
         key_left = 1;
 
-    }else if(String.fromCharCode(i) === get('move-keys').value[1]){/* right move key */
+    }else if(String.fromCharCode(i) === get('move-keys').value[1]){// right move key
         key_right = 1;
 
     }else if(String.fromCharCode(i) === get('start-key').value){
         stop();
         start();
 
-    }else if(i === 27){/* ESC */
+    }else if(i === 27){// ESC
         stop();
     }
 };
