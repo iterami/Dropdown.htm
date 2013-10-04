@@ -279,7 +279,7 @@ function start(){
         stop();
     };
     set_settings_disable(1);
-    falling_coins = [];
+    falling_coins.length = 0;
     frame_orange = 9;
     frame_purple = 0;
     key_left = 0;
