@@ -5,6 +5,9 @@
     vertical-align: top;
     width: 30px;
 }
+input{
+    width: 75px;
+}
 .settings-td{
     padding: 9px;
     text-align: left;

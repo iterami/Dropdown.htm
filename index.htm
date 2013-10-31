@@ -13,13 +13,13 @@
                 <input id=reset-button onclick=reset() type=button value=Reset>
                 <input onclick=showhide_hack() type=button value=Hack><br>
                 <input id=audio-volume max=1 min=0 step=.01 type=range value=1>Audio<br>
-                <input id=max-points size=3 value=50>Max Points<br>
-                <input id=max-time size=3 value=0>Max Time<br>
+                <input id=max-points  value=50>Max Points<br>
+                <input id=max-time value=0>Max Time<br>
                 Max<select id=game-mode-select>
                     <option value=0>Points</option>
                     <option selected value=1>Time</option>
                 </select>Mode<br>
-                <input id=move-keys maxlength=2 size=3 value=AD>Move<br>
+                <input id=move-keys maxlength=2 value=AD>Move<br>
                 <select id=orange-miss-select>
                     <option value=0>Disappear</option>
                     <option selected value=1>End Game</option>
@@ -29,19 +29,19 @@
                     <option value=0>End Game</option>
                     <option selected value=1>Score-1</option>
                 </select>Purple Coin Catch<br>
-                <input id=start-key maxlength=1 size=3 value=H>Start<br>
+                <input id=start-key maxlength=1 value=H>Start<br>
                 <select id=wrap-select>
                     <option selected value=0>—</option>
                     <option value=2>←</option>
                     <option value=3>→</option>
                     <option value=1>↔</option>
                 </select>Wrap<br>
-                <input id=y-margin size=3 value=0>Y Margin
+                <input id=y-margin value=0>Y Margin
                 <span id=hack-span style=display:none>
                     <br><br>
-                    <input id=frames-per-purple size=3 value=9>Frames/Purple_Coin<br>
-                    <input id=ms-per-coin-move size=3 value=100>ms/Coin_Move<br>
-                    <input id=ms-per-player-move size=3 value=100>ms/Player_Move<br>
+                    <input id=frames-per-purple value=9>Frames/Purple_Coin<br>
+                    <input id=ms-per-coin-move value=100>ms/Coin_Move<br>
+                    <input id=ms-per-player-move value=100>ms/Player_Move<br>
                 </span>
             </span>
     <tr>
@@ -50,7 +50,7 @@
                 Score: <b id=score>0</b><span id=score-max></span><br>
                 Time: <span id=time style=font-weight:bold>0</span><span id=time-max-span> out of <b id=time-max>0</b></span>
             </div>
-            <input id=start-button onclick=start() style=font-size:123% type=button value="Start (H)">
+            <input id=start-button onclick=start() style=font-size:123%;width:150px type=button value="Start (H)">
             <input id=showhide-button onclick=showhide_settings() type=button value=->
 </table>
 
