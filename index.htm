@@ -11,8 +11,8 @@
             <span id=settings-span>
                 <b>Dropdown</b><br>
                 <input id=reset-button onclick=reset() type=button value=Reset>
-                <input onclick=showhide_hack() type=button value=Hack><br>
                 <input id=audio-volume max=1 min=0 step=.01 type=range value=1>Audio<br>
+                <input id=frames-per-purple value=9>Frames/Purple_Coin<br>
                 <input id=max-points  value=50>Max Points<br>
                 <input id=max-time value=0>Max Time<br>
                 Max<select id=game-mode-select>
@@ -20,6 +20,8 @@
                     <option selected value=1>Time</option>
                 </select>Mode<br>
                 <input id=move-keys maxlength=2 value=AD>Move<br>
+                <input id=ms-per-coin-move value=100>ms/Coin_Move<br>
+                <input id=ms-per-player-move value=100>ms/Player_Move<br>
                 <select id=orange-miss-select>
                     <option value=0>Disappear</option>
                     <option selected value=1>End Game</option>
@@ -37,12 +39,6 @@
                     <option value=1>↔</option>
                 </select>Wrap<br>
                 <input id=y-margin value=0>Y Margin
-                <span id=hack-span style=display:none>
-                    <br><br>
-                    <input id=frames-per-purple value=9>Frames/Purple_Coin<br>
-                    <input id=ms-per-coin-move value=100>ms/Coin_Move<br>
-                    <input id=ms-per-player-move value=100>ms/Player_Move<br>
-                </span>
             </span>
     <tr>
         <td>
