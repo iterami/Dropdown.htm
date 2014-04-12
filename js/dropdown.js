@@ -456,32 +456,32 @@ document.getElementById('y-margin').value = window.localStorage.getItem('dropdow
 document.getElementById('lol-a-table').style.marginTop = document.getElementById('y-margin').value + 'px';
 
 window.onkeydown = function(e){
-    i = window.event ? event : e;
-    i = i.charCode ? i.charCode : i.keyCode;
+    var key = window.event ? event : e;
+    key = key.charCode ? key.charCode : key.keyCode;
 
-    if(String.fromCharCode(i) === document.getElementById('move-keys').value[0]){// left move key
+    if(String.fromCharCode(key) === document.getElementById('move-keys').value[0]){// left move key
         key_left = 1;
 
-    }else if(String.fromCharCode(i) === document.getElementById('move-keys').value[1]){// right move key
+    }else if(String.fromCharCode(key) === document.getElementById('move-keys').value[1]){// right move key
         key_right = 1;
 
-    }else if(String.fromCharCode(i) === document.getElementById('start-key').value){
+    }else if(String.fromCharCode(key) === document.getElementById('start-key').value){
         stop();
         start();
 
-    }else if(i === 27){// ESC
+    }else if(key === 27){// ESC
         stop();
     }
 };
 
 window.onkeyup = function(e){
-    i = window.event ? event : e;
-    i = i.charCode ? i.charCode : i.keyCode;
+    var key = window.event ? event : e;
+    key = String.fromCharCode(key.charCode ? key.charCode : key.keyCode);
 
-    if(String.fromCharCode(i) === document.getElementById('move-keys').value[0]){
+    if(key === document.getElementById('move-keys').value[0]){
         key_left = 0;
 
-    }else if(String.fromCharCode(i) === document.getElementById('move-keys').value[1]){
+    }else if(key === document.getElementById('move-keys').value[1]){
         key_right = 0;
     }
 }
