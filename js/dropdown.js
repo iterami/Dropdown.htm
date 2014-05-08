@@ -7,10 +7,11 @@ function coin_fall(){
             if(falling_coins[i][1] === 14
               && document.getElementById(195 + falling_coins[i][0]).style.backgroundColor === color_player){
                 // set button color to empty
-                document.getElementById(182 + falling_coins[i][0]).style.backgroundColor=color_empty;
+                document.getElementById(182 + falling_coins[i][0]).style.backgroundColor = color_empty;
 
                 // if it is a purple coins and catching purple coins ends the game, end the game
-                if(falling_coins[i][2] < 0 && document.getElementById('purple-catch-select').value == 0){
+                if(falling_coins[i][2] < 0
+                  && document.getElementById('purple-catch-select').value == 0){
                     stop();
 
                 }else{
@@ -33,7 +34,9 @@ function coin_fall(){
             // update coin y value and draw it in its new position
             document.getElementById(falling_coins[i][0] + 13 * falling_coins[i][1]).style.backgroundColor = color_empty;
             falling_coins[i][1] += 1;
-            document.getElementById(falling_coins[i][0] + 13 * falling_coins[i][1]).style.backgroundColor = (falling_coins[i][2] === 1) ? color_orange : color_purple;
+            document.getElementById(falling_coins[i][0] + 13 * falling_coins[i][1]).style.backgroundColor = (falling_coins[i][2] === 1)
+              ? color_orange
+              : color_purple;
 
         }else{
             // if it is an orange coin
@@ -73,13 +76,14 @@ function coin_fall(){
     var temp_neworangepos = -1;
 
     // if there are purple buttons and it is time to add one
-    if(document.getElementById('frames-per-purple').value > 0 && frame_purple === parseInt(document.getElementById('frames-per-purple').value - 1)){
+    if(document.getElementById('frames-per-purple').value > 0
+      && frame_purple === parseInt(document.getElementById('frames-per-purple').value - 1)){
         temp_newpurppos = Math.floor(Math.random() * 13);
 
         falling_coins.push([
-            temp_newpurppos,// x
-            0,// y
-            -1// point value
+          temp_newpurppos,// x
+          0,// y
+          -1// point value
         ]);
 
         document.getElementById(temp_newpurppos).style.backgroundColor = color_purple;
@@ -93,9 +97,9 @@ function coin_fall(){
         }while(temp_neworangepos === temp_newpurppos);
 
         falling_coins.push([
-            temp_neworangepos,// x
-            0,// y
-            1// point value
+          temp_neworangepos,// x
+          0,// y
+          1// point value
         ]);
 
         document.getElementById(temp_neworangepos).style.backgroundColor = color_orange;
@@ -124,7 +128,7 @@ function player_move(){
 
         // check if player can wrap around left side of game area
         }else if(document.getElementById('wrap-select').value == 1
-              || document.getElementById('wrap-select').value == 2){
+          || document.getElementById('wrap-select').value == 2){
             // set current player button to empty color
             document.getElementById(195 + player_x).style.backgroundColor = color_empty;
 
@@ -148,7 +152,7 @@ function player_move(){
 
         // check if player can wrap around right side of game area
         }else if(document.getElementById('wrap-select').value == 1
-              || document.getElementById('wrap-select').value == 3){
+          || document.getElementById('wrap-select').value == 3){
             // set current player button to empty color
             document.getElementById(195 + player_x).style.backgroundColor = color_empty;
 
@@ -195,27 +199,27 @@ function save(){
     // save settings in localStorage if they differ from default
     i = 12;
     j = [
-        'ms-per-coin-move',
-        'ms-per-player-move',
-        'frames-per-purple',
-        'orange-miss-select',
-        'audio-volume',
-        'max-time',
-        'wrap-select',
-        'y-margin',
-        'game-mode-select',
-        'max-points',
-        'purple-catch-select',
-        'move-keys',
-        'start-key'
+      'ms-per-coin-move',
+      'ms-per-player-move',
+      'frames-per-purple',
+      'orange-miss-select',
+      'audio-volume',
+      'max-time',
+      'wrap-select',
+      'y-margin',
+      'game-mode-select',
+      'max-points',
+      'purple-catch-select',
+      'move-keys',
+      'start-key'
     ];
     do{
         if(document.getElementById(j[i]).value == [100, 100, 9, 1, 1, 0, 0, 0, 1, 50, 1, 'AD', 'H'][i]){
             window.localStorage.removeItem('dropdown-' + i);
         }else{
             window.localStorage.setItem(
-                'dropdown-' + i,
-                document.getElementById(j[i]).value
+              'dropdown-' + i,
+              document.getElementById(j[i]).value
             );
         }
     }while(i--);
@@ -349,18 +353,19 @@ function time_interval(mode){
     if(mode){
         // max time mode game over*/
         if(parseFloat(document.getElementById('time').innerHTML) <= 0
-                   && document.getElementById('max-time').value > 0){
+          && document.getElementById('max-time').value > 0){
             stop();
 
         // increase time
         }else{
             document.getElementById('time').innerHTML = (
-              (parseFloat(document.getElementById('time').innerHTML)
-               + ((document.getElementById('game-mode-select').value == 1
-               && document.getElementById('max-time').value > 0)
-                ? -.1
-                : .1)
-              ).toFixed(1));
+              (
+                parseFloat(document.getElementById('time').innerHTML) + ((document.getElementById('game-mode-select').value == 1
+                && document.getElementById('max-time').value > 0)
+                  ? -.1
+                  : .1)
+              ).toFixed(1)
+            );
         }
 
     // max points mode game over
@@ -397,7 +402,8 @@ var player_x = 6;
 
 // setup game area
 for(i = 0; i < 208; i++){
-    if(i % 13 === 0 && i !== 0){
+    if(i % 13 === 0
+      && i !== 0){
         j.push('<br>');
     }
     j.push('<input class=buttons disabled id=' + i + ' style="background:' + color_empty + '" type=button>');
