@@ -197,7 +197,6 @@ function reset(){
 
 function save(){
     // save settings in localStorage if they differ from default
-    i = 12;
     j = [
       'ms-per-coin-move',
       'ms-per-player-move',
@@ -213,16 +212,20 @@ function save(){
       'move-keys',
       'start-key'
     ];
+
+    var loop_counter = 12;
     do{
-        if(document.getElementById(j[i]).value == [100, 100, 9, 1, 1, 0, 0, 0, 1, 50, 1, 'AD', 'H'][i]){
-            window.localStorage.removeItem('dropdown-' + i);
+        if(document.getElementById(j[loop_counter]).value == [100, 100, 9, 1, 1, 0, 0, 0, 1, 50, 1, 'AD', 'H'][loop_counter]){
+            window.localStorage.removeItem('dropdown-' + loop_counter);
+
         }else{
             window.localStorage.setItem(
-              'dropdown-' + i,
-              document.getElementById(j[i]).value
+              'dropdown-' + loop_counter,
+              document.getElementById(j[loop_counter]).value
             );
         }
-    }while(i--);
+    }while(loop_counter--);
+
     j = 0;
 }
 
