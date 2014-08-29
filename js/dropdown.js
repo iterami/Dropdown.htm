@@ -493,4 +493,4 @@ window.onkeyup = function(e){
     }else if(key === document.getElementById('move-keys').value[1]){
         key_right = 0;
     }
-}
+};
