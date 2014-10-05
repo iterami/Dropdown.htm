@@ -1,7 +1,7 @@
-body,
-input{
+body{
     background: #000;
     color: #aaa;
+    font-family: sans-serif;
 }
 .buttons{
     border-width: 0;
@@ -11,6 +11,8 @@ input{
     width: 30px !important;
 }
 input{
+    background: #000;
+    color: #aaa;
     width: 75px;
 }
 input[type=button]{
