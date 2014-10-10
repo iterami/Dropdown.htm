@@ -387,10 +387,10 @@ function time_interval(mode){
     }
 }
 
-var color_empty = 'rgb(99, 99, 99)';
-var color_player = 'rgb(0, 200, 0)';
-var color_orange = 'rgb(255, 155, 0)';
-var color_purple = 'rgb(225, 0, 225)';
+var color_empty = 'rgb(42, 42, 42)';
+var color_player = 'rgb(32, 102, 32)';
+var color_orange = 'rgb(190, 100, 0)';
+var color_purple = 'rgb(102, 51, 102)';
 var falling_coins = [];
 var frame_orange = 0;
 var frame_purple = 0;
