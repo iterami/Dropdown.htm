@@ -197,36 +197,34 @@ function reset(){
 
 function save(){
     // save settings in localStorage if they differ from default
-    j = [
-      'ms-per-coin-move',
-      'ms-per-player-move',
-      'frames-per-purple',
-      'orange-miss-select',
-      'audio-volume',
-      'max-time',
-      'wrap-select',
-      'y-margin',
-      'game-mode-select',
-      'max-points',
-      'purple-catch-select',
-      'move-keys',
-      'start-key'
-    ];
-
     var loop_counter = 12;
     do{
-        if(document.getElementById(j[loop_counter]).value == [100, 100, 9, 1, 1, 0, 0, 0, 1, 50, 1, 'AD', 'H'][loop_counter]){
-            window.localStorage.removeItem('dropdown-' + loop_counter);
+        var id = [
+          'ms-per-coin-move',
+          'ms-per-player-move',
+          'frames-per-purple',
+          'orange-miss-select',
+          'audio-volume',
+          'max-time',
+          'wrap-select',
+          'y-margin',
+          'game-mode-select',
+          'max-points',
+          'purple-catch-select',
+          'move-keys',
+          'start-key'
+        ][loop_counter];
+
+        if(document.getElementById(id).value == [100, 100, 9, 1, 1, 0, 0, 0, 1, 50, 1, 'AD', 'H'][loop_counter]){
+            window.localStorage.removeItem('Dropdown.htm-' + id);
 
         }else{
             window.localStorage.setItem(
-              'dropdown-' + loop_counter,
-              document.getElementById(j[loop_counter]).value
+              'Dropdown.htm-' + id,
+              document.getElementById(id).value
             );
         }
     }while(loop_counter--);
-
-    j = 0;
 }
 
 function set_settings_disable(i){
@@ -416,52 +414,67 @@ document.getElementById('game-area').innerHTML = j.join('');
 j = 0;
 
 // fetch settings from localStorage if they exist, and update settings inputs with defaults or localStorage values
-document.getElementById('game-mode-select').value = window.localStorage.getItem('dropdown-8') === null
-  ? 1
-  : 0;
-document.getElementById('move-keys').value = window.localStorage.getItem('dropdown-11') === null
-  ? 'AD'
-  : window.localStorage.getItem('dropdown-11');
+document.getElementById('audio-volume').value =
+  window.localStorage.getItem('Dropdown.htm-audio-volume') === null
+    ? 1
+    : parseFloat(window.localStorage.getItem('Dropdown.htm-audio-volume'));
+document.getElementById('purple-catch-select').value =
+  window.localStorage.getItem('Dropdown.htm-purple-catch-select') === null
+    ? 1
+    : 0;
+document.getElementById('frames-per-purple').value =
+  window.localStorage.getItem('Dropdown.htm-frames-per-purple') === null
+    ? 9
+    : parseInt(window.localStorage.getItem('Dropdown.htm-frames-per-purple'));
+document.getElementById('game-mode-select').value =
+  window.localStorage.getItem('Dropdown.htm-game-mode-select') === null
+    ? 1
+    : 0;
+document.getElementById('max-points').value =
+  window.localStorage.getItem('Dropdown.htm-max-points') === null
+    ? 50
+    : parseInt(window.localStorage.getItem('Dropdown.htm-max-points'));
+document.getElementById('max-time').value =
+  window.localStorage.getItem('Dropdown.htm-max-time') === null
+    ? 0
+    : parseInt(window.localStorage.getItem('Dropdown.htm-max-time'));
+document.getElementById('move-keys').value =
+  window.localStorage.getItem('Dropdown.htm-move-keys') === null
+    ? 'AD'
+    : window.localStorage.getItem('Dropdown.htm-move-keys');
+document.getElementById('ms-per-coin-move').value =
+  window.localStorage.getItem('Dropdown.htm-ms-per-coin-move') === null
+    ? 100
+    : parseInt(window.localStorage.getItem('Dropdown.htm-ms-per-coin-move'));
+document.getElementById('ms-per-player-move').value =
+  window.localStorage.getItem('Dropdown.htm-ms-per-player-move') === null
+    ? 100
+    : parseInt(window.localStorage.getItem('Dropdown.htm-ms-per-player-move'));
+document.getElementById('orange-miss-select').value =
+  window.localStorage.getItem('Dropdown.htm-orange-miss-select') === null
+    ? 1
+    : parseInt(window.localStorage.getItem('Dropdown.htm-orange-miss-select'));
 
-if(window.localStorage.getItem('dropdown-12') === null){
+if(window.localStorage.getItem('Dropdown.htm-start-key') === null){
     document.getElementById('start-key').value = 'H';
+
 }else{
-    document.getElementById('start-key').value = window.localStorage.getItem('dropdown-12');
-    document.getElementById('start-button').value = 'Start (' + window.localStorage.getItem('dropdown-12') + ')';
+    document.getElementById('start-key').value =
+      window.localStorage.getItem('Dropdown.htm-start-key');
+    document.getElementById('start-button').value =
+      'Start (' + window.localStorage.getItem('Dropdown.htm-start-key') + ')';
 }
 
-document.getElementById('audio-volume').value = window.localStorage.getItem('dropdown-4') === null
-  ? 1
-  : parseFloat(window.localStorage.getItem('dropdown-4'));
-document.getElementById('frames-per-purple').value = window.localStorage.getItem('dropdown-2') === null
-  ? 9
-  : parseInt(window.localStorage.getItem('dropdown-2'));
-document.getElementById('max-points').value = window.localStorage.getItem('dropdown-9') === null
-  ? 50
-  : parseInt(window.localStorage.getItem('dropdown-9'));
-document.getElementById('max-time').value = window.localStorage.getItem('dropdown-5') === null
-  ? 0
-  : parseInt(window.localStorage.getItem('dropdown-5'));
-document.getElementById('ms-per-coin-move').value = window.localStorage.getItem('dropdown-0') === null
-  ? 100
-  : parseInt(window.localStorage.getItem('dropdown-0'));
-document.getElementById('ms-per-player-move').value = window.localStorage.getItem('dropdown-1') === null
-  ? 100
-  : parseInt(window.localStorage.getItem('dropdown-1'));
-document.getElementById('orange-miss-select').value = window.localStorage.getItem('dropdown-3') === null
-  ? 1
-  : parseInt(window.localStorage.getItem('dropdown-3'));
-document.getElementById('purple-catch-select').value = window.localStorage.getItem('dropdown-10') === null
-  ? 1
-  : 0;
-document.getElementById('wrap-select').value = window.localStorage.getItem('dropdown-6') === null
-  ? 0
-  : parseInt(window.localStorage.getItem('dropdown-6'));
-
+document.getElementById('wrap-select').value =
+  window.localStorage.getItem('Dropdown.htm-wrap-select') === null
+    ? 0
+    : parseInt(window.localStorage.getItem('Dropdown.htm-wrap-select'));
+document.getElementById('y-margin').value =
+  window.localStorage.getItem('Dropdown.htm-y-margin') === null
+    ? 0
+    : parseInt(window.localStorage.getItem('Dropdown.htm-y-margin'));
+  
 // setup game margin-top
-document.getElementById('y-margin').value = window.localStorage.getItem('dropdown-7') === null
-  ? 0
-  : parseInt(window.localStorage.getItem('dropdown-7'));
 document.getElementById('lol-a-table').style.marginTop = document.getElementById('y-margin').value + 'px';
 
 window.onkeydown = function(e){
