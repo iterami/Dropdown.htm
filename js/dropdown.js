@@ -1,6 +1,6 @@
 function coin_fall(){
-    j = falling_coins.length;
-    for(i = 0; i < j; i++){
+    var j = falling_coins.length;
+    for(var i = 0; i < j; i++){
         // If coin is not at the bottom of the game area.
         if(falling_coins[i][1] < 15){
             // If coin is at a y position to be caught and it is directly above the player.
@@ -178,12 +178,12 @@ function init(){
         : parseInt(window.localStorage.getItem('Dropdown.htm-y-margin'));
   
     // Setup game margin-top.
-    document.getElementById('lol-a-table').style.marginTop = document.getElementById('y-margin').value + 'px';
+    document.getElementById('table').style.marginTop = document.getElementById('y-margin').value + 'px';
 
     // Setup game area.
     var output = [''];
 
-    for(i = 0; i < 208; i++){
+    for(var i = 0; i < 208; i++){
         if(i % 13 === 0
           && i !== 0){
             output.push('<br>');
@@ -285,22 +285,22 @@ function save(){
     var loop_counter = 12;
     do{
         var id = [
-          'ms-per-coin-move',
-          'ms-per-player-move',
-          'frames-per-purple',
-          'orange-miss-select',
           'audio-volume',
-          'max-time',
-          'wrap-select',
-          'y-margin',
+          'frames-per-purple',
           'game-mode-select',
           'max-points',
-          'purple-catch-select',
+          'max-time',
           'move-keys',
+          'ms-per-coin-move',
+          'ms-per-player-move',
+          'orange-miss-select',
+          'purple-catch-select',
           'start-key',
+          'wrap-select',
+          'y-margin',
         ][loop_counter];
 
-        if(document.getElementById(id).value == [100, 100, 9, 1, 1, 0, 0, 0, 1, 50, 1, 'AD', 'H',][loop_counter]){
+        if(document.getElementById(id).value == [1, 9, 1, 50, 0, 'AD', 100, 100, 1, 1, 'H', 0, 0,][loop_counter]){
             window.localStorage.removeItem('Dropdown.htm-' + id);
 
         }else{
@@ -325,17 +325,15 @@ function set_settings_disable(state){
     document.getElementById('wrap-select').disabled = state;
 }
 
-function showhide_hack(){
-    document.getElementById('hack-span').style.display =
-      document.getElementById('hack-span').style.display === 'none'
-        ? 'inline'
-        : 'none';
-}
-
 function showhide_settings(){
-    i = document.getElementById('showhide-button').value === '-' ? 1 : 0;
-    document.getElementById('settings-span').style.display = ['inline', 'none'][i];
-    document.getElementById('showhide-button').value = ['-', '+'][i];
+    if(document.getElementById('showhide-button').value === '-'){
+        document.getElementById('settings-span').style.display = 'none';
+        document.getElementById('showhide-button').value = '+';
+
+    }else{
+        document.getElementById('settings-span').style.display = 'inline';
+        document.getElementById('showhide-button').value = '-';
+    }
 }
 
 function start(){
@@ -361,20 +359,20 @@ function start(){
 
     // Setup margin-top of game.
     document.getElementById('y-margin').value = 0;
-    document.getElementById('lol-a-table').style.marginTop = document.getElementById('y-margin').value + 'px';
+    document.getElementById('table').style.marginTop = document.getElementById('y-margin').value + 'px';
 
     // Reset colors of buttons.
-    i = 207;
+    var loop_counter = 207;
     do{
-        document.getElementById(i).style.backgroundColor = color_empty;
-    }while(i--);
+        document.getElementById(loop_counter).style.backgroundColor = color_empty;
+    }while(loop_counter--);
     document.getElementById(201).style.backgroundColor = color_player;
 
     document.getElementById('start-button').value = 'End (ESC)';
     document.getElementById('start-button').onclick = function(){
         stop();
     };
-    set_settings_disable(1);
+    set_settings_disable(true);
     falling_coins.length = 0;
     frame_orange = 9;
     frame_purple = 0;
@@ -427,7 +425,7 @@ function stop(){
     clearInterval(interval_time);
     clearInterval(interval_player);
 
-    set_settings_disable(0);
+    set_settings_disable(false);
 
     document.getElementById('start-button').onclick = function(){
         start();
@@ -477,11 +475,9 @@ var color_purple = 'rgb(102, 51, 102)';
 var falling_coins = [];
 var frame_orange = 0;
 var frame_purple = 0;
-var i = 0;
 var interval_coins = 0;
 var interval_player = 0;
 var interval_time = 0;
-var j = [''];
 var key_left = 0;
 var key_right = 0;
 var player_x = 6;
