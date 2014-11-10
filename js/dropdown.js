@@ -376,8 +376,8 @@ function start(){
     falling_coins.length = 0;
     frame_orange = 9;
     frame_purple = 0;
-    key_left = 0;
-    key_right = 0;
+    key_left = false;
+    key_right = false;
     document.getElementById('score').innerHTML = 0;
     player_x = 6;
 
@@ -478,8 +478,8 @@ var frame_purple = 0;
 var interval_coins = 0;
 var interval_player = 0;
 var interval_time = 0;
-var key_left = 0;
-var key_right = 0;
+var key_left = false;
+var key_right = false;
 var player_x = 6;
 
 window.onkeydown = function(e){
@@ -487,10 +487,10 @@ window.onkeydown = function(e){
     key = key.charCode ? key.charCode : key.keyCode;
 
     if(String.fromCharCode(key) === document.getElementById('move-keys').value[0]){
-        key_left = 1;
+        key_left = true;
 
     }else if(String.fromCharCode(key) === document.getElementById('move-keys').value[1]){
-        key_right = 1;
+        key_right = true;
 
     }else if(String.fromCharCode(key) === document.getElementById('start-key').value){
         stop();
@@ -507,10 +507,10 @@ window.onkeyup = function(e){
     key = String.fromCharCode(key.charCode ? key.charCode : key.keyCode);
 
     if(key === document.getElementById('move-keys').value[0]){
-        key_left = 0;
+        key_left = false;
 
     }else if(key === document.getElementById('move-keys').value[1]){
-        key_right = 0;
+        key_right = false;
     }
 };
 
