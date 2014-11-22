@@ -483,8 +483,7 @@ var key_right = false;
 var player_x = 6;
 
 window.onkeydown = function(e){
-    var key = window.event ? event : e;
-    key = key.charCode ? key.charCode : key.keyCode;
+    var key = e.keyCode || e.which;
 
     if(String.fromCharCode(key) === document.getElementById('move-keys').value[0]){
         key_left = true;
@@ -503,8 +502,7 @@ window.onkeydown = function(e){
 };
 
 window.onkeyup = function(e){
-    var key = window.event ? event : e;
-    key = String.fromCharCode(key.charCode ? key.charCode : key.keyCode);
+    var key = String.fromCharCode(e.keyCode || e.which);
 
     if(key === document.getElementById('move-keys').value[0]){
         key_left = false;
