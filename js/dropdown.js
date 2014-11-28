@@ -1,16 +1,16 @@
 function coin_fall(){
-    var j = falling_coins.length;
-    for(var i = 0; i < j; i++){
+    var coin_count = falling_coins.length;
+    for(var loop_counter = 0; loop_counter < coin_count; loop_counter++){
         // If coin is not at the bottom of the game area.
-        if(falling_coins[i][1] < 15){
+        if(falling_coins[loop_counter][1] < 15){
             // If coin is at a y position to be caught and it is directly above the player.
-            if(falling_coins[i][1] === 14
-              && document.getElementById(195 + falling_coins[i][0]).style.backgroundColor === color_player){
+            if(falling_coins[loop_counter][1] === 14
+              && document.getElementById(195 + falling_coins[loop_counter][0]).style.backgroundColor === color_player){
                 // Set button color to empty.
-                document.getElementById(182 + falling_coins[i][0]).style.backgroundColor = color_empty;
+                document.getElementById(182 + falling_coins[loop_counter][0]).style.backgroundColor = color_empty;
 
                 // If it is a purple coins and catching purple coins ends the game, end the game.
-                if(falling_coins[i][2] < 0
+                if(falling_coins[loop_counter][2] < 0
                   && document.getElementById('purple-catch-select').value == 0){
                     stop();
 
@@ -20,10 +20,10 @@ function coin_fall(){
                       parseInt(
                         document.getElementById('score').innerHTML,
                         10
-                      ) + falling_coins[i][2];
+                      ) + falling_coins[loop_counter][2];
 
                     // Remove the coin.
-                    falling_coins.splice(i, 1);
+                    falling_coins.splice(loop_counter, 1);
 
                     // Restart coin_fall function.
                     coin_fall();
@@ -31,16 +31,20 @@ function coin_fall(){
                 }
             }
 
-            // Update coin Y value and draw it in its new position.
-            document.getElementById(falling_coins[i][0] + 13 * falling_coins[i][1]).style.backgroundColor = color_empty;
-            falling_coins[i][1] += 1;
-            document.getElementById(falling_coins[i][0] + 13 * falling_coins[i][1]).style.backgroundColor = (falling_coins[i][2] === 1)
+            // Update coin Y value.
+            var id = falling_coins[loop_counter][0] + 13 * falling_coins[loop_counter][1];
+            document.getElementById(id).style.backgroundColor = color_empty;
+            falling_coins[loop_counter][1] += 1;
+
+            // Draw coin at new Y position.
+            id = falling_coins[loop_counter][0] + 13 * falling_coins[loop_counter][1];
+            document.getElementById(id).style.backgroundColor = (falling_coins[loop_counter][2] === 1)
               ? color_orange
               : color_purple;
 
         }else{
             // If it is an orange coin.
-            if(falling_coins[i][2] === 1){
+            if(falling_coins[loop_counter][2] === 1){
                 // If missing an orange coin causes game to end, end the game.
                 if(document.getElementById('orange-miss-select').value == 1){
                     stop();
@@ -53,8 +57,9 @@ function coin_fall(){
                     }
 
                     // Delete orange coin.
-                    document.getElementById(falling_coins[i][0] + 13 * falling_coins[i][1]).style.backgroundColor = color_empty;
-                    falling_coins.splice(i, 1);
+                    var id = falling_coins[loop_counter][0] + 13 * falling_coins[loop_counter][1];
+                    document.getElementById(id).style.backgroundColor = color_empty;
+                    falling_coins.splice(loop_counter, 1);
 
                     // Restart function.
                     coin_fall();
@@ -62,8 +67,9 @@ function coin_fall(){
 
             }else{
                 // Delete and ignore purple coin.
-                document.getElementById(falling_coins[i][0] + 13 * falling_coins[i][1]).style.backgroundColor = color_empty;
-                falling_coins.splice(i, 1);
+                var id = falling_coins[loop_counter][0] + 13 * falling_coins[loop_counter][1];
+                document.getElementById(id).style.backgroundColor = color_empty;
+                falling_coins.splice(loop_counter, 1);
 
                 // Restart function.
                 coin_fall();
@@ -72,37 +78,37 @@ function coin_fall(){
         }
     }
 
-    var temp_newpurppos = -1;
-    var temp_neworangepos = -1;
+    var new_purple_x = -1;
 
-    // If there are purple buttons and it is time to add one.
+    // If there are purple buttons and it is time to add one...
     if(document.getElementById('frames-per-purple').value > 0
       && frame_purple === parseInt(document.getElementById('frames-per-purple').value - 1)){
-        temp_newpurppos = Math.floor(Math.random() * 13);
+        new_purple_x = Math.floor(Math.random() * 13);
 
         falling_coins.push([
-          temp_newpurppos,// X
+          new_purple_x,// X
           0,// Y
           -1,// Point value
         ]);
 
-        document.getElementById(temp_newpurppos).style.backgroundColor = color_purple;
+        document.getElementById(new_purple_x).style.backgroundColor = color_purple;
         frame_purple = -1;
     }
 
-    // If it is time to add an orange button.
+    // If it is time to add an orange button...
     if(frame_orange === 9){
+        var new_orange_x = new_purple_x;
         do{
-            temp_neworangepos = Math.floor(Math.random() * 13);
-        }while(temp_neworangepos === temp_newpurppos);
+            new_orange_x = Math.floor(Math.random() * 13);
+        }while(new_orange_x === new_purple_x);
 
         falling_coins.push([
-          temp_neworangepos,// X
+          new_orange_x,// X
           0,// Y
           1,// Point value
         ]);
 
-        document.getElementById(temp_neworangepos).style.backgroundColor = color_orange;
+        document.getElementById(new_orange_x).style.backgroundColor = color_orange;
         frame_orange = -1;
     }
 
