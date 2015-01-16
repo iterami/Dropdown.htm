@@ -491,19 +491,23 @@ var player_x = 6;
 window.onkeydown = function(e){
     var key = e.keyCode || e.which;
 
-    if(String.fromCharCode(key) === document.getElementById('move-keys').value[0]){
+    // ESC: stop current game.
+    if(key === 27){
+        stop();
+        return;
+    }
+
+    key = String.fromCharCode(key);
+
+    if(key === document.getElementById('move-keys').value[0]){
         key_left = true;
 
-    }else if(String.fromCharCode(key) === document.getElementById('move-keys').value[1]){
+    }else if(key === document.getElementById('move-keys').value[1]){
         key_right = true;
 
-    }else if(String.fromCharCode(key) === document.getElementById('start-key').value){
+    }else if(key === document.getElementById('start-key').value){
         stop();
         start();
-
-    // ESC: stop current game.
-    }else if(key === 27){
-        stop();
     }
 };
 
