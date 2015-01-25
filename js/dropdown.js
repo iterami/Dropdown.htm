@@ -120,86 +120,6 @@ function coin_fall(){
     document.getElementById(195 + player_x).style.backgroundColor = color_player;
 }
 
-function init(){
-    // Fetch settings from window.localStorage if they exist
-    //   and update settings inputs with defaults or window.localStorage values.
-    document.getElementById('audio-volume').value =
-      window.localStorage.getItem('Dropdown.htm-audio-volume') === null
-        ? 1
-        : parseFloat(window.localStorage.getItem('Dropdown.htm-audio-volume'));
-    document.getElementById('purple-catch-select').value =
-      window.localStorage.getItem('Dropdown.htm-purple-catch-select') === null
-        ? 1
-        : 0;
-    document.getElementById('frames-per-purple').value =
-      window.localStorage.getItem('Dropdown.htm-frames-per-purple') === null
-        ? 9
-        : parseInt(window.localStorage.getItem('Dropdown.htm-frames-per-purple'));
-    document.getElementById('game-mode-select').value =
-      window.localStorage.getItem('Dropdown.htm-game-mode-select') === null
-        ? 1
-        : 0;
-    document.getElementById('max-points').value =
-      window.localStorage.getItem('Dropdown.htm-max-points') === null
-        ? 50
-        : parseInt(window.localStorage.getItem('Dropdown.htm-max-points'));
-    document.getElementById('max-time').value =
-      window.localStorage.getItem('Dropdown.htm-max-time') === null
-        ? 0
-        : parseInt(window.localStorage.getItem('Dropdown.htm-max-time'));
-    document.getElementById('move-keys').value =
-      window.localStorage.getItem('Dropdown.htm-move-keys') === null
-        ? 'AD'
-        : window.localStorage.getItem('Dropdown.htm-move-keys');
-    document.getElementById('ms-per-coin-move').value =
-      window.localStorage.getItem('Dropdown.htm-ms-per-coin-move') === null
-        ? 100
-        : parseInt(window.localStorage.getItem('Dropdown.htm-ms-per-coin-move'));
-    document.getElementById('ms-per-player-move').value =
-      window.localStorage.getItem('Dropdown.htm-ms-per-player-move') === null
-        ? 100
-        : parseInt(window.localStorage.getItem('Dropdown.htm-ms-per-player-move'));
-    document.getElementById('orange-miss-select').value =
-      window.localStorage.getItem('Dropdown.htm-orange-miss-select') === null
-        ? 1
-        : parseInt(window.localStorage.getItem('Dropdown.htm-orange-miss-select'));
-
-    if(window.localStorage.getItem('Dropdown.htm-start-key') === null){
-        document.getElementById('start-key').value = 'H';
-
-    }else{
-        document.getElementById('start-key').value =
-          window.localStorage.getItem('Dropdown.htm-start-key');
-        document.getElementById('start-button').value =
-          'Start (' + window.localStorage.getItem('Dropdown.htm-start-key') + ')';
-    }
-
-    document.getElementById('wrap-select').value =
-      window.localStorage.getItem('Dropdown.htm-wrap-select') === null
-        ? 0
-        : parseInt(window.localStorage.getItem('Dropdown.htm-wrap-select'));
-    document.getElementById('y-margin').value =
-      window.localStorage.getItem('Dropdown.htm-y-margin') === null
-        ? 0
-        : parseInt(window.localStorage.getItem('Dropdown.htm-y-margin'));
-  
-    // Setup game margin-top.
-    document.getElementById('table').style.marginTop = document.getElementById('y-margin').value + 'px';
-
-    // Setup game area.
-    var output = [''];
-
-    for(var i = 0; i < 208; i++){
-        if(i % 13 === 0
-          && i !== 0){
-            output.push('<br>');
-        }
-        output.push('<input class=buttons disabled id=' + i + ' style="background:' + color_empty + '" type=button>');
-    }
-    output[217] = '<input class=buttons disabled id=201 style="background:' + color_player + '" type=button>';
-    document.getElementById('game-area').innerHTML = output.join('');
-}
-
 function player_move(){
     if(key_left){
         if(player_x > 0){
@@ -522,4 +442,82 @@ window.onkeyup = function(e){
     }
 };
 
-window.onload = init;
+window.onload = function(){
+    // Fetch settings from window.localStorage if they exist
+    //   and update settings inputs with defaults or window.localStorage values.
+    document.getElementById('audio-volume').value =
+      window.localStorage.getItem('Dropdown.htm-audio-volume') === null
+        ? 1
+        : parseFloat(window.localStorage.getItem('Dropdown.htm-audio-volume'));
+    document.getElementById('purple-catch-select').value =
+      window.localStorage.getItem('Dropdown.htm-purple-catch-select') === null
+        ? 1
+        : 0;
+    document.getElementById('frames-per-purple').value =
+      window.localStorage.getItem('Dropdown.htm-frames-per-purple') === null
+        ? 9
+        : parseInt(window.localStorage.getItem('Dropdown.htm-frames-per-purple'));
+    document.getElementById('game-mode-select').value =
+      window.localStorage.getItem('Dropdown.htm-game-mode-select') === null
+        ? 1
+        : 0;
+    document.getElementById('max-points').value =
+      window.localStorage.getItem('Dropdown.htm-max-points') === null
+        ? 50
+        : parseInt(window.localStorage.getItem('Dropdown.htm-max-points'));
+    document.getElementById('max-time').value =
+      window.localStorage.getItem('Dropdown.htm-max-time') === null
+        ? 0
+        : parseInt(window.localStorage.getItem('Dropdown.htm-max-time'));
+    document.getElementById('move-keys').value =
+      window.localStorage.getItem('Dropdown.htm-move-keys') === null
+        ? 'AD'
+        : window.localStorage.getItem('Dropdown.htm-move-keys');
+    document.getElementById('ms-per-coin-move').value =
+      window.localStorage.getItem('Dropdown.htm-ms-per-coin-move') === null
+        ? 100
+        : parseInt(window.localStorage.getItem('Dropdown.htm-ms-per-coin-move'));
+    document.getElementById('ms-per-player-move').value =
+      window.localStorage.getItem('Dropdown.htm-ms-per-player-move') === null
+        ? 100
+        : parseInt(window.localStorage.getItem('Dropdown.htm-ms-per-player-move'));
+    document.getElementById('orange-miss-select').value =
+      window.localStorage.getItem('Dropdown.htm-orange-miss-select') === null
+        ? 1
+        : parseInt(window.localStorage.getItem('Dropdown.htm-orange-miss-select'));
+
+    if(window.localStorage.getItem('Dropdown.htm-start-key') === null){
+        document.getElementById('start-key').value = 'H';
+
+    }else{
+        document.getElementById('start-key').value =
+          window.localStorage.getItem('Dropdown.htm-start-key');
+        document.getElementById('start-button').value =
+          'Start (' + window.localStorage.getItem('Dropdown.htm-start-key') + ')';
+    }
+
+    document.getElementById('wrap-select').value =
+      window.localStorage.getItem('Dropdown.htm-wrap-select') === null
+        ? 0
+        : parseInt(window.localStorage.getItem('Dropdown.htm-wrap-select'));
+    document.getElementById('y-margin').value =
+      window.localStorage.getItem('Dropdown.htm-y-margin') === null
+        ? 0
+        : parseInt(window.localStorage.getItem('Dropdown.htm-y-margin'));
+  
+    // Setup game margin-top.
+    document.getElementById('table').style.marginTop = document.getElementById('y-margin').value + 'px';
+
+    // Setup game area.
+    var output = [''];
+
+    for(var i = 0; i < 208; i++){
+        if(i % 13 === 0
+          && i !== 0){
+            output.push('<br>');
+        }
+        output.push('<input class=buttons disabled id=' + i + ' style="background:' + color_empty + '" type=button>');
+    }
+    output[217] = '<input class=buttons disabled id=201 style="background:' + color_player + '" type=button>';
+    document.getElementById('game-area').innerHTML = output.join('');
+};
