@@ -315,7 +315,7 @@ function start(){
         document.getElementById('time-max-span').style.display = document.getElementById('max-time').value > 0
           ? 'inline'
           : 'none';
-        interval_time = setInterval(
+        interval_time = window.setInterval(
           'time_interval(1)',
           100
         );
@@ -327,16 +327,16 @@ function start(){
         document.getElementById('score-max').innerHTML = document.getElementById('max-points').value > 0
           ? ' out of <b>' + document.getElementById('max-points').value + '</b>'
           : '';
-        interval_time = setInterval('time_interval(0)', 100);
+        interval_time = window.setInterval('time_interval(0)', 100);
     }
 
-    interval_coins = setInterval(
+    interval_coins = window.setInterval(
         'coin_fall()',
         document.getElementById('ms-per-coin-move').value > 0
           ? document.getElementById('ms-per-coin-move').value
           : 100
     );
-    interval_player = setInterval(
+    interval_player = window.setInterval(
         'player_move()',
         document.getElementById('ms-per-player-move').value > 0
           ? document.getElementById('ms-per-player-move').value
@@ -347,9 +347,9 @@ function start(){
 }
 
 function stop(){
-    clearInterval(interval_coins);
-    clearInterval(interval_time);
-    clearInterval(interval_player);
+    window.clearInterval(interval_coins);
+    window.clearInterval(interval_time);
+    window.clearInterval(interval_player);
 
     set_settings_disable(false);
 
