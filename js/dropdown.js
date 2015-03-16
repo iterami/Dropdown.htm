@@ -1,16 +1,15 @@
 function coin_fall(){
-    var coin_count = falling_coins.length;
-    for(var loop_counter = 0; loop_counter < coin_count; loop_counter++){
+    for(var coin in falling_coins){
         // If coin is not at the bottom of the game area.
-        if(falling_coins[loop_counter][1] < 15){
+        if(falling_coins[coin][1] < 15){
             // If coin is at a y position to be caught and it is directly above the player.
-            if(falling_coins[loop_counter][1] === 14
-              && document.getElementById(195 + falling_coins[loop_counter][0]).style.backgroundColor === color_player){
+            if(falling_coins[coin][1] === 14
+              && document.getElementById(195 + falling_coins[coin][0]).style.backgroundColor === color_player){
                 // Set button color to empty.
-                document.getElementById(182 + falling_coins[loop_counter][0]).style.backgroundColor = color_empty;
+                document.getElementById(182 + falling_coins[coin][0]).style.backgroundColor = color_empty;
 
                 // If it is a purple coins and catching purple coins ends the game, end the game.
-                if(falling_coins[loop_counter][2] < 0
+                if(falling_coins[coin][2] < 0
                   && document.getElementById('purple-catch-select').value == 0){
                     stop();
 
@@ -20,10 +19,10 @@ function coin_fall(){
                       parseInt(
                         document.getElementById('score').innerHTML,
                         10
-                      ) + falling_coins[loop_counter][2];
+                      ) + falling_coins[coin][2];
 
                     // Remove the coin.
-                    falling_coins.splice(loop_counter, 1);
+                    falling_coins.splice(coin, 1);
 
                     // Restart coin_fall function.
                     coin_fall();
@@ -32,19 +31,19 @@ function coin_fall(){
             }
 
             // Update coin Y value.
-            var id = falling_coins[loop_counter][0] + 13 * falling_coins[loop_counter][1];
+            var id = falling_coins[coin][0] + 13 * falling_coins[coin][1];
             document.getElementById(id).style.backgroundColor = color_empty;
-            falling_coins[loop_counter][1] += 1;
+            falling_coins[coin][1] += 1;
 
             // Draw coin at new Y position.
-            id = falling_coins[loop_counter][0] + 13 * falling_coins[loop_counter][1];
-            document.getElementById(id).style.backgroundColor = (falling_coins[loop_counter][2] === 1)
+            id = falling_coins[coin][0] + 13 * falling_coins[coin][1];
+            document.getElementById(id).style.backgroundColor = (falling_coins[coin][2] === 1)
               ? color_orange
               : color_purple;
 
         }else{
             // If it is an orange coin.
-            if(falling_coins[loop_counter][2] === 1){
+            if(falling_coins[coin][2] === 1){
                 // If missing an orange coin causes game to end, end the game.
                 if(document.getElementById('orange-miss-select').value == 1){
                     stop();
@@ -57,9 +56,9 @@ function coin_fall(){
                     }
 
                     // Delete orange coin.
-                    var id = falling_coins[loop_counter][0] + 13 * falling_coins[loop_counter][1];
+                    var id = falling_coins[coin][0] + 13 * falling_coins[coin][1];
                     document.getElementById(id).style.backgroundColor = color_empty;
-                    falling_coins.splice(loop_counter, 1);
+                    falling_coins.splice(coin, 1);
 
                     // Restart function.
                     coin_fall();
@@ -67,9 +66,9 @@ function coin_fall(){
 
             }else{
                 // Delete and ignore purple coin.
-                var id = falling_coins[loop_counter][0] + 13 * falling_coins[loop_counter][1];
+                var id = falling_coins[coin][0] + 13 * falling_coins[coin][1];
                 document.getElementById(id).style.backgroundColor = color_empty;
-                falling_coins.splice(loop_counter, 1);
+                falling_coins.splice(coin, 1);
 
                 // Restart function.
                 coin_fall();
@@ -206,27 +205,25 @@ function reset(){
     save();
 }
 
+// Save settings into window.localStorage if they differ from default.
 function save(){
-    // Save settings in localStorage if they differ from default.
-    var loop_counter = 12;
-    do{
-        var id = [
-          'audio-volume',
-          'frames-per-purple',
-          'game-mode-select',
-          'max-points',
-          'max-time',
-          'move-keys',
-          'ms-per-coin-move',
-          'ms-per-player-move',
-          'orange-miss-select',
-          'purple-catch-select',
-          'start-key',
-          'wrap-select',
-          'y-margin',
-        ][loop_counter];
-
-        if(document.getElementById(id).value == [1, 9, 1, 50, 0, 'AD', 100, 100, 1, 1, 'H', 0, 0,][loop_counter]){
+    var ids = {
+      'audio-volume': 1,
+      'frames-per-purple': 9,
+      'game-mode-select': 1,
+      'max-points': 50,
+      'max-time': 0,
+      'move-keys': 'AD',
+      'ms-per-coin-move': 100,
+      'ms-per-player-move': 100,
+      'orange-miss-select': 1,
+      'purple-catch-select': 1,
+      'start-key': 'H',
+      'wrap-select': 0,
+      'y-margin': 0,
+    };
+    for(var id in ids){
+        if(document.getElementById(id).value == ids[id]){
             window.localStorage.removeItem('Dropdown.htm-' + id);
 
         }else{
@@ -235,7 +232,7 @@ function save(){
               document.getElementById(id).value
             );
         }
-    }while(loop_counter--);
+    }
 }
 
 function set_settings_disable(state){
@@ -264,27 +261,23 @@ function settings_toggle(){
 
 function start(){
     // Validate settings.
-    if(isNaN(document.getElementById('audio-volume').value)){
-        document.getElementById('audio-volume').value = 1;
-    }
-    if(isNaN(document.getElementById('frames-per-purple').value)){
-        document.getElementById('frames-per-purple').value = 9;
-    }
-    if(isNaN(document.getElementById('max-points').value)){
-        document.getElementById('max-points').value = 50;
-    }
-    if(isNaN(document.getElementById('max-time').value)){
-        document.getElementById('max-time').value = 0;
-    }
-    if(isNaN(document.getElementById('ms-per-coin-move').value)){
-        document.getElementById('ms-per-coin-move').value = 100;
-    }
-    if(isNaN(document.getElementById('ms-per-player-move').value)){
-        document.getElementById('ms-per-player-move').value = 100;
+    var ids = {
+      'audio-volume': 1,
+      'frames-per-purple': 9,
+      'max-points': 50,
+      'max-time': 0,
+      'ms-per-coin-move': 100,
+      'ms-per-player-move': 100,
+      'y-margin': 0,
+    };
+    for(var id in ids){
+        if(isNaN(document.getElementById(id).value)
+          || document.getElementById(id).value < 0){
+            document.getElementById(id).value = ids[id];
+        }
     }
 
-    // Setup margin-top of game.
-    document.getElementById('y-margin').value = 0;
+    // Set margin-top of table based on y-margin.
     document.getElementById('table').style.marginTop = document.getElementById('y-margin').value + 'px';
 
     // Reset colors of buttons.
@@ -443,8 +436,24 @@ window.onkeyup = function(e){
 };
 
 window.onload = function(){
-    // Fetch settings from window.localStorage if they exist
-    //   and update settings inputs with defaults or window.localStorage values.
+    // Fetch settings from window.localStorage and update settings inputs.
+    var ids = {
+      'frames-per-purple': 9,
+      'max-points': 50,
+      'max-time': 0,
+      'ms-per-coin-move': 100,
+      'ms-per-player-move': 100,
+      'orange-miss-select': 1,
+      'wrap-select': 0,
+      'y-margin': 0,
+    };
+    for(var id in ids){
+        document.getElementById(id).value =
+          window.localStorage.getItem('Dropdown.htm-' + id) === null
+            ? ids[id]
+            : parseInt(window.localStorage.getItem('Dropdown.htm-' + id));
+    }
+
     document.getElementById('audio-volume').value =
       window.localStorage.getItem('Dropdown.htm-audio-volume') === null
         ? 1
@@ -453,38 +462,14 @@ window.onload = function(){
       window.localStorage.getItem('Dropdown.htm-purple-catch-select') === null
         ? 1
         : 0;
-    document.getElementById('frames-per-purple').value =
-      window.localStorage.getItem('Dropdown.htm-frames-per-purple') === null
-        ? 9
-        : parseInt(window.localStorage.getItem('Dropdown.htm-frames-per-purple'));
     document.getElementById('game-mode-select').value =
       window.localStorage.getItem('Dropdown.htm-game-mode-select') === null
         ? 1
         : 0;
-    document.getElementById('max-points').value =
-      window.localStorage.getItem('Dropdown.htm-max-points') === null
-        ? 50
-        : parseInt(window.localStorage.getItem('Dropdown.htm-max-points'));
-    document.getElementById('max-time').value =
-      window.localStorage.getItem('Dropdown.htm-max-time') === null
-        ? 0
-        : parseInt(window.localStorage.getItem('Dropdown.htm-max-time'));
     document.getElementById('move-keys').value =
       window.localStorage.getItem('Dropdown.htm-move-keys') === null
         ? 'AD'
         : window.localStorage.getItem('Dropdown.htm-move-keys');
-    document.getElementById('ms-per-coin-move').value =
-      window.localStorage.getItem('Dropdown.htm-ms-per-coin-move') === null
-        ? 100
-        : parseInt(window.localStorage.getItem('Dropdown.htm-ms-per-coin-move'));
-    document.getElementById('ms-per-player-move').value =
-      window.localStorage.getItem('Dropdown.htm-ms-per-player-move') === null
-        ? 100
-        : parseInt(window.localStorage.getItem('Dropdown.htm-ms-per-player-move'));
-    document.getElementById('orange-miss-select').value =
-      window.localStorage.getItem('Dropdown.htm-orange-miss-select') === null
-        ? 1
-        : parseInt(window.localStorage.getItem('Dropdown.htm-orange-miss-select'));
 
     if(window.localStorage.getItem('Dropdown.htm-start-key') === null){
         document.getElementById('start-key').value = 'H';
@@ -495,17 +480,8 @@ window.onload = function(){
         document.getElementById('start-button').value =
           'Start (' + window.localStorage.getItem('Dropdown.htm-start-key') + ')';
     }
-
-    document.getElementById('wrap-select').value =
-      window.localStorage.getItem('Dropdown.htm-wrap-select') === null
-        ? 0
-        : parseInt(window.localStorage.getItem('Dropdown.htm-wrap-select'));
-    document.getElementById('y-margin').value =
-      window.localStorage.getItem('Dropdown.htm-y-margin') === null
-        ? 0
-        : parseInt(window.localStorage.getItem('Dropdown.htm-y-margin'));
   
-    // Setup game margin-top.
+    // Set margin-top of table based on y-margin.
     document.getElementById('table').style.marginTop = document.getElementById('y-margin').value + 'px';
 
     // Setup game area.
