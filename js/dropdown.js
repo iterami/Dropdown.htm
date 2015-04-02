@@ -455,9 +455,7 @@ window.onload = function(){
     }
 
     document.getElementById('audio-volume').value =
-      window.localStorage.getItem('Dropdown.htm-audio-volume') === null
-        ? 1
-        : parseFloat(window.localStorage.getItem('Dropdown.htm-audio-volume'));
+      parseFloat(window.localStorage.getItem('Dropdown.htm-audio-volume')) || 1;
     document.getElementById('purple-catch-select').value =
       window.localStorage.getItem('Dropdown.htm-purple-catch-select') === null
         ? 1
@@ -467,9 +465,7 @@ window.onload = function(){
         ? 1
         : 0;
     document.getElementById('move-keys').value =
-      window.localStorage.getItem('Dropdown.htm-move-keys') === null
-        ? 'AD'
-        : window.localStorage.getItem('Dropdown.htm-move-keys');
+      window.localStorage.getItem('Dropdown.htm-move-keys') || 'AD';
 
     if(window.localStorage.getItem('Dropdown.htm-start-key') === null){
         document.getElementById('start-key').value = 'H';
