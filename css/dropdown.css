@@ -18,6 +18,9 @@ input{
 input[type=button]{
     width: auto;
 }
+#settings-span{
+    display: none;
+}
 .settings-td{
     padding: 9px;
     text-align: left;
