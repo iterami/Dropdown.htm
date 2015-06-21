@@ -18,6 +18,11 @@ input{
 input[type=button]{
     width: auto;
 }
+input[type=button]:not([disabled]),
+input[type=range],
+select:not([disabled]){
+    cursor: pointer;
+}
 #settings-span{
     display: none;
 }
