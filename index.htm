@@ -5,8 +5,8 @@
 
 <table id=table>
     <tr>
-        <td rowspan=2 style=width:50%>
-        <td id=game-area style=min-width:416px>
+        <td class=left rowspan=2>
+        <td id=game-area>
         <td class=settings-td rowspan=2>
             <span id=settings-span>
                 <input id=audio-volume max=1 min=0 step=.01 type=range value=1>Audio<br>
@@ -41,9 +41,9 @@
             </span>
     <tr>
         <td>
-            <div style=font-size:123%>
+            <div class=big>
                 Score: <b id=score>0</b><span id=score-max></span><br>
-                Time: <span id=time style=font-weight:bold>0</span><span id=time-max-span> out of <b id=time-max>0</b></span>
+                Time: <span id=time>0</span><span id=time-max-span> out of <b id=time-max>0</b></span>
             </div>
             <input id=start-button onclick=start() type=button value="Start [H]">
             <input id=settings-button onclick=settings_toggle() type=button value=+>

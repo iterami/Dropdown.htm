@@ -1,3 +1,6 @@
+.big{
+    font-size: 123%;
+}
 body{
     background: #000;
     color: #aaa;
@@ -9,6 +12,9 @@ body{
     margin: 1px;
     vertical-align: top;
     width: 30px !important;
+}
+#game-area{
+    min-width: 416px;
 }
 input{
     background: #000;
@@ -22,6 +28,9 @@ input[type=button]:not([disabled]),
 input[type=range],
 select:not([disabled]){
     cursor: pointer;
+}
+.left{
+    width: 50%;
 }
 #settings-span{
     display: none;
@@ -37,4 +46,7 @@ select:not([disabled]){
 table{
     border-collapse: collapse;
     text-align: center;
+}
+#time{
+    font-weight: bold;
 }
