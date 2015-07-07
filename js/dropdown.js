@@ -1,3 +1,5 @@
+'use strict';
+
 function coin_fall(){
     for(var coin in falling_coins){
         // If coin is not at the bottom of the game area.
