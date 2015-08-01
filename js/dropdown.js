@@ -237,19 +237,6 @@ function save(){
     }
 }
 
-function set_settings_disable(state){
-    document.getElementById('frames-per-purple').disabled = state;
-    document.getElementById('game-mode-select').disabled = state;
-    document.getElementById('max-points').disabled = state;
-    document.getElementById('max-time').disabled = state;
-    document.getElementById('ms-per-coin-move').disabled = state;
-    document.getElementById('ms-per-player-move').disabled = state;
-    document.getElementById('orange-miss-select').disabled = state;
-    document.getElementById('purple-catch-select').disabled = state;
-    document.getElementById('reset-button').disabled = state;
-    document.getElementById('wrap-select').disabled = state;
-}
-
 function settings_toggle(state){
     state = state == void 0
       ? document.getElementById('settings-button').value === '+'
@@ -297,7 +284,6 @@ function start(){
     document.getElementById('start-button').onclick = function(){
         stop();
     };
-    set_settings_disable(true);
     falling_coins.length = 0;
     frame_orange = 9;
     frame_purple = 0;
@@ -349,8 +335,6 @@ function stop(){
     window.clearInterval(interval_coins);
     window.clearInterval(interval_time);
     window.clearInterval(interval_player);
-
-    set_settings_disable(false);
 
     document.getElementById('start-button').onclick = function(){
         start();
