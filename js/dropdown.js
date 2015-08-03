@@ -281,9 +281,7 @@ function start(){
     document.getElementById(201).style.backgroundColor = color_player;
 
     document.getElementById('start-button').value = 'End (ESC)';
-    document.getElementById('start-button').onclick = function(){
-        stop();
-    };
+    document.getElementById('start-button').onclick = stop;
     falling_coins.length = 0;
     frame_orange = 9;
     frame_purple = 0;
@@ -336,9 +334,7 @@ function stop(){
     window.clearInterval(interval_time);
     window.clearInterval(interval_player);
 
-    document.getElementById('start-button').onclick = function(){
-        start();
-    };
+    document.getElementById('start-button').onclick = start;
     document.getElementById('start-button').value = 'Start (' + document.getElementById('start-key').value + ')';
 }
 
