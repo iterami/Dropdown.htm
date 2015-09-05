@@ -477,15 +477,22 @@ window.onload = function(){
     document.getElementById('table').style.marginTop = document.getElementById('y-margin').value + 'px';
 
     // Setup game area.
-    var output = [''];
+    var output = '';
 
-    for(var i = 0; i < 208; i++){
-        if(i % 13 === 0
-          && i !== 0){
-            output.push('<br>');
+    for(var loop_counter = 0; loop_counter < 208; loop_counter++){
+        if(loop_counter % 13 === 0
+          && loop_counter !== 0){
+            output += '<br>';
         }
-        output.push('<input class=buttons disabled id=' + i + ' style="background:' + color_empty + '" type=button>');
+
+        var color = loop_counter == 201
+          ? color_player
+          : color_empty;
+
+        output +=
+          '<input class=buttons disabled id=' + loop_counter
+          + ' style="background:' + color
+          + '" type=button>';
     }
-    output[217] = '<input class=buttons disabled id=201 style="background:' + color_player + '" type=button>';
-    document.getElementById('game-area').innerHTML = output.join('');
+    document.getElementById('game-area').innerHTML = output;
 };
