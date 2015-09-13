@@ -364,12 +364,12 @@ function time_interval(mode){
 
     // Increase time.
     }else{
-        document.getElementById('time').innerHTML = (
+        document.getElementById('time').innerHTML =
          (parseFloat(document.getElementById('time').innerHTML) + ((document.getElementById('game-mode-select').value == 1
          && document.getElementById('max-time').value > 0)
            ? -.1
            : .1)
-         ).toFixed(1));
+         ).toFixed(1);
     }
 }
 
