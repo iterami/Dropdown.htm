@@ -252,11 +252,11 @@ function settings_toggle(state){
       : state;
 
     if(state){
-        document.getElementById('settings-span').style.display = 'inline';
+        document.getElementById('settings').style.display = 'block';
         document.getElementById('settings-button').value = '-';
 
     }else{
-        document.getElementById('settings-span').style.display = 'none';
+        document.getElementById('settings').style.display = 'none';
         document.getElementById('settings-button').value = '+';
     }
 }
@@ -279,8 +279,8 @@ function start(){
         }
     }
 
-    // Set margin-top of table based on y-margin.
-    document.getElementById('table').style.marginTop = document.getElementById('y-margin').value + 'px';
+    // Set margin-top of game-area based on y-margin.
+    document.getElementById('game-area').style.marginTop = document.getElementById('y-margin').value + 'px';
 
     // Reset colors of buttons.
     var loop_counter = 207;
@@ -480,8 +480,8 @@ window.onload = function(){
           'Start (' + window.localStorage.getItem('Dropdown.htm-start-key') + ')';
     }
   
-    // Set margin-top of table based on y-margin.
-    document.getElementById('table').style.marginTop = document.getElementById('y-margin').value + 'px';
+    // Set margin-top of game-area based on y-margin.
+    document.getElementById('game-area').style.marginTop = document.getElementById('y-margin').value + 'px';
 
     // Setup game area.
     var output = '';

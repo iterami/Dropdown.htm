@@ -3,50 +3,43 @@
 <title>Dropdown.htm</title>
 <link href=css/dropdown.css rel=stylesheet>
 
-<table id=table>
-    <tr>
-        <td class=left rowspan=2>
-        <td id=game-area>
-        <td class=settings-td rowspan=2>
-            <span id=settings-span>
-                <input id=audio-volume max=1 min=0 step=.01 type=range value=1>Audio<br>
-                <input id=frames-per-purple value=9>Frames/Purple_Coin<br>
-                <input id=max-points  value=50>Max Points<br>
-                <input id=max-time value=0>Max Time<br>
-                Max<select id=game-mode-select>
-                  <option value=0>Points</option>
-                  <option selected value=1>Time</option>
-                </select>Mode<br>
-                <input id=move-keys maxlength=2 value=AD>Move<br>
-                <input id=ms-per-coin-move value=100>ms/Coin_Move<br>
-                <input id=ms-per-player-move value=100>ms/Player_Move<br>
-                <select id=orange-miss-select>
-                  <option value=0>Disappear</option>
-                  <option selected value=1>End Game</option>
-                  <option value=2>Score-1</option>
-                </select>Orange Coin Miss<br>
-                <select id=purple-catch-select>
-                  <option value=0>End Game</option>
-                  <option selected value=1>Score-1</option>
-                </select>Purple Coin Catch<br>
-                <input id=start-key maxlength=1 value=H>Start<br>
-                <select id=wrap-select>
-                  <option selected value=0>—</option>
-                  <option value=2>←</option>
-                  <option value=3>→</option>
-                  <option value=1>↔</option>
-                </select>Wrap<br>
-                <input id=y-margin value=0>Y Margin<br>
-                <input id=reset-button onclick=reset() type=button value=Reset>
-            </span>
-    <tr>
-        <td>
-            <div class=big>
-                Score: <b id=score>0</b><span id=score-max></span><br>
-                Time: <span id=time>0</span><span id=time-max-span> out of <b id=time-max>0</b></span>
-            </div>
-            <input id=start-button onclick=start() type=button value="Start [H]">
-            <input id=settings-button onclick=settings_toggle() type=button value=+>
-</table>
+<div id=game-area></div>
+<div class=big>
+    Score: <b id=score>0</b><span id=score-max></span><br>
+    Time: <span id=time>0</span><span id=time-max-span> out of <b id=time-max>0</b></span>
+</div>
+<input id=start-button onclick=start() type=button value="Start [H]">
+<input id=settings-button onclick=settings_toggle() type=button value=+>
+<div id=settings>
+    <input id=audio-volume max=1 min=0 step=.01 type=range value=1>Audio<br>
+    <input id=frames-per-purple value=9>Frames/Purple_Coin<br>
+    <input id=max-points  value=50>Max Points<br>
+    <input id=max-time value=0>Max Time<br>
+    Max<select id=game-mode-select>
+      <option value=0>Points</option>
+      <option selected value=1>Time</option>
+    </select>Mode<br>
+    <input id=move-keys maxlength=2 value=AD>Move<br>
+    <input id=ms-per-coin-move value=100>ms/Coin_Move<br>
+    <input id=ms-per-player-move value=100>ms/Player_Move<br>
+    <select id=orange-miss-select>
+      <option value=0>Disappear</option>
+      <option selected value=1>End Game</option>
+      <option value=2>Score-1</option>
+    </select>Orange Coin Miss<br>
+    <select id=purple-catch-select>
+      <option value=0>End Game</option>
+      <option selected value=1>Score-1</option>
+    </select>Purple Coin Catch<br>
+    <input id=start-key maxlength=1 value=H>Start<br>
+    <select id=wrap-select>
+      <option selected value=0>—</option>
+      <option value=2>←</option>
+      <option value=3>→</option>
+      <option value=1>↔</option>
+    </select>Wrap<br>
+    <input id=y-margin value=0>Y Margin<br>
+    <input id=reset-button onclick=reset() type=button value=Reset>
+</div>
 
 <script src=js/dropdown.js></script>
