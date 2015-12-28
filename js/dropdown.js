@@ -49,13 +49,15 @@ function coin_fall(){
         }else{
             // If it is an orange coin.
             if(falling_coins[coin]['value'] === 1){
+                var orange_miss_select = document.getElementById('orange-miss-select').value;
+
                 // If missing an orange coin causes game to end, end the game.
-                if(document.getElementById('orange-miss-select').value == 1){
+                if(orange_miss_select == 1){
                     stop();
 
                 }else{
                     // If missing an orange coin decreases score, decrease score.
-                    if(document.getElementById('orange-miss-select').value == 2){
+                    if(orange_miss_select == 2){
                         document.getElementById('score').innerHTML =
                           parseInt(document.getElementById('score').innerHTML, 10) - 1;
                     }
@@ -88,11 +90,12 @@ function coin_fall(){
         }
     }
 
+    var frames_per_purple = document.getElementById('frames-per-purple').value;
     var new_purple_x = -1;
 
     // If there are purple buttons and it is time to add one...
-    if(document.getElementById('frames-per-purple').value > 0
-      && frame_purple === parseInt(document.getElementById('frames-per-purple').value - 1)){
+    if(frames_per_purple > 0
+      && frame_purple === parseInt(frames_per_purple - 1)){
         new_purple_x = Math.floor(Math.random() * 13);
 
         falling_coins.push({
@@ -198,20 +201,24 @@ function reset(){
 
     stop();
 
-    document.getElementById('audio-volume').value = 1;
-    document.getElementById('frames-per-purple').value = 9;
-    document.getElementById('game-mode-select').value = 1;
-    document.getElementById('max-points').value = 50;
-    document.getElementById('max-time').value = 0;
-    document.getElementById('move-keys').value = 'AD';
-    document.getElementById('ms-per-coin-move').value = 100;
-    document.getElementById('ms-per-player-move').value = 100;
-    document.getElementById('orange-miss-select').value = 1;
-    document.getElementById('purple-catch-select').value = 1;
-    document.getElementById('score').value = 0;
-    document.getElementById('start-key').value = 'H';
-    document.getElementById('wrap-select').value = 0;
-    document.getElementById('y-margin').value = 0;
+    var ids = {
+      'audio-volume': 1,
+      'frames-per-purple': 9,
+      'game-mode-select': 1,
+      'max-points': 50,
+      'max-time': 0,
+      'move-keys': 'AD',
+      'ms-per-coin-move': 100,
+      'orange-miss-select': 1,
+      'purple-catch-select': 1,
+      'score': 0,
+      'start-key': 'H',
+      'wrap-select': 0,
+      'y-margin': 0,
+    };
+    for(var id in ids){
+        document.getElementById(id).value = ids[id];
+    }
 
     save();
 }
@@ -301,10 +308,11 @@ function start(){
 
     // Max time mode.
     if(document.getElementById('game-mode-select').value == 1){
-        document.getElementById('time').innerHTML = document.getElementById('max-time').value;
-        document.getElementById('time-max').innerHTML = document.getElementById('max-time').value;
+        var max_time = document.getElementById('max-time').value;
+        document.getElementById('time').innerHTML = max_time;
+        document.getElementById('time-max').innerHTML = max_time;
         document.getElementById('score-max').innerHTML = '';
-        document.getElementById('time-max-span').style.display = document.getElementById('max-time').value > 0
+        document.getElementById('time-max-span').style.display = max_time > 0
           ? 'inline'
           : 'none';
         interval_time = window.setInterval(
@@ -314,24 +322,26 @@ function start(){
 
     // Max points mode.
     }else{
+        var max_points = document.getElementById('max-points').value;
         document.getElementById('time').innerHTML = 0;
         document.getElementById('time-max-span').style.display = 'none';
-        document.getElementById('score-max').innerHTML = document.getElementById('max-points').value > 0
-          ? ' out of <b>' + document.getElementById('max-points').value + '</b>'
+        document.getElementById('score-max').innerHTML = max_points > 0
+          ? ' out of <b>' + max_points + '</b>'
           : '';
         interval_time = window.setInterval('time_interval(0)', 100);
     }
 
+    var ms_per_coin_move = document.getElementById('ms-per-coin-move').value;
     interval_coins = window.setInterval(
         'coin_fall()',
-        document.getElementById('ms-per-coin-move').value > 0
-          ? document.getElementById('ms-per-coin-move').value
+        ms_per_coin_move > 0
+          ? ms_per_coin_move
           : 100
     );
     interval_player = window.setInterval(
         'player_move()',
-        document.getElementById('ms-per-player-move').value > 0
-          ? document.getElementById('ms-per-player-move').value
+        ms_per_coin_move > 0
+          ? ms_per_coin_move
           : 100
     );
 
@@ -414,11 +424,12 @@ window.onkeydown = function(e){
     }
 
     key = String.fromCharCode(key);
+    var keys = document.getElementById('move-keys').value;
 
-    if(key === document.getElementById('move-keys').value[0]){
+    if(key === keys[0]){
         key_left = true;
 
-    }else if(key === document.getElementById('move-keys').value[1]){
+    }else if(key === keys[1]){
         key_right = true;
 
     }else if(key === document.getElementById('start-key').value){
@@ -429,11 +440,12 @@ window.onkeydown = function(e){
 
 window.onkeyup = function(e){
     var key = String.fromCharCode(e.keyCode || e.which);
+    var keys = document.getElementById('move-keys').value;
 
-    if(key === document.getElementById('move-keys').value[0]){
+    if(key === keys[0]){
         key_left = false;
 
-    }else if(key === document.getElementById('move-keys').value[1]){
+    }else if(key === keys[1]){
         key_right = false;
     }
 };
