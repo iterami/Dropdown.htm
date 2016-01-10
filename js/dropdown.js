@@ -326,7 +326,7 @@ function start(){
         document.getElementById('time').innerHTML = 0;
         document.getElementById('time-max-span').style.display = 'none';
         document.getElementById('score-max').innerHTML = max_points > 0
-          ? ' out of <b>' + max_points + '</b>'
+          ? ' / <b>' + max_points + '</b>'
           : '';
         interval_time = window.setInterval('time_interval(0)', 100);
     }
