@@ -316,7 +316,9 @@ function start(){
           ? 'inline'
           : 'none';
         interval_time = window.setInterval(
-          'time_interval(1)',
+          function(){
+              time_interval(1);
+          },
           100
         );
 
@@ -328,18 +330,23 @@ function start(){
         document.getElementById('score-max').innerHTML = max_points > 0
           ? ' / <b>' + max_points + '</b>'
           : '';
-        interval_time = window.setInterval('time_interval(0)', 100);
+        interval_time = window.setInterval(
+          function(){
+              time_interval(0);
+          },
+          100
+        );
     }
 
     var ms_per_coin_move = document.getElementById('ms-per-coin-move').value;
     interval_coins = window.setInterval(
-        'coin_fall()',
+        coin_fall,
         ms_per_coin_move > 0
           ? ms_per_coin_move
           : 100
     );
     interval_player = window.setInterval(
-        'player_move()',
+        player_move,
         ms_per_coin_move > 0
           ? ms_per_coin_move
           : 100
