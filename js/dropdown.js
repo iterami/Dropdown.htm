@@ -259,7 +259,7 @@ function settings_toggle(state){
       : state;
 
     if(state){
-        document.getElementById('settings').style.display = 'block';
+        document.getElementById('settings').style.display = 'inline-block';
         document.getElementById('settings-button').value = '-';
 
     }else{
@@ -498,7 +498,7 @@ window.onload = function(){
         document.getElementById('start-button').value =
           'Start (' + window.localStorage.getItem('Dropdown.htm-start-key') + ')';
     }
-  
+
     // Set margin-top of game-area based on y-margin.
     document.getElementById('game-area').style.marginTop = document.getElementById('y-margin').value + 'px';
 
