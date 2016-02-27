@@ -32,6 +32,10 @@ select:not([disabled]){
 }
 #settings{
     display: none;
+    text-align: left;
+}
+#settings td:nth-child(1){
+    text-align: right;
 }
 #start-button{
     font-size: 123%;
