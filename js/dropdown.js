@@ -17,11 +17,10 @@ function coin_fall(){
 
                 // Else adjust the score by the point value of the coin.
                 }else{
-                    document.getElementById('score').innerHTML =
-                      parseInt(
-                        document.getElementById('score').innerHTML,
-                        10
-                      ) + falling_coins[coin]['value'];
+                    document.getElementById('score').innerHTML = parseInt(
+                      document.getElementById('score').innerHTML,
+                      10
+                    ) + falling_coins[coin]['value'];
 
                     // Remove the coin.
                     falling_coins.splice(
@@ -58,8 +57,10 @@ function coin_fall(){
                 }else{
                     // If missing an orange coin decreases score, decrease score.
                     if(orange_miss_select == 2){
-                        document.getElementById('score').innerHTML =
-                          parseInt(document.getElementById('score').innerHTML, 10) - 1;
+                        document.getElementById('score').innerHTML = parseInt(
+                          document.getElementById('score').innerHTML,
+                          10
+                        ) - 1;
                     }
 
                     // Delete orange coin.
@@ -95,7 +96,7 @@ function coin_fall(){
 
     // If there are purple buttons and it is time to add one...
     if(frames_per_purple > 0
-      && frame_purple === parseInt(frames_per_purple - 1)){
+      && frame_purple === parseInt(frames_per_purple - 1, 10)){
         new_purple_x = Math.floor(Math.random() * 13);
 
         falling_coins.push({
@@ -373,7 +374,7 @@ function time_interval(mode){
 
     // Max points mode game over.
     }else if(document.getElementById('max-points').value > 0
-      && parseInt(document.getElementById('score').innerHTML) >= document.getElementById('max-points').value){
+      && parseInt(document.getElementById('score').innerHTML, 10) >= document.getElementById('max-points').value){
         stop();
 
     // Increase time.
@@ -463,7 +464,10 @@ window.onload = function(){
         document.getElementById(id).value =
           window.localStorage.getItem('Dropdown.htm-' + id) === null
             ? ids[id]
-            : parseInt(window.localStorage.getItem('Dropdown.htm-' + id));
+            : parseInt(
+              window.localStorage.getItem('Dropdown.htm-' + id),
+              10
+            );
     }
 
     document.getElementById('audio-volume').value =
