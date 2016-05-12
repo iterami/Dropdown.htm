@@ -12,3 +12,8 @@ Move Player       | AD
 Show Settings     | +
 Start New Game    | H
 Stop Current Game | ESC
+
+---
+
+Requires:
+* [iterami/common](https://github.com/iterami/common)
