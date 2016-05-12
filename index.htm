@@ -11,63 +11,7 @@
 <input id=start-button onclick=start() type=button value="Start [H]">
 <input id=settings-button onclick=settings_toggle() type=button value=+>
 <br>
-<table id=settings>
-    <tr>
-        <td><input id=audio-volume max=1 min=0 step=0.01 type=range value=1>
-        <td>Audio
-    <tr>
-        <td><input id=frames-per-purple value=9>
-        <td>Frames/Purple_Coin
-    <tr>
-        <td><input id=max-points  value=50>
-        <td>Max Points
-    <tr>
-        <td><input id=max-time value=0>
-        <td>Max Time
-    <tr>
-        <td><select id=game-mode-select>
-              <option value=0>Points</option>
-              <option selected value=1>Time</option>
-            </select>
-        <td>Mode
-    <tr>
-        <td><input id=move-keys maxlength=2 value=AD>
-        <td>Move
-    <tr>
-        <td><input id=ms-per-coin-move value=100>
-        <td>ms/Coin_Move
-    <tr>
-        <td><input id=ms-per-player-move value=100>
-        <td>ms/Player_Move
-    <tr>
-        <td><select id=orange-miss-select>
-              <option value=0>Disappear</option>
-              <option selected value=1>End Game</option>
-              <option value=2>Score-1</option>
-            </select>
-        <td>Orange Coin Miss
-    <tr>
-        <td><select id=purple-catch-select>
-              <option value=0>End Game</option>
-              <option selected value=1>Score-1</option>
-            </select>
-        <td>Purple Coin Catch
-    <tr>
-        <td><input id=start-key maxlength=1 value=H>
-        <td>Start
-    <tr>
-        <td><select id=wrap-select>
-              <option selected value=0>—</option>
-              <option value=2>←</option>
-              <option value=3>→</option>
-              <option value=1>↔</option>
-            </select>
-        <td>Wrap
-    <tr>
-        <td><input id=y-margin value=0>
-        <td>Y Margin
-    <tr>
-        <td colspan=2><input id=reset-button onclick=reset() type=button value=Reset>
-</table>
+<table id=settings></table>
 
+<script src=../common/js/settings.js></script>
 <script src=js/dropdown.js></script>

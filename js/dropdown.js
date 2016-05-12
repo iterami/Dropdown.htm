@@ -12,7 +12,7 @@ function coin_fall(){
 
                 // If it is a purple coins and catching purple coins ends the game, end the game.
                 if(falling_coins[coin]['value'] < 0
-                  && document.getElementById('purple-catch-select').value == 0){
+                  && settings['purple-catch'] == 0){
                     stop();
 
                 // Else adjust the score by the point value of the coin.
@@ -48,7 +48,7 @@ function coin_fall(){
         }else{
             // If it is an orange coin.
             if(falling_coins[coin]['value'] === 1){
-                var orange_miss_select = document.getElementById('orange-miss-select').value;
+                var orange_miss_select = settings['orange-miss'];
 
                 // If missing an orange coin causes game to end, end the game.
                 if(orange_miss_select == 1){
@@ -91,12 +91,11 @@ function coin_fall(){
         }
     }
 
-    var frames_per_purple = document.getElementById('frames-per-purple').value;
     var new_purple_x = -1;
 
     // If there are purple buttons and it is time to add one...
-    if(frames_per_purple > 0
-      && frame_purple === parseInt(frames_per_purple - 1, 10)){
+    if(settings['frame-per-purple'] > 0
+      && frame_purple === parseInt(settings['frame-per-purple'] - 1, 10)){
         new_purple_x = Math.floor(Math.random() * 13);
 
         falling_coins.push({
@@ -147,8 +146,8 @@ function player_move(){
             document.getElementById(195 + player_x).style.backgroundColor = color_player;
 
         // Check if player can wrap around left side of game area.
-        }else if(document.getElementById('wrap-select').value == 1
-          || document.getElementById('wrap-select').value == 2){
+        }else if(settings['wrap'] == 1
+          || settings['wrap'] == 2){
             // Set current player button to empty color.
             document.getElementById(195 + player_x).style.backgroundColor = color_empty;
 
@@ -171,8 +170,8 @@ function player_move(){
             document.getElementById(195 + player_x).style.backgroundColor = color_player;
 
         // Check if player can wrap around right side of game area.
-        }else if(document.getElementById('wrap-select').value == 1
-          || document.getElementById('wrap-select').value == 3){
+        }else if(settings['wrap'] == 1
+          || settings['wrap'] == 3){
             // Set current player button to empty color.
             document.getElementById(195 + player_x).style.backgroundColor = color_empty;
 
@@ -181,65 +180,6 @@ function player_move(){
 
             // Set new player button to player color.
             document.getElementById(195 + player_x).style.backgroundColor = color_player;
-        }
-    }
-}
-
-function reset(){
-    if(!window.confirm('Reset settings?')){
-        return;
-    }
-
-    stop();
-
-    var ids = {
-      'audio-volume': 1,
-      'frames-per-purple': 9,
-      'game-mode-select': 1,
-      'max-points': 50,
-      'max-time': 0,
-      'move-keys': 'AD',
-      'ms-per-coin-move': 100,
-      'orange-miss-select': 1,
-      'purple-catch-select': 1,
-      'score': 0,
-      'start-key': 'H',
-      'wrap-select': 0,
-      'y-margin': 0,
-    };
-    for(var id in ids){
-        document.getElementById(id).value = ids[id];
-    }
-
-    save();
-}
-
-// Save settings into window.localStorage if they differ from default.
-function save(){
-    var ids = {
-      'audio-volume': 1,
-      'frames-per-purple': 9,
-      'game-mode-select': 1,
-      'max-points': 50,
-      'max-time': 0,
-      'move-keys': 'AD',
-      'ms-per-coin-move': 100,
-      'ms-per-player-move': 100,
-      'orange-miss-select': 1,
-      'purple-catch-select': 1,
-      'start-key': 'H',
-      'wrap-select': 0,
-      'y-margin': 0,
-    };
-    for(var id in ids){
-        if(document.getElementById(id).value == ids[id]){
-            window.localStorage.removeItem('Dropdown.htm-' + id);
-
-        }else{
-            window.localStorage.setItem(
-              'Dropdown.htm-' + id,
-              document.getElementById(id).value
-            );
         }
     }
 }
@@ -260,25 +200,8 @@ function settings_toggle(state){
 }
 
 function start(){
-    // Validate settings.
-    var ids = {
-      'audio-volume': 1,
-      'frames-per-purple': 9,
-      'max-points': 50,
-      'max-time': 0,
-      'ms-per-coin-move': 100,
-      'ms-per-player-move': 100,
-      'y-margin': 0,
-    };
-    for(var id in ids){
-        if(isNaN(document.getElementById(id).value)
-          || document.getElementById(id).value < 0){
-            document.getElementById(id).value = ids[id];
-        }
-    }
-
     // Set margin-top of game-area based on y-margin.
-    document.getElementById('game-area').style.marginTop = document.getElementById('y-margin').value + 'px';
+    document.getElementById('game-area').style.marginTop = settings['y-margin'] + 'px';
 
     // Reset colors of buttons.
     var loop_counter = 207;
@@ -298,12 +221,11 @@ function start(){
     player_x = 6;
 
     // Max time mode.
-    if(document.getElementById('game-mode-select').value == 1){
-        var max_time = document.getElementById('max-time').value;
-        document.getElementById('time').innerHTML = max_time;
-        document.getElementById('time-max').innerHTML = max_time;
+    if(settings['game-mode'] == 1){
+        document.getElementById('time').innerHTML = settings['max-time'];
+        document.getElementById('time-max').innerHTML = settings['max-time'];
         document.getElementById('score-max').innerHTML = '';
-        document.getElementById('time-max-span').style.display = max_time > 0
+        document.getElementById('time-max-span').style.display = settings['max-time'] > 0
           ? 'inline'
           : 'none';
         interval_time = window.setInterval(
@@ -315,11 +237,10 @@ function start(){
 
     // Max points mode.
     }else{
-        var max_points = document.getElementById('max-points').value;
         document.getElementById('time').innerHTML = 0;
         document.getElementById('time-max-span').style.display = 'none';
-        document.getElementById('score-max').innerHTML = max_points > 0
-          ? ' / <b>' + max_points + '</b>'
+        document.getElementById('score-max').innerHTML = settings['max-points'] > 0
+          ? ' / <b>' + settings['max-points'] + '</b>'
           : '';
         interval_time = window.setInterval(
           function(){
@@ -329,17 +250,16 @@ function start(){
         );
     }
 
-    var ms_per_coin_move = document.getElementById('ms-per-coin-move').value;
     interval_coins = window.setInterval(
         coin_fall,
-        ms_per_coin_move > 0
-          ? ms_per_coin_move
+        settings['ms-per-coin-move'] > 0
+          ? settings['ms-per-coin-move']
           : 100
     );
     interval_player = window.setInterval(
         player_move,
-        ms_per_coin_move > 0
-          ? ms_per_coin_move
+        settings['ms-per-coin-move'] > 0
+          ? settings['ms-per-coin-move']
           : 100
     );
 
@@ -352,36 +272,36 @@ function stop(){
     window.clearInterval(interval_player);
 
     document.getElementById('start-button').onclick = start;
-    document.getElementById('start-button').value = 'Start (' + document.getElementById('start-key').value + ')';
+    document.getElementById('start-button').value = 'Start (' + settings['start-key'] + ')';
 }
 
 function time_interval(mode){
     if(mode){
         // Max time mode game over.
         if(parseFloat(document.getElementById('time').innerHTML) <= 0
-          && document.getElementById('max-time').value > 0){
+          && settings['max-time'] > 0){
             stop();
 
         // Increase time.
         }else{
             document.getElementById('time').innerHTML = (
-              parseFloat(document.getElementById('time').innerHTML) + ((document.getElementById('game-mode-select').value == 1
-              && document.getElementById('max-time').value > 0)
+              parseFloat(document.getElementById('time').innerHTML) + ((settings['game-move'] == 1
+              && settings['max-time'] > 0)
                 ? -.1
                 : .1)
               ).toFixed(1);
         }
 
     // Max points mode game over.
-    }else if(document.getElementById('max-points').value > 0
-      && parseInt(document.getElementById('score').innerHTML, 10) >= document.getElementById('max-points').value){
+    }else if(settings['max-points'] > 0
+      && parseInt(document.getElementById('score').innerHTML, 10) >= settings['max-points']){
         stop();
 
     // Increase time.
     }else{
         document.getElementById('time').innerHTML =
-         (parseFloat(document.getElementById('time').innerHTML) + ((document.getElementById('game-mode-select').value == 1
-         && document.getElementById('max-time').value > 0)
+         (parseFloat(document.getElementById('time').innerHTML) + ((settings['game-move'] == 1
+         && settings['max-time'] > 0)
            ? -.1
            : .1)
          ).toFixed(1);
@@ -422,15 +342,14 @@ window.onkeydown = function(e){
     }
 
     key = String.fromCharCode(key);
-    var keys = document.getElementById('move-keys').value;
 
-    if(key === keys[0]){
+    if(key === settings['movement-keys'][0]){
         key_left = true;
 
-    }else if(key === keys[1]){
+    }else if(key === settings['movement-keys'][1]){
         key_right = true;
 
-    }else if(key === document.getElementById('start-key').value){
+    }else if(key === settings['start-key']){
         stop();
         start();
     }
@@ -438,63 +357,58 @@ window.onkeydown = function(e){
 
 window.onkeyup = function(e){
     var key = String.fromCharCode(e.keyCode || e.which);
-    var keys = document.getElementById('move-keys').value;
 
-    if(key === keys[0]){
+    if(key === settings['movement-keys'][0]){
         key_left = false;
 
-    }else if(key === keys[1]){
+    }else if(key === settings['movement-keys'][1]){
         key_right = false;
     }
 };
 
 window.onload = function(){
-    // Fetch settings from window.localStorage and update settings inputs.
-    var ids = {
-      'frames-per-purple': 9,
-      'max-points': 50,
-      'max-time': 0,
-      'ms-per-coin-move': 100,
-      'ms-per-player-move': 100,
-      'orange-miss-select': 1,
-      'wrap-select': 0,
-      'y-margin': 0,
-    };
-    for(var id in ids){
-        document.getElementById(id).value =
-          window.localStorage.getItem('Dropdown.htm-' + id) === null
-            ? ids[id]
-            : parseInt(
-              window.localStorage.getItem('Dropdown.htm-' + id),
-              10
-            );
-    }
+    init_settings(
+      'Dropdown.htm-',
+      {
+        'audio-volume': 1,
+        'frames-per-purple': 9,
+        'game-mode': 1,
+        'max-points': 50,
+        'max-time': 0,
+        'game-mode': 1,
+        'movement-keys': 'AD',
+        'ms-per-coin-move': 100,
+        'ms-per-player-move': 100,
+        'orange-miss': 1,
+        'purple-catch': 1,
+        'start-key': 'H',
+        'wrap': 0,
+        'y-margin': 0,
+      }
+    );
 
-    document.getElementById('audio-volume').value =
-      parseFloat(window.localStorage.getItem('Dropdown.htm-audio-volume')) || 1;
-    document.getElementById('purple-catch-select').value =
-      window.localStorage.getItem('Dropdown.htm-purple-catch-select') === null
-        ? 1
-        : 0;
-    document.getElementById('game-mode-select').value =
-      window.localStorage.getItem('Dropdown.htm-game-mode-select') === null
-        ? 1
-        : 0;
-    document.getElementById('move-keys').value =
-      window.localStorage.getItem('Dropdown.htm-move-keys') || 'AD';
-
-    if(window.localStorage.getItem('Dropdown.htm-start-key') === null){
-        document.getElementById('start-key').value = 'H';
-
-    }else{
-        document.getElementById('start-key').value =
-          window.localStorage.getItem('Dropdown.htm-start-key');
-        document.getElementById('start-button').value =
-          'Start (' + window.localStorage.getItem('Dropdown.htm-start-key') + ')';
-    }
+    document.getElementById('settings').innerHTML =
+      '<tr><td><input id=audio-volume max=1 min=0 step=0.01 type=range value=' + settings['audio-volume'] + '><td>Audio'
+        + '<tr><td><input id=frames-per-purple value=' + settings['frames-per-purple'] + '><td>Frames/Purple_Coin'
+        + '<tr><td><input id=max-points  value=' + settings['max-points'] + '><td>Max Points'
+        + '<tr><td><input id=max-time value=' + settings['max-time'] + '><td>Max Time'
+        + '<tr><td><select id=game-mode><option value=0>Points</option><option value=1>Time</option></select><td>Mode'
+        + '<tr><td><input id=movement-keys maxlength=2 value=' + settings['movement-keys'] + '><td>Move'
+        + '<tr><td><input id=ms-per-coin-move value=' + settings['ms-per-coin-move'] + '><td>ms/Coin_Move'
+        + '<tr><td><input id=ms-per-player-move value=' + settings['ms-per-player-move'] + '><td>ms/Player_Move'
+        + '<tr><td><select id=orange-miss><option value=0>Disappear</option><option selected value=1>End Game</option><option value=2>Score-1</option></select><td>Orange Coin Miss'
+        + '<tr><td><select id=purple-catch><option value=0>End Game</option><option selected value=1>Score-1</option></select><td>Purple Coin Catch'
+        + '<tr><td><input id=start-key maxlength=1 value=' + settings['start-key'] + '><td>Start'
+        + '<tr><td><select id=wrap><option value=0>—</option><option value=2>←</option><option value=3>→</option><option value=1>↔</option></select><td>Wrap'
+        + '<tr><td><input id=y-margin value=' + settings['y-margin'] + '><td>Y Margin'
+        + '<tr><td colspan=2><input id=reset-button onclick=reset() type=button value=Reset>';
+    document.getElementById('game-mode').value = settings['game-mode'];
+    document.getElementById('orange-miss').value = settings['orange-miss'];
+    document.getElementById('purple-catch').value = settings['purple-catch'];
+    document.getElementById('wrap').value = settings['wrap'];
 
     // Set margin-top of game-area based on y-margin.
-    document.getElementById('game-area').style.marginTop = document.getElementById('y-margin').value + 'px';
+    document.getElementById('game-area').style.marginTop = settings['y-margin'] + 'px';
 
     // Setup game area.
     var output = '';
@@ -515,4 +429,6 @@ window.onload = function(){
           + '" type=button>';
     }
     document.getElementById('game-area').innerHTML = output;
+
+    stop();
 };
