@@ -250,6 +250,9 @@ function start(){
         );
     }
 
+    // Save settings.
+    save();
+
     interval_coins = window.setInterval(
         coin_fall,
         settings['ms-per-coin-move'] > 0
@@ -262,8 +265,6 @@ function start(){
           ? settings['ms-per-coin-move']
           : 100
     );
-
-    save();
 }
 
 function stop(){
