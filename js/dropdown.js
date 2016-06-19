@@ -2,7 +2,7 @@
 
 function coin_fall(){
     for(var coin in falling_coins){
-        // If coin is not at the bottom of the game area.
+        // If coin is not at the bottom of the game-div.
         if(falling_coins[coin]['y'] < 15){
             // If coin is at a y position to be caught and it is directly above the player.
             if(falling_coins[coin]['y'] === 14
@@ -145,7 +145,7 @@ function player_move(){
             // Set new player button to player color.
             document.getElementById(195 + player_x).style.backgroundColor = color_player;
 
-        // Check if player can wrap around left side of game area.
+        // Check if player can wrap around left side of game-div.
         }else if(settings['wrap'] == 1
           || settings['wrap'] == 2){
             // Set current player button to empty color.
@@ -169,7 +169,7 @@ function player_move(){
             // Set new player button to player color.
             document.getElementById(195 + player_x).style.backgroundColor = color_player;
 
-        // Check if player can wrap around right side of game area.
+        // Check if player can wrap around right side of game-div.
         }else if(settings['wrap'] == 1
           || settings['wrap'] == 3){
             // Set current player button to empty color.
@@ -200,8 +200,8 @@ function settings_toggle(state){
 }
 
 function start(){
-    // Set margin-top of game-area based on y-margin.
-    document.getElementById('game-area').style.marginTop = settings['y-margin'] + 'px';
+    // Set margin-top of game-div based on y-margin.
+    document.getElementById('game-div').style.marginTop = settings['y-margin'] + 'px';
 
     // Reset colors of buttons.
     var loop_counter = 207;
@@ -405,10 +405,10 @@ window.onload = function(){
         + '<tr><td colspan=2><input id=reset-button onclick=reset() type=button value=Reset>';
     update_settings();
 
-    // Set margin-top of game-area based on y-margin.
-    document.getElementById('game-area').style.marginTop = settings['y-margin'] + 'px';
+    // Set margin-top of game-div based on y-margin.
+    document.getElementById('game-div').style.marginTop = settings['y-margin'] + 'px';
 
-    // Setup game area.
+    // Setup game div.
     var output = '';
 
     for(var loop_counter = 0; loop_counter < 208; loop_counter++){
@@ -426,7 +426,7 @@ window.onload = function(){
           + ' style="background:' + color
           + '" type=button>';
     }
-    document.getElementById('game-area').innerHTML = output;
+    document.getElementById('game-div').innerHTML = output;
 
     stop();
 };
