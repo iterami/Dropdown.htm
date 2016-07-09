@@ -422,7 +422,7 @@ window.onload = function(){
           : color_empty;
 
         output +=
-          '<input class=buttons disabled id=' + loop_counter
+          '<input class=gamebutton disabled id=' + loop_counter
           + ' style="background:' + color
           + '" type=button>';
     }
