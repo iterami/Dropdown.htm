@@ -12,7 +12,7 @@ function coin_fall(){
 
                 // If it is a purple coins and catching purple coins ends the game, end the game.
                 if(falling_coins[coin]['value'] < 0
-                  && settings['purple-catch'] == 0){
+                  && settings['purple-catch'] === 0){
                     stop();
 
                 // Else adjust the score by the point value of the coin.
@@ -48,15 +48,13 @@ function coin_fall(){
         }else{
             // If it is an orange coin.
             if(falling_coins[coin]['value'] === 1){
-                var orange_miss_select = settings['orange-miss'];
-
                 // If missing an orange coin causes game to end, end the game.
-                if(orange_miss_select == 1){
+                if(settings['orange-miss'] === 1){
                     stop();
 
                 }else{
                     // If missing an orange coin decreases score, decrease score.
-                    if(orange_miss_select == 2){
+                    if(settings['orange-miss'] == 2){
                         document.getElementById('score').innerHTML = parseInt(
                           document.getElementById('score').innerHTML,
                           10
@@ -95,7 +93,7 @@ function coin_fall(){
 
     // If there are purple buttons and it is time to add one...
     if(settings['frames-per-purple'] > 0
-      && frame_purple === parseInt(settings['frames-per-purple'] - 1, 10)){
+      && frame_purple === settings['frames-per-purple']){
         new_purple_x = Math.floor(Math.random() * 13);
 
         falling_coins.push({
@@ -146,8 +144,8 @@ function player_move(){
             document.getElementById(195 + player_x).style.backgroundColor = color_player;
 
         // Check if player can wrap around left side of game-div.
-        }else if(settings['wrap'] == 1
-          || settings['wrap'] == 2){
+        }else if(settings['wrap'] === 1
+          || settings['wrap'] === 2){
             // Set current player button to empty color.
             document.getElementById(195 + player_x).style.backgroundColor = color_empty;
 
@@ -170,8 +168,8 @@ function player_move(){
             document.getElementById(195 + player_x).style.backgroundColor = color_player;
 
         // Check if player can wrap around right side of game-div.
-        }else if(settings['wrap'] == 1
-          || settings['wrap'] == 3){
+        }else if(settings['wrap'] === 1
+          || settings['wrap'] === 3){
             // Set current player button to empty color.
             document.getElementById(195 + player_x).style.backgroundColor = color_empty;
 
@@ -200,6 +198,8 @@ function settings_toggle(state){
 }
 
 function start(){
+    save();
+
     // Set margin-top of game-div based on y-margin.
     document.getElementById('game-div').style.marginTop = settings['y-margin'] + 'px';
 
@@ -250,9 +250,6 @@ function start(){
         );
     }
 
-    // Save settings.
-    save();
-
     interval_coins = window.setInterval(
         coin_fall,
         settings['ms-per-coin-move'] > 0
@@ -277,36 +274,27 @@ function stop(){
 }
 
 function time_interval(mode){
-    if(mode){
-        // Max time mode game over.
-        if(parseFloat(document.getElementById('time').innerHTML) <= 0
-          && settings['max-time'] > 0){
-            stop();
-
-        // Increase time.
-        }else{
-            document.getElementById('time').innerHTML = (
-              parseFloat(document.getElementById('time').innerHTML) + ((settings['game-move'] == 1
-              && settings['max-time'] > 0)
-                ? -.1
-                : .1)
-              ).toFixed(1);
-        }
+    // Max time mode game over.
+    if(mode === 1
+      && parseFloat(document.getElementById('time').innerHTML) <= 0
+      && settings['max-time'] > 0){
+        stop();
+        return;
 
     // Max points mode game over.
     }else if(settings['max-points'] > 0
       && parseInt(document.getElementById('score').innerHTML, 10) >= settings['max-points']){
         stop();
-
-    // Increase time.
-    }else{
-        document.getElementById('time').innerHTML =
-         (parseFloat(document.getElementById('time').innerHTML) + ((settings['game-move'] == 1
-         && settings['max-time'] > 0)
-           ? -.1
-           : .1)
-         ).toFixed(1);
+        return;
     }
+
+    // Handle time.
+    document.getElementById('time').innerHTML =
+      (parseFloat(document.getElementById('time').innerHTML) + ((settings['game-mode'] == 1
+        && settings['max-time'] > 0)
+        ? -.1
+        : .1)
+      ).toFixed(1);
 }
 
 var color_empty = 'rgb(42, 42, 42)';
@@ -376,7 +364,6 @@ window.onload = function(){
         'game-mode': 1,
         'max-points': 50,
         'max-time': 0,
-        'game-mode': 1,
         'movement-keys': 'AD',
         'ms-per-coin-move': 100,
         'ms-per-player-move': 100,
