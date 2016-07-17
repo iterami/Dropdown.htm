@@ -94,7 +94,7 @@ function coin_fall(){
     // If there are purple buttons and it is time to add one...
     if(settings_settings['frames-per-purple'] > 0
       && frame_purple === settings_settings['frames-per-purple']){
-        new_purple_x = Math.floor(Math.random() * 13);
+        new_purple_x = random_integer(13);
 
         falling_coins.push({
           'value': -1,
@@ -110,7 +110,7 @@ function coin_fall(){
     if(frame_orange === 9){
         var new_orange_x = new_purple_x;
         do{
-            new_orange_x = Math.floor(Math.random() * 13);
+            new_orange_x = random_integer(13);
         }while(new_orange_x === new_purple_x);
 
         falling_coins.push({
