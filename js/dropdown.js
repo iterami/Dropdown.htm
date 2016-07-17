@@ -376,7 +376,8 @@ window.onload = function(){
     );
 
     document.getElementById('settings').innerHTML =
-      '<tr><td><input id=audio-volume max=1 min=0 step=0.01 type=range><td>Audio'
+      '<tr><td colspan=2><input id=reset-button onclick=settings_reset() type=button value=Reset>'
+        + '<tr><td><input id=audio-volume max=1 min=0 step=0.01 type=range><td>Audio'
         + '<tr><td><input id=frames-per-purple><td>Frames/Purple_Coin'
         + '<tr><td><input id=max-points><td>Max Points'
         + '<tr><td><input id=max-time><td>Max Time'
@@ -388,8 +389,7 @@ window.onload = function(){
         + '<tr><td><select id=purple-catch><option value=0>End Game</option><option selected value=1>Score-1</option></select><td>Purple Coin Catch'
         + '<tr><td><input id=start-key maxlength=1><td>Start'
         + '<tr><td><select id=wrap><option value=0>—</option><option value=2>←</option><option value=3>→</option><option value=1>↔</option></select><td>Wrap'
-        + '<tr><td><input id=y-margin><td>Y Margin'
-        + '<tr><td colspan=2><input id=reset-button onclick=settings_reset() type=button value=Reset>';
+        + '<tr><td><input id=y-margin><td>Y Margin';
     settings_update();
 
     // Set margin-top of game-div based on y-margin.
