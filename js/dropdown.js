@@ -12,7 +12,7 @@ function coin_fall(){
 
                 // If it is a purple coins and catching purple coins ends the game, end the game.
                 if(falling_coins[coin]['value'] < 0
-                  && settings['purple-catch'] === 0){
+                  && settings_settings['purple-catch'] === 0){
                     stop();
 
                 // Else adjust the score by the point value of the coin.
@@ -49,12 +49,12 @@ function coin_fall(){
             // If it is an orange coin.
             if(falling_coins[coin]['value'] === 1){
                 // If missing an orange coin causes game to end, end the game.
-                if(settings['orange-miss'] === 1){
+                if(settings_settings['orange-miss'] === 1){
                     stop();
 
                 }else{
                     // If missing an orange coin decreases score, decrease score.
-                    if(settings['orange-miss'] == 2){
+                    if(settings_settings['orange-miss'] == 2){
                         document.getElementById('score').innerHTML = parseInt(
                           document.getElementById('score').innerHTML,
                           10
@@ -92,8 +92,8 @@ function coin_fall(){
     var new_purple_x = -1;
 
     // If there are purple buttons and it is time to add one...
-    if(settings['frames-per-purple'] > 0
-      && frame_purple === settings['frames-per-purple']){
+    if(settings_settings['frames-per-purple'] > 0
+      && frame_purple === settings_settings['frames-per-purple']){
         new_purple_x = Math.floor(Math.random() * 13);
 
         falling_coins.push({
@@ -144,8 +144,8 @@ function player_move(){
             document.getElementById(195 + player_x).style.backgroundColor = color_player;
 
         // Check if player can wrap around left side of game-div.
-        }else if(settings['wrap'] === 1
-          || settings['wrap'] === 2){
+        }else if(settings_settings['wrap'] === 1
+          || settings_settings['wrap'] === 2){
             // Set current player button to empty color.
             document.getElementById(195 + player_x).style.backgroundColor = color_empty;
 
@@ -168,8 +168,8 @@ function player_move(){
             document.getElementById(195 + player_x).style.backgroundColor = color_player;
 
         // Check if player can wrap around right side of game-div.
-        }else if(settings['wrap'] === 1
-          || settings['wrap'] === 3){
+        }else if(settings_settings['wrap'] === 1
+          || settings_settings['wrap'] === 3){
             // Set current player button to empty color.
             document.getElementById(195 + player_x).style.backgroundColor = color_empty;
 
@@ -198,10 +198,10 @@ function settings_toggle(state){
 }
 
 function start(){
-    save();
+    settings_save();
 
     // Set margin-top of game-div based on y-margin.
-    document.getElementById('game-div').style.marginTop = settings['y-margin'] + 'px';
+    document.getElementById('game-div').style.marginTop = settings_settings['y-margin'] + 'px';
 
     // Reset colors of buttons.
     var loop_counter = 207;
@@ -221,11 +221,11 @@ function start(){
     player_x = 6;
 
     // Max time mode.
-    if(settings['game-mode'] == 1){
-        document.getElementById('time').innerHTML = settings['max-time'];
-        document.getElementById('time-max').innerHTML = settings['max-time'];
+    if(settings_settings['game-mode'] == 1){
+        document.getElementById('time').innerHTML = settings_settings['max-time'];
+        document.getElementById('time-max').innerHTML = settings_settings['max-time'];
         document.getElementById('score-max').innerHTML = '';
-        document.getElementById('time-max-span').style.display = settings['max-time'] > 0
+        document.getElementById('time-max-span').style.display = settings_settings['max-time'] > 0
           ? 'inline'
           : 'none';
         interval_time = window.setInterval(
@@ -239,8 +239,8 @@ function start(){
     }else{
         document.getElementById('time').innerHTML = 0;
         document.getElementById('time-max-span').style.display = 'none';
-        document.getElementById('score-max').innerHTML = settings['max-points'] > 0
-          ? ' / <b>' + settings['max-points'] + '</b>'
+        document.getElementById('score-max').innerHTML = settings_settings['max-points'] > 0
+          ? ' / <b>' + settings_settings['max-points'] + '</b>'
           : '';
         interval_time = window.setInterval(
           function(){
@@ -252,14 +252,14 @@ function start(){
 
     interval_coins = window.setInterval(
         coin_fall,
-        settings['ms-per-coin-move'] > 0
-          ? settings['ms-per-coin-move']
+        settings_settings['ms-per-coin-move'] > 0
+          ? settings_settings['ms-per-coin-move']
           : 100
     );
     interval_player = window.setInterval(
         player_move,
-        settings['ms-per-coin-move'] > 0
-          ? settings['ms-per-coin-move']
+        settings_settings['ms-per-coin-move'] > 0
+          ? settings_settings['ms-per-coin-move']
           : 100
     );
 }
@@ -270,28 +270,28 @@ function stop(){
     window.clearInterval(interval_player);
 
     document.getElementById('start-button').onclick = start;
-    document.getElementById('start-button').value = 'Start (' + settings['start-key'] + ')';
+    document.getElementById('start-button').value = 'Start (' + settings_settings['start-key'] + ')';
 }
 
 function time_interval(mode){
     // Max time mode game over.
     if(mode === 1
       && parseFloat(document.getElementById('time').innerHTML) <= 0
-      && settings['max-time'] > 0){
+      && settings_settings['max-time'] > 0){
         stop();
         return;
 
     // Max points mode game over.
-    }else if(settings['max-points'] > 0
-      && parseInt(document.getElementById('score').innerHTML, 10) >= settings['max-points']){
+    }else if(settings_settings['max-points'] > 0
+      && parseInt(document.getElementById('score').innerHTML, 10) >= settings_settings['max-points']){
         stop();
         return;
     }
 
     // Handle time.
     document.getElementById('time').innerHTML =
-      (parseFloat(document.getElementById('time').innerHTML) + ((settings['game-mode'] == 1
-        && settings['max-time'] > 0)
+      (parseFloat(document.getElementById('time').innerHTML) + ((settings_settings['game-mode'] == 1
+        && settings_settings['max-time'] > 0)
         ? -.1
         : .1)
       ).toFixed(1);
@@ -332,13 +332,13 @@ window.onkeydown = function(e){
 
     key = String.fromCharCode(key);
 
-    if(key === settings['movement-keys'][0]){
+    if(key === settings_settings['movement-keys'][0]){
         key_left = true;
 
-    }else if(key === settings['movement-keys'][1]){
+    }else if(key === settings_settings['movement-keys'][1]){
         key_right = true;
 
-    }else if(key === settings['start-key']){
+    }else if(key === settings_settings['start-key']){
         stop();
         start();
     }
@@ -347,16 +347,16 @@ window.onkeydown = function(e){
 window.onkeyup = function(e){
     var key = String.fromCharCode(e.keyCode || e.which);
 
-    if(key === settings['movement-keys'][0]){
+    if(key === settings_settings['movement-keys'][0]){
         key_left = false;
 
-    }else if(key === settings['movement-keys'][1]){
+    }else if(key === settings_settings['movement-keys'][1]){
         key_right = false;
     }
 };
 
 window.onload = function(){
-    init_settings(
+    settings_init(
       'Dropdown.htm-',
       {
         'audio-volume': 1,
@@ -389,11 +389,11 @@ window.onload = function(){
         + '<tr><td><input id=start-key maxlength=1><td>Start'
         + '<tr><td><select id=wrap><option value=0>—</option><option value=2>←</option><option value=3>→</option><option value=1>↔</option></select><td>Wrap'
         + '<tr><td><input id=y-margin><td>Y Margin'
-        + '<tr><td colspan=2><input id=reset-button onclick=reset() type=button value=Reset>';
-    update_settings();
+        + '<tr><td colspan=2><input id=reset-button onclick=settings_reset() type=button value=Reset>';
+    settings_update();
 
     // Set margin-top of game-div based on y-margin.
-    document.getElementById('game-div').style.marginTop = settings['y-margin'] + 'px';
+    document.getElementById('game-div').style.marginTop = settings_settings['y-margin'] + 'px';
 
     // Setup game div.
     var output = '';
