@@ -45,36 +45,25 @@ function coin_fall(){
               ? color_orange
               : color_purple;
 
-        }else{
-            // If it is an orange coin.
-            if(falling_coins[coin]['value'] === 1){
-                // If missing an orange coin causes game to end, end the game.
-                if(settings_settings['orange-miss'] === 1){
-                    stop();
+            continue;
+        }
 
-                }else{
-                    // If missing an orange coin decreases score, decrease score.
-                    if(settings_settings['orange-miss'] == 2){
-                        document.getElementById('score').innerHTML = parseInt(
-                          document.getElementById('score').innerHTML,
-                          10
-                        ) - 1;
-                    }
-
-                    // Delete orange coin.
-                    var id = falling_coins[coin]['x'] + 13 * falling_coins[coin]['y'];
-                    document.getElementById(id).style.backgroundColor = color_empty;
-                    falling_coins.splice(
-                      coin,
-                      1
-                    );
-
-                    // Restart function.
-                    coin_fall();
-                }
+        // If it is an orange coin.
+        if(falling_coins[coin]['value'] === 1){
+            // If missing an orange coin causes game to end, end the game.
+            if(settings_settings['orange-miss'] === 1){
+                stop();
 
             }else{
-                // Delete and ignore purple coin.
+                // If missing an orange coin decreases score, decrease score.
+                if(settings_settings['orange-miss'] == 2){
+                    document.getElementById('score').innerHTML = parseInt(
+                      document.getElementById('score').innerHTML,
+                      10
+                    ) - 1;
+                }
+
+                // Delete orange coin.
                 var id = falling_coins[coin]['x'] + 13 * falling_coins[coin]['y'];
                 document.getElementById(id).style.backgroundColor = color_empty;
                 falling_coins.splice(
@@ -84,9 +73,21 @@ function coin_fall(){
 
                 // Restart function.
                 coin_fall();
-            }
-            return;
+             }
+
+        }else{
+            // Delete and ignore purple coin.
+            var id = falling_coins[coin]['x'] + 13 * falling_coins[coin]['y'];
+            document.getElementById(id).style.backgroundColor = color_empty;
+            falling_coins.splice(
+              coin,
+              1
+            );
+
+            // Restart function.
+            coin_fall();
         }
+        return;
     }
 
     var new_purple_x = -1;
@@ -210,6 +211,7 @@ function start(){
     }while(loop_counter--);
     document.getElementById(201).style.backgroundColor = color_player;
 
+    document.getElementById('score').innerHTML = 0;
     document.getElementById('start-button').value = 'End (ESC)';
     document.getElementById('start-button').onclick = stop;
     falling_coins.length = 0;
@@ -217,7 +219,6 @@ function start(){
     frame_purple = 0;
     key_left = false;
     key_right = false;
-    document.getElementById('score').innerHTML = 0;
     player_x = 6;
 
     // Max time mode.
@@ -266,8 +267,8 @@ function start(){
 
 function stop(){
     window.clearInterval(interval_coins);
-    window.clearInterval(interval_time);
     window.clearInterval(interval_player);
+    window.clearInterval(interval_time);
 
     document.getElementById('start-button').onclick = start;
     document.getElementById('start-button').value = 'Start (' + settings_settings['start-key'] + ')';
@@ -298,8 +299,8 @@ function time_interval(mode){
 }
 
 var color_empty = 'rgb(42, 42, 42)';
-var color_player = 'rgb(32, 102, 32)';
 var color_orange = 'rgb(190, 100, 0)';
+var color_player = 'rgb(32, 102, 32)';
 var color_purple = 'rgb(102, 51, 102)';
 var falling_coins = [];
 var frame_orange = 0;
