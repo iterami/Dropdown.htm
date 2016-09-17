@@ -17,6 +17,11 @@ function coin_fall(){
 
                 // Else adjust the score by the point value of the coin.
                 }else{
+                    audio_start(
+                      'boop',
+                      settings_settings['audio-volume']
+                    );
+
                     document.getElementById('score').innerHTML = parseInt(
                       document.getElementById('score').innerHTML,
                       10
@@ -373,6 +378,14 @@ window.onload = function(){
         'start-key': 'H',
         'wrap': 0,
         'y-margin': 0,
+      }
+    );
+    audio_init(settings['audio-volume']);
+    audio_create(
+      'boop',
+      {
+        'duration': .1,
+        'volume': .1,
       }
     );
 
