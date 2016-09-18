@@ -380,7 +380,7 @@ window.onload = function(){
         'y-margin': 0,
       }
     );
-    audio_init(settings['audio-volume']);
+    audio_init(settings_settings['audio-volume']);
     audio_create(
       'boop',
       {
