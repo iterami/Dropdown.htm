@@ -431,6 +431,8 @@ window.onload = function(){
 
     stop();
 
-    document.getElementById('settings-button').onclick = settings_toggle;
+    document.getElementById('settings-button').onclick = function(){
+        settings_toggle();
+    };
     document.getElementById('start-button').onclick = start;
 };
