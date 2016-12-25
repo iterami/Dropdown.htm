@@ -228,10 +228,10 @@ function start(){
 
     // Max time mode.
     if(settings_settings['game-mode'] == 1){
-        document.getElementById('time').innerHTML = settings_settings['max-time'];
-        document.getElementById('time-max').innerHTML = settings_settings['max-time'];
+        document.getElementById('time').innerHTML = settings_settings['max'];
+        document.getElementById('time-max').innerHTML = settings_settings['max'];
         document.getElementById('score-max').innerHTML = '';
-        document.getElementById('time-max-span').style.display = settings_settings['max-time'] > 0
+        document.getElementById('time-max-span').style.display = settings_settings['max'] > 0
           ? 'inline'
           : 'none';
         interval_time = window.setInterval(
@@ -245,8 +245,8 @@ function start(){
     }else{
         document.getElementById('time').innerHTML = 0;
         document.getElementById('time-max-span').style.display = 'none';
-        document.getElementById('score-max').innerHTML = settings_settings['max-points'] > 0
-          ? ' / <b>' + settings_settings['max-points'] + '</b>'
+        document.getElementById('score-max').innerHTML = settings_settings['max'] > 0
+          ? ' / <b>' + settings_settings['max'] + '</b>'
           : '';
         interval_time = window.setInterval(
           function(){
@@ -283,13 +283,13 @@ function time_interval(mode){
     // Max time mode game over.
     if(mode === 1
       && parseFloat(document.getElementById('time').innerHTML) <= 0
-      && settings_settings['max-time'] > 0){
+      && settings_settings['max'] > 0){
         stop();
         return;
 
     // Max points mode game over.
-    }else if(settings_settings['max-points'] > 0
-      && parseInt(document.getElementById('score').innerHTML, 10) >= settings_settings['max-points']){
+    }else if(settings_settings['max'] > 0
+      && parseInt(document.getElementById('score').innerHTML, 10) >= settings_settings['max']){
         stop();
         return;
     }
@@ -297,7 +297,7 @@ function time_interval(mode){
     // Handle time.
     document.getElementById('time').innerHTML =
       (parseFloat(document.getElementById('time').innerHTML) + ((settings_settings['game-mode'] == 1
-        && settings_settings['max-time'] > 0)
+        && settings_settings['max'] > 0)
         ? -.1
         : .1)
       ).toFixed(1);
@@ -317,50 +317,6 @@ var key_left = false;
 var key_right = false;
 var player_x = 6;
 
-window.onkeydown = function(e){
-    var key = e.keyCode || e.which;
-
-    // ESC: stop current game.
-    if(key === 27){
-        stop();
-        return;
-
-    // +: show settings.
-    }else if(key === 187){
-        settings_toggle(true);
-        return;
-
-    // -: hide settings.
-    }else if(key === 189){
-        settings_toggle(false);
-        return;
-    }
-
-    key = String.fromCharCode(key);
-
-    if(key === settings_settings['movement-keys'][0]){
-        key_left = true;
-
-    }else if(key === settings_settings['movement-keys'][1]){
-        key_right = true;
-
-    }else if(key === settings_settings['start-key']){
-        stop();
-        start();
-    }
-};
-
-window.onkeyup = function(e){
-    var key = String.fromCharCode(e.keyCode || e.which);
-
-    if(key === settings_settings['movement-keys'][0]){
-        key_left = false;
-
-    }else if(key === settings_settings['movement-keys'][1]){
-        key_right = false;
-    }
-};
-
 window.onload = function(){
     settings_init(
       'Dropdown.htm-',
@@ -368,8 +324,7 @@ window.onload = function(){
         'audio-volume': 1,
         'frames-per-purple': 9,
         'game-mode': 1,
-        'max-points': 50,
-        'max-time': 0,
+        'max': 0,
         'movement-keys': 'AD',
         'ms-per-coin-move': 100,
         'ms-per-player-move': 100,
@@ -395,9 +350,7 @@ window.onload = function(){
       '<tr><td colspan=2><input id=reset-button onclick=settings_reset() type=button value=Reset>'
         + '<tr><td><input id=audio-volume max=1 min=0 step=0.01 type=range><td>Audio'
         + '<tr><td><input id=frames-per-purple><td>Frames/Purple_Coin'
-        + '<tr><td><input id=max-points><td>Max Points'
-        + '<tr><td><input id=max-time><td>Max Time'
-        + '<tr><td><select id=game-mode><option value=0>Points</option><option value=1>Time</option></select><td>Mode'
+        + '<tr><td><input id=max><td>Max <select id=game-mode><option value=0>Points</option><option value=1>Time</option></select>'
         + '<tr><td><input id=movement-keys maxlength=2><td>Move'
         + '<tr><td><input id=ms-per-coin-move><td>ms/Coin_Move'
         + '<tr><td><input id=ms-per-player-move><td>ms/Player_Move'
@@ -437,4 +390,48 @@ window.onload = function(){
         settings_toggle();
     };
     document.getElementById('start-button').onclick = start;
+
+    window.onkeydown = function(e){
+        var key = e.keyCode || e.which;
+
+        // ESC: stop current game.
+        if(key === 27){
+            stop();
+            return;
+
+        // +: show settings.
+        }else if(key === 187){
+            settings_toggle(true);
+            return;
+
+        // -: hide settings.
+        }else if(key === 189){
+            settings_toggle(false);
+            return;
+        }
+
+        key = String.fromCharCode(key);
+
+        if(key === settings_settings['movement-keys'][0]){
+            key_left = true;
+
+        }else if(key === settings_settings['movement-keys'][1]){
+            key_right = true;
+
+        }else if(key === settings_settings['start-key']){
+            stop();
+            start();
+        }
+    };
+
+    window.onkeyup = function(e){
+        var key = String.fromCharCode(e.keyCode || e.which);
+
+        if(key === settings_settings['movement-keys'][0]){
+            key_left = false;
+
+        }else if(key === settings_settings['movement-keys'][1]){
+            key_right = false;
+        }
+    };
 };
