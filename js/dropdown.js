@@ -318,9 +318,9 @@ var key_right = false;
 var player_x = 6;
 
 window.onload = function(){
-    settings_init(
-      'Dropdown.htm-',
-      {
+    settings_init({
+      'prefix': 'Dropdown.htm-',
+      'settings': {
         'audio-volume': 1,
         'frames-per-purple': 9,
         'game-mode': 1,
@@ -333,8 +333,8 @@ window.onload = function(){
         'start-key': 'H',
         'wrap': 0,
         'y-margin': 0,
-      }
-    );
+      },
+    });
     audio_init({
       'volume': settings_settings['audio-volume'],
     });
