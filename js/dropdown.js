@@ -250,7 +250,7 @@ function start(){
         document.getElementById('time').innerHTML = 0;
         document.getElementById('time-max-span').style.display = 'none';
         document.getElementById('score-max').innerHTML = settings_settings['max'] > 0
-          ? ' / <b>' + settings_settings['max'] + '</b>'
+          ? ' / ' + settings_settings['max']
           : '';
         interval_time = window.setInterval(
           function(){
