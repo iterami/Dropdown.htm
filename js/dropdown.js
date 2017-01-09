@@ -370,7 +370,6 @@ window.onload = function(){
 
     // Setup game div.
     var output = '';
-
     for(var loop_counter = 0; loop_counter < 208; loop_counter++){
         if(loop_counter % 13 === 0
           && loop_counter !== 0){
@@ -386,7 +385,7 @@ window.onload = function(){
           + ' style="background:' + color
           + '" type=button>';
     }
-    document.getElementById('game-div').innerHTML = output;
+    document.getElementById('game-div').innerHTML = output + '<br>';
 
     stop();
 
