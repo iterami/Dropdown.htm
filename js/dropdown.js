@@ -100,7 +100,7 @@ function coin_fall(){
     // If there are purple buttons and it is time to add one...
     if(storage_data['frames-per-purple'] > 0
       && frame_purple === storage_data['frames-per-purple']){
-        new_purple_x = random_integer({
+        new_purple_x = core_random_integer({
           'max': 13,
         });
 
@@ -118,7 +118,7 @@ function coin_fall(){
     if(frame_orange === 9){
         var new_orange_x = new_purple_x;
         do{
-            new_orange_x = random_integer({
+            new_orange_x = core_random_integer({
               'max': 13,
             });
         }while(new_orange_x === new_purple_x);
