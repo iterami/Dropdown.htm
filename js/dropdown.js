@@ -12,14 +12,14 @@ function coin_fall(){
 
                 // If it is a purple coins and catching purple coins ends the game, end the game.
                 if(falling_coins[coin]['value'] < 0
-                  && storage_data['purple-catch'] === 0){
+                  && core_storage_data['purple-catch'] === 0){
                     stop();
 
                 // Else adjust the score by the point value of the coin.
                 }else{
                     audio_start({
                       'id': 'boop',
-                      'volume-multiplier': storage_data['audio-volume'],
+                      'volume-multiplier': core_storage_data['audio-volume'],
                     });
 
                     document.getElementById('score').innerHTML = parseInt(
@@ -56,12 +56,12 @@ function coin_fall(){
         // If it is an orange coin.
         if(falling_coins[coin]['value'] === 1){
             // If missing an orange coin causes game to end, end the game.
-            if(storage_data['orange-miss'] === 1){
+            if(core_storage_data['orange-miss'] === 1){
                 stop();
 
             }else{
                 // If missing an orange coin decreases score, decrease score.
-                if(storage_data['orange-miss'] == 2){
+                if(core_storage_data['orange-miss'] == 2){
                     document.getElementById('score').innerHTML = parseInt(
                       document.getElementById('score').innerHTML,
                       10
@@ -98,8 +98,8 @@ function coin_fall(){
     var new_purple_x = -1;
 
     // If there are purple buttons and it is time to add one...
-    if(storage_data['frames-per-purple'] > 0
-      && frame_purple === storage_data['frames-per-purple']){
+    if(core_storage_data['frames-per-purple'] > 0
+      && frame_purple === core_storage_data['frames-per-purple']){
         new_purple_x = core_random_integer({
           'max': 13,
         });
@@ -154,8 +154,8 @@ function player_move(){
             document.getElementById(195 + player_x).style.backgroundColor = color_player;
 
         // Check if player can wrap around left side of game-div.
-        }else if(storage_data['wrap'] === 1
-          || storage_data['wrap'] === 2){
+        }else if(core_storage_data['wrap'] === 1
+          || core_storage_data['wrap'] === 2){
             // Set current player button to empty color.
             document.getElementById(195 + player_x).style.backgroundColor = color_empty;
 
@@ -178,8 +178,8 @@ function player_move(){
             document.getElementById(195 + player_x).style.backgroundColor = color_player;
 
         // Check if player can wrap around right side of game-div.
-        }else if(storage_data['wrap'] === 1
-          || storage_data['wrap'] === 3){
+        }else if(core_storage_data['wrap'] === 1
+          || core_storage_data['wrap'] === 3){
             // Set current player button to empty color.
             document.getElementById(195 + player_x).style.backgroundColor = color_empty;
 
@@ -208,10 +208,10 @@ function settings_toggle(state){
 }
 
 function start(){
-    storage_save();
+    core_storage_save();
 
     // Set margin-top of game-div based on y-margin.
-    document.getElementById('game-div').style.marginTop = storage_data['y-margin'] + 'px';
+    document.getElementById('game-div').style.marginTop = core_storage_data['y-margin'] + 'px';
 
     // Reset colors of buttons.
     var loop_counter = 207;
@@ -231,11 +231,11 @@ function start(){
     player_x = 6;
 
     // Max time mode.
-    if(storage_data['game-mode'] == 1){
-        document.getElementById('time').innerHTML = storage_data['max'];
-        document.getElementById('time-max').innerHTML = storage_data['max'];
+    if(core_storage_data['game-mode'] == 1){
+        document.getElementById('time').innerHTML = core_storage_data['max'];
+        document.getElementById('time-max').innerHTML = core_storage_data['max'];
         document.getElementById('score-max').innerHTML = '';
-        document.getElementById('time-max-span').style.display = storage_data['max'] > 0
+        document.getElementById('time-max-span').style.display = core_storage_data['max'] > 0
           ? 'inline'
           : 'none';
         interval_time = window.setInterval(
@@ -249,8 +249,8 @@ function start(){
     }else{
         document.getElementById('time').innerHTML = 0;
         document.getElementById('time-max-span').style.display = 'none';
-        document.getElementById('score-max').innerHTML = storage_data['max'] > 0
-          ? ' / ' + storage_data['max']
+        document.getElementById('score-max').innerHTML = core_storage_data['max'] > 0
+          ? ' / ' + core_storage_data['max']
           : '';
         interval_time = window.setInterval(
           function(){
@@ -262,14 +262,14 @@ function start(){
 
     interval_coins = window.setInterval(
         coin_fall,
-        storage_data['ms-per-coin-move'] > 0
-          ? storage_data['ms-per-coin-move']
+        core_storage_data['ms-per-coin-move'] > 0
+          ? core_storage_data['ms-per-coin-move']
           : 100
     );
     interval_player = window.setInterval(
         player_move,
-        storage_data['ms-per-coin-move'] > 0
-          ? storage_data['ms-per-coin-move']
+        core_storage_data['ms-per-coin-move'] > 0
+          ? core_storage_data['ms-per-coin-move']
           : 100
     );
 }
@@ -280,28 +280,28 @@ function stop(){
     window.clearInterval(interval_time);
 
     document.getElementById('start-button').onclick = start;
-    document.getElementById('start-button').value = 'Start (' + storage_data['start-key'] + ')';
+    document.getElementById('start-button').value = 'Start (' + core_storage_data['start-key'] + ')';
 }
 
 function time_interval(mode){
     // Max time mode game over.
     if(mode === 1
       && parseFloat(document.getElementById('time').innerHTML) <= 0
-      && storage_data['max'] > 0){
+      && core_storage_data['max'] > 0){
         stop();
         return;
 
     // Max points mode game over.
-    }else if(storage_data['max'] > 0
-      && parseInt(document.getElementById('score').innerHTML, 10) >= storage_data['max']){
+    }else if(core_storage_data['max'] > 0
+      && parseInt(document.getElementById('score').innerHTML, 10) >= core_storage_data['max']){
         stop();
         return;
     }
 
     // Handle time.
     document.getElementById('time').innerHTML =
-      (parseFloat(document.getElementById('time').innerHTML) + ((storage_data['game-mode'] == 1
-        && storage_data['max'] > 0)
+      (parseFloat(document.getElementById('time').innerHTML) + ((core_storage_data['game-mode'] == 1
+        && core_storage_data['max'] > 0)
         ? -.1
         : .1)
       ).toFixed(1);
@@ -322,7 +322,7 @@ var key_right = false;
 var player_x = 6;
 
 window.onload = function(){
-    storage_init({
+    core_storage_init({
       'data': {
         'audio-volume': 1,
         'frames-per-purple': 9,
@@ -340,7 +340,7 @@ window.onload = function(){
       'prefix': 'Dropdown.htm-',
     });
     audio_init({
-      'volume': storage_data['audio-volume'],
+      'volume': core_storage_data['audio-volume'],
     });
     audio_create({
       'id': 'boop',
@@ -351,7 +351,7 @@ window.onload = function(){
     });
 
     document.getElementById('settings').innerHTML =
-      '<tr><td colspan=2><input id=reset-button onclick=storage_reset() type=button value=Reset>'
+      '<tr><td colspan=2><input id=reset-button onclick=core_storage_reset() type=button value=Reset>'
         + '<tr><td><input id=audio-volume max=1 min=0 step=0.01 type=range><td>Audio'
         + '<tr><td><input id=frames-per-purple><td>Frames/Purple_Coin'
         + '<tr><td><input id=max><td>Max <select id=game-mode><option value=0>Points</option><option value=1>Time</option></select>'
@@ -363,10 +363,10 @@ window.onload = function(){
         + '<tr><td><input id=start-key maxlength=1><td>Start'
         + '<tr><td><select id=wrap><option value=0>—</option><option value=2>←</option><option value=3>→</option><option value=1>↔</option></select><td>Wrap'
         + '<tr><td><input id=y-margin><td>Y Margin';
-    storage_update();
+    core_storage_update();
 
     // Set margin-top of game-div based on y-margin.
-    document.getElementById('game-div').style.marginTop = storage_data['y-margin'] + 'px';
+    document.getElementById('game-div').style.marginTop = core_storage_data['y-margin'] + 'px';
 
     // Setup game div.
     var output = '';
@@ -415,13 +415,13 @@ window.onload = function(){
 
         key = String.fromCharCode(key);
 
-        if(key === storage_data['movement-keys'][0]){
+        if(key === core_storage_data['movement-keys'][0]){
             key_left = true;
 
-        }else if(key === storage_data['movement-keys'][1]){
+        }else if(key === core_storage_data['movement-keys'][1]){
             key_right = true;
 
-        }else if(key === storage_data['start-key']){
+        }else if(key === core_storage_data['start-key']){
             stop();
             start();
         }
@@ -430,10 +430,10 @@ window.onload = function(){
     window.onkeyup = function(e){
         var key = String.fromCharCode(e.keyCode || e.which);
 
-        if(key === storage_data['movement-keys'][0]){
+        if(key === core_storage_data['movement-keys'][0]){
             key_left = false;
 
-        }else if(key === storage_data['movement-keys'][1]){
+        }else if(key === core_storage_data['movement-keys'][1]){
             key_right = false;
         }
     };
