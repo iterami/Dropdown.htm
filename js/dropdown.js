@@ -192,6 +192,124 @@ function player_move(){
     }
 }
 
+function repo_init(){
+    core_storage_init({
+      'data': {
+        'audio-volume': 1,
+        'frames-per-purple': 9,
+        'game-mode': 1,
+        'max': 0,
+        'movement-keys': 'AD',
+        'ms-per-coin-move': 100,
+        'ms-per-player-move': 100,
+        'orange-miss': 1,
+        'purple-catch': 1,
+        'start-key': 'H',
+        'wrap': 0,
+        'y-margin': 0,
+      },
+      'prefix': 'Dropdown.htm-',
+    });
+    audio_init({
+      'volume': core_storage_data['audio-volume'],
+    });
+    audio_create({
+      'id': 'boop',
+      'properties': {
+        'duration': .1,
+        'volume': .1,
+      },
+    });
+
+    document.getElementById('settings').innerHTML =
+      '<tr><td colspan=2><input id=reset-button onclick=core_storage_reset() type=button value=Reset>'
+        + '<tr><td><input id=audio-volume max=1 min=0 step=0.01 type=range><td>Audio'
+        + '<tr><td><input id=frames-per-purple><td>Frames/Purple_Coin'
+        + '<tr><td><input id=max><td>Max <select id=game-mode><option value=0>Points</option><option value=1>Time</option></select>'
+        + '<tr><td><input id=movement-keys maxlength=2><td>Move'
+        + '<tr><td><input id=ms-per-coin-move><td>ms/Coin_Move'
+        + '<tr><td><input id=ms-per-player-move><td>ms/Player_Move'
+        + '<tr><td><select id=orange-miss><option value=0>Disappear</option><option selected value=1>End Game</option><option value=2>Score-1</option></select><td>Orange Coin Miss'
+        + '<tr><td><select id=purple-catch><option value=0>End Game</option><option selected value=1>Score-1</option></select><td>Purple Coin Catch'
+        + '<tr><td><input id=start-key maxlength=1><td>Start'
+        + '<tr><td><select id=wrap><option value=0>—</option><option value=2>←</option><option value=3>→</option><option value=1>↔</option></select><td>Wrap'
+        + '<tr><td><input id=y-margin><td>Y Margin';
+    core_storage_update();
+
+    // Set margin-top of game-div based on y-margin.
+    document.getElementById('game-div').style.marginTop = core_storage_data['y-margin'] + 'px';
+
+    // Setup game div.
+    var output = '';
+    for(var loop_counter = 0; loop_counter < 208; loop_counter++){
+        if(loop_counter % 13 === 0
+          && loop_counter !== 0){
+            output += '<br>';
+        }
+
+        var color = loop_counter == 201
+          ? color_player
+          : color_empty;
+
+        output +=
+          '<input class=gridbutton disabled id=' + loop_counter
+          + ' style="background:' + color
+          + '" type=button>';
+    }
+    document.getElementById('game-div').innerHTML = output + '<br>';
+
+    stop();
+
+    document.getElementById('settings-button').onclick = function(){
+        settings_toggle();
+    };
+    document.getElementById('start-button').onclick = start;
+
+    window.onkeydown = function(e){
+        var key = e.keyCode || e.which;
+
+        // ESC: stop current game.
+        if(key === 27){
+            stop();
+            return;
+
+        // +: show settings.
+        }else if(key === 187){
+            settings_toggle(true);
+            return;
+
+        // -: hide settings.
+        }else if(key === 189){
+            settings_toggle(false);
+            return;
+        }
+
+        key = String.fromCharCode(key);
+
+        if(key === core_storage_data['movement-keys'][0]){
+            key_left = true;
+
+        }else if(key === core_storage_data['movement-keys'][1]){
+            key_right = true;
+
+        }else if(key === core_storage_data['start-key']){
+            stop();
+            start();
+        }
+    };
+
+    window.onkeyup = function(e){
+        var key = String.fromCharCode(e.keyCode || e.which);
+
+        if(key === core_storage_data['movement-keys'][0]){
+            key_left = false;
+
+        }else if(key === core_storage_data['movement-keys'][1]){
+            key_right = false;
+        }
+    };
+}
+
 function settings_toggle(state){
     state = state == void 0
       ? document.getElementById('settings-button').value === '+'
@@ -320,121 +438,3 @@ var interval_time = 0;
 var key_left = false;
 var key_right = false;
 var player_x = 6;
-
-window.onload = function(){
-    core_storage_init({
-      'data': {
-        'audio-volume': 1,
-        'frames-per-purple': 9,
-        'game-mode': 1,
-        'max': 0,
-        'movement-keys': 'AD',
-        'ms-per-coin-move': 100,
-        'ms-per-player-move': 100,
-        'orange-miss': 1,
-        'purple-catch': 1,
-        'start-key': 'H',
-        'wrap': 0,
-        'y-margin': 0,
-      },
-      'prefix': 'Dropdown.htm-',
-    });
-    audio_init({
-      'volume': core_storage_data['audio-volume'],
-    });
-    audio_create({
-      'id': 'boop',
-      'properties': {
-        'duration': .1,
-        'volume': .1,
-      },
-    });
-
-    document.getElementById('settings').innerHTML =
-      '<tr><td colspan=2><input id=reset-button onclick=core_storage_reset() type=button value=Reset>'
-        + '<tr><td><input id=audio-volume max=1 min=0 step=0.01 type=range><td>Audio'
-        + '<tr><td><input id=frames-per-purple><td>Frames/Purple_Coin'
-        + '<tr><td><input id=max><td>Max <select id=game-mode><option value=0>Points</option><option value=1>Time</option></select>'
-        + '<tr><td><input id=movement-keys maxlength=2><td>Move'
-        + '<tr><td><input id=ms-per-coin-move><td>ms/Coin_Move'
-        + '<tr><td><input id=ms-per-player-move><td>ms/Player_Move'
-        + '<tr><td><select id=orange-miss><option value=0>Disappear</option><option selected value=1>End Game</option><option value=2>Score-1</option></select><td>Orange Coin Miss'
-        + '<tr><td><select id=purple-catch><option value=0>End Game</option><option selected value=1>Score-1</option></select><td>Purple Coin Catch'
-        + '<tr><td><input id=start-key maxlength=1><td>Start'
-        + '<tr><td><select id=wrap><option value=0>—</option><option value=2>←</option><option value=3>→</option><option value=1>↔</option></select><td>Wrap'
-        + '<tr><td><input id=y-margin><td>Y Margin';
-    core_storage_update();
-
-    // Set margin-top of game-div based on y-margin.
-    document.getElementById('game-div').style.marginTop = core_storage_data['y-margin'] + 'px';
-
-    // Setup game div.
-    var output = '';
-    for(var loop_counter = 0; loop_counter < 208; loop_counter++){
-        if(loop_counter % 13 === 0
-          && loop_counter !== 0){
-            output += '<br>';
-        }
-
-        var color = loop_counter == 201
-          ? color_player
-          : color_empty;
-
-        output +=
-          '<input class=gridbutton disabled id=' + loop_counter
-          + ' style="background:' + color
-          + '" type=button>';
-    }
-    document.getElementById('game-div').innerHTML = output + '<br>';
-
-    stop();
-
-    document.getElementById('settings-button').onclick = function(){
-        settings_toggle();
-    };
-    document.getElementById('start-button').onclick = start;
-
-    window.onkeydown = function(e){
-        var key = e.keyCode || e.which;
-
-        // ESC: stop current game.
-        if(key === 27){
-            stop();
-            return;
-
-        // +: show settings.
-        }else if(key === 187){
-            settings_toggle(true);
-            return;
-
-        // -: hide settings.
-        }else if(key === 189){
-            settings_toggle(false);
-            return;
-        }
-
-        key = String.fromCharCode(key);
-
-        if(key === core_storage_data['movement-keys'][0]){
-            key_left = true;
-
-        }else if(key === core_storage_data['movement-keys'][1]){
-            key_right = true;
-
-        }else if(key === core_storage_data['start-key']){
-            stop();
-            start();
-        }
-    };
-
-    window.onkeyup = function(e){
-        var key = String.fromCharCode(e.keyCode || e.which);
-
-        if(key === core_storage_data['movement-keys'][0]){
-            key_left = false;
-
-        }else if(key === core_storage_data['movement-keys'][1]){
-            key_right = false;
-        }
-    };
-};
