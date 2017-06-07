@@ -193,8 +193,8 @@ function player_move(){
 }
 
 function repo_init(){
-    core_storage_init({
-      'data': {
+    core_repo_init({
+      'storage': {
         'audio-volume': 1,
         'frames-per-purple': 9,
         'game-mode': 1,
@@ -208,7 +208,7 @@ function repo_init(){
         'wrap': 0,
         'y-margin': 0,
       },
-      'prefix': 'Dropdown.htm-',
+      'title': 'Dropdown.htm',
     });
     audio_init({
       'volume': core_storage_data['audio-volume'],
