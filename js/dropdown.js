@@ -142,7 +142,7 @@ function coin_fall(){
 }
 
 function player_move(){
-    if(key_left){
+    if(core_keys[65]['state']){
         if(player_x > 0){
             // Set current player button to empty color.
             document.getElementById(195 + player_x).style.backgroundColor = color_empty;
@@ -166,7 +166,7 @@ function player_move(){
             document.getElementById(195 + player_x).style.backgroundColor = color_player;
         }
 
-    }else if(key_right){
+    }else if(core_keys[68]['state']){
         if(player_x < 12){
             // Set current player button to empty color.
             document.getElementById(195 + player_x).style.backgroundColor = color_empty;
@@ -192,8 +192,32 @@ function player_move(){
     }
 }
 
+function repo_escape(){
+    stop();
+}
+
 function repo_init(){
     core_repo_init({
+      'keybinds': {
+        65: {},
+        68: {},
+        72: {
+          'todo': function(){
+              stop();
+              start();
+          },
+        },
+        187: {
+          'todo': function(){
+              settings_toggle(true);
+          },
+        },
+        189: {
+          'todo': function(){
+              settings_toggle(false);
+          },
+        },
+      },
       'storage': {
         'audio-volume': 1,
         'frames-per-purple': 9,
@@ -204,7 +228,6 @@ function repo_init(){
         'ms-per-player-move': 100,
         'orange-miss': 1,
         'purple-catch': 1,
-        'start-key': 'H',
         'wrap': 0,
         'y-margin': 0,
       },
@@ -231,7 +254,6 @@ function repo_init(){
         + '<tr><td><input id=ms-per-player-move><td>ms/Player_Move'
         + '<tr><td><select id=orange-miss><option value=0>Disappear</option><option selected value=1>End Game</option><option value=2>Score-1</option></select><td>Orange Coin Miss'
         + '<tr><td><select id=purple-catch><option value=0>End Game</option><option selected value=1>Score-1</option></select><td>Purple Coin Catch'
-        + '<tr><td><input id=start-key maxlength=1><td>Start'
         + '<tr><td><select id=wrap><option value=0>—</option><option value=2>←</option><option value=3>→</option><option value=1>↔</option></select><td>Wrap'
         + '<tr><td><input id=y-margin><td>Y Margin';
     core_storage_update();
@@ -264,50 +286,6 @@ function repo_init(){
         settings_toggle();
     };
     document.getElementById('start-button').onclick = start;
-
-    window.onkeydown = function(e){
-        var key = e.keyCode || e.which;
-
-        // ESC: stop current game.
-        if(key === 27){
-            stop();
-            return;
-
-        // +: show settings.
-        }else if(key === 187){
-            settings_toggle(true);
-            return;
-
-        // -: hide settings.
-        }else if(key === 189){
-            settings_toggle(false);
-            return;
-        }
-
-        key = String.fromCharCode(key);
-
-        if(key === core_storage_data['movement-keys'][0]){
-            key_left = true;
-
-        }else if(key === core_storage_data['movement-keys'][1]){
-            key_right = true;
-
-        }else if(key === core_storage_data['start-key']){
-            stop();
-            start();
-        }
-    };
-
-    window.onkeyup = function(e){
-        var key = String.fromCharCode(e.keyCode || e.which);
-
-        if(key === core_storage_data['movement-keys'][0]){
-            key_left = false;
-
-        }else if(key === core_storage_data['movement-keys'][1]){
-            key_right = false;
-        }
-    };
 }
 
 function settings_toggle(state){
@@ -339,13 +317,11 @@ function start(){
     document.getElementById(201).style.backgroundColor = color_player;
 
     document.getElementById('score').innerHTML = 0;
-    document.getElementById('start-button').value = 'End (ESC)';
+    document.getElementById('start-button').value = 'End [ESC]';
     document.getElementById('start-button').onclick = stop;
     falling_coins.length = 0;
     frame_orange = 9;
     frame_purple = 0;
-    key_left = false;
-    key_right = false;
     player_x = 6;
 
     // Max time mode.
@@ -398,7 +374,7 @@ function stop(){
     window.clearInterval(interval_time);
 
     document.getElementById('start-button').onclick = start;
-    document.getElementById('start-button').value = 'Start (' + core_storage_data['start-key'] + ')';
+    document.getElementById('start-button').value = 'Start [H]';
 }
 
 function time_interval(mode){
@@ -435,6 +411,4 @@ var frame_purple = 0;
 var interval_coins = 0;
 var interval_player = 0;
 var interval_time = 0;
-var key_left = false;
-var key_right = false;
 var player_x = 6;
