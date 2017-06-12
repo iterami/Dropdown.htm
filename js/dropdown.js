@@ -207,16 +207,6 @@ function repo_init(){
               start();
           },
         },
-        187: {
-          'todo': function(){
-              settings_toggle(true);
-          },
-        },
-        189: {
-          'todo': function(){
-              settings_toggle(false);
-          },
-        },
       },
       'storage': {
         'audio-volume': 1,
@@ -231,6 +221,7 @@ function repo_init(){
         'wrap': 0,
         'y-margin': 0,
       },
+      'storage-menu': '<input id=audio-volume max=1 min=0 step=0.01 type=range>Audio<br><input id=frames-per-purple>Frames/Purple_Coin<br><input id=max>Max <select id=game-mode><option value=0>Points</option><option value=1>Time</option></select><br><input id=movement-keys maxlength=2>Move<br><input id=ms-per-coin-move>ms/Coin_Move<br><input id=ms-per-player-move>ms/Player_Move<br><select id=orange-miss><option value=0>Disappear</option><option selected value=1>End Game</option><option value=2>Score-1</option></select>Orange Coin Miss<br><select id=purple-catch><option value=0>End Game</option><option selected value=1>Score-1</option></select>Purple Coin Catch<br><select id=wrap><option value=0>—</option><option value=2>←</option><option value=3>→</option><option value=1>↔</option></select>Wrap<br><input id=y-margin>Y Margin',
       'title': 'Dropdown.htm',
     });
     audio_init({
@@ -243,20 +234,6 @@ function repo_init(){
         'volume': .1,
       },
     });
-
-    document.getElementById('settings').innerHTML =
-      '<tr><td colspan=2><input id=reset-button onclick=core_storage_reset() type=button value=Reset>'
-        + '<tr><td><input id=audio-volume max=1 min=0 step=0.01 type=range><td>Audio'
-        + '<tr><td><input id=frames-per-purple><td>Frames/Purple_Coin'
-        + '<tr><td><input id=max><td>Max <select id=game-mode><option value=0>Points</option><option value=1>Time</option></select>'
-        + '<tr><td><input id=movement-keys maxlength=2><td>Move'
-        + '<tr><td><input id=ms-per-coin-move><td>ms/Coin_Move'
-        + '<tr><td><input id=ms-per-player-move><td>ms/Player_Move'
-        + '<tr><td><select id=orange-miss><option value=0>Disappear</option><option selected value=1>End Game</option><option value=2>Score-1</option></select><td>Orange Coin Miss'
-        + '<tr><td><select id=purple-catch><option value=0>End Game</option><option selected value=1>Score-1</option></select><td>Purple Coin Catch'
-        + '<tr><td><select id=wrap><option value=0>—</option><option value=2>←</option><option value=3>→</option><option value=1>↔</option></select><td>Wrap'
-        + '<tr><td><input id=y-margin><td>Y Margin';
-    core_storage_update();
 
     // Set margin-top of game-div based on y-margin.
     document.getElementById('game-div').style.marginTop = core_storage_data['y-margin'] + 'px';
@@ -282,25 +259,7 @@ function repo_init(){
 
     stop();
 
-    document.getElementById('settings-button').onclick = function(){
-        settings_toggle();
-    };
     document.getElementById('start-button').onclick = start;
-}
-
-function settings_toggle(state){
-    state = state == void 0
-      ? document.getElementById('settings-button').value === '+'
-      : state;
-
-    if(state){
-        document.getElementById('settings').style.display = 'inline-block';
-        document.getElementById('settings-button').value = '-';
-
-    }else{
-        document.getElementById('settings').style.display = 'none';
-        document.getElementById('settings-button').value = '+';
-    }
 }
 
 function start(){
