@@ -17,9 +17,8 @@ function coin_fall(){
 
                 // Else adjust the score by the point value of the coin.
                 }else{
-                    audio_start({
+                    core_audio_start({
                       'id': 'boop',
-                      'volume-multiplier': core_storage_data['audio-volume'],
                     });
 
                     document.getElementById('score').innerHTML = parseInt(
@@ -209,7 +208,6 @@ function repo_init(){
         },
       },
       'storage': {
-        'audio-volume': 1,
         'frames-per-purple': 9,
         'game-mode': 1,
         'max': 0,
@@ -221,17 +219,13 @@ function repo_init(){
         'wrap': 0,
         'y-margin': 0,
       },
-      'storage-menu': '<input id=audio-volume max=1 min=0 step=0.01 type=range>Audio<br><input id=frames-per-purple>Frames/Purple_Coin<br><input id=max>Max <select id=game-mode><option value=0>Points</option><option value=1>Time</option></select><br><input id=movement-keys maxlength=2>Move<br><input id=ms-per-coin-move>ms/Coin_Move<br><input id=ms-per-player-move>ms/Player_Move<br><select id=orange-miss><option value=0>Disappear</option><option selected value=1>End Game</option><option value=2>Score-1</option></select>Orange Coin Miss<br><select id=purple-catch><option value=0>End Game</option><option selected value=1>Score-1</option></select>Purple Coin Catch<br><select id=wrap><option value=0>—</option><option value=2>←</option><option value=3>→</option><option value=1>↔</option></select>Wrap<br><input id=y-margin>Y Margin',
+      'storage-menu': '<input id=frames-per-purple>Frames/Purple_Coin<br><input id=max>Max <select id=game-mode><option value=0>Points</option><option value=1>Time</option></select><br><input id=movement-keys maxlength=2>Move<br><input id=ms-per-coin-move>ms/Coin_Move<br><input id=ms-per-player-move>ms/Player_Move<br><select id=orange-miss><option value=0>Disappear</option><option selected value=1>End Game</option><option value=2>Score-1</option></select>Orange Coin Miss<br><select id=purple-catch><option value=0>End Game</option><option selected value=1>Score-1</option></select>Purple Coin Catch<br><select id=wrap><option value=0>—</option><option value=2>←</option><option value=3>→</option><option value=1>↔</option></select>Wrap<br><input id=y-margin>Y Margin',
       'title': 'Dropdown.htm',
     });
-    audio_init({
-      'volume': core_storage_data['audio-volume'],
-    });
-    audio_create({
+    core_audio_create({
       'id': 'boop',
       'properties': {
         'duration': .1,
-        'volume': .1,
       },
     });
 
