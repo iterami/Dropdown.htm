@@ -197,6 +197,11 @@ function repo_escape(){
 
 function repo_init(){
     core_repo_init({
+      'audios': {
+        'boop': {
+          'duration': .1,
+        },
+      },
       'keybinds': {
         65: {},
         68: {},
@@ -221,12 +226,6 @@ function repo_init(){
       },
       'storage-menu': '<table><tr><td><input id=frames-per-purple><td>Frames/Purple_Coin<tr><td><input id=max><td>Max <select id=game-mode><option value=0>Points</option><option value=1>Time</option></select><tr><td><input id=movement-keys maxlength=2><td>Move<tr><td><input id=ms-per-coin-move><td>ms/Coin_Move<tr><td><input id=ms-per-player-move><td>ms/Player_Move<tr><td><select id=orange-miss><option value=0>Disappear</option><option selected value=1>End Game</option><option value=2>Score-1</option></select><td>Orange Coin Miss<tr><td><select id=purple-catch><option value=0>End Game</option><option selected value=1>Score-1</option></select><td>Purple Coin Catch<tr><td><select id=wrap><option value=0>—</option><option value=2>←</option><option value=3>→</option><option value=1>↔</option></select><td>Wrap<tr><td><input id=y-margin><td>Y Margin</table>',
       'title': 'Dropdown.htm',
-    });
-    core_audio_create({
-      'id': 'boop',
-      'properties': {
-        'duration': .1,
-      },
     });
 
     // Set margin-top of game-div based on y-margin.
