@@ -6,7 +6,7 @@ function coin_fall(){
         if(falling_coins[coin]['y'] < 15){
             // If coin is at a y position to be caught and it is directly above the player.
             if(falling_coins[coin]['y'] === 14
-              && document.getElementById(195 + falling_coins[coin]['x']).style.backgroundColor === color_player){
+              && document.getElementById(195 + falling_coins[coin]['x']).style.backgroundColor === core_storage_data['color-positive']){
                 // Set button color to empty.
                 document.getElementById(182 + falling_coins[coin]['x']).style.backgroundColor = color_empty;
 
@@ -47,7 +47,7 @@ function coin_fall(){
             id = falling_coins[coin]['x'] + 13 * falling_coins[coin]['y'];
             document.getElementById(id).style.backgroundColor = (falling_coins[coin]['value'] === 1)
               ? color_orange
-              : color_purple;
+              : core_storage_data['color-negative'];
 
             continue;
         }
@@ -109,7 +109,7 @@ function coin_fall(){
           'y': 0,
         });
 
-        document.getElementById(new_purple_x).style.backgroundColor = color_purple;
+        document.getElementById(new_purple_x).style.backgroundColor = core_storage_data['color-negative'];
         frame_purple = -1;
     }
 
@@ -137,7 +137,7 @@ function coin_fall(){
     frame_purple += 1;
 
     // Draw player button just in case it was overwritten.
-    document.getElementById(195 + player_x).style.backgroundColor = color_player;
+    document.getElementById(195 + player_x).style.backgroundColor = core_storage_data['color-positive'];
 }
 
 function player_move(){
@@ -150,7 +150,7 @@ function player_move(){
             player_x -= 1;
 
             // Set new player button to player color.
-            document.getElementById(195 + player_x).style.backgroundColor = color_player;
+            document.getElementById(195 + player_x).style.backgroundColor = core_storage_data['color-positive'];
 
         // Check if player can wrap around left side of game-div.
         }else if(core_storage_data['wrap'] === 1
@@ -162,7 +162,7 @@ function player_move(){
             player_x = 12;
 
             // Set new player button to player color.
-            document.getElementById(195 + player_x).style.backgroundColor = color_player;
+            document.getElementById(195 + player_x).style.backgroundColor = core_storage_data['color-positive'];
         }
 
     }else if(core_keys[68]['state']){
@@ -174,7 +174,7 @@ function player_move(){
             player_x += 1;
 
             // Set new player button to player color.
-            document.getElementById(195 + player_x).style.backgroundColor = color_player;
+            document.getElementById(195 + player_x).style.backgroundColor = core_storage_data['color-positive'];
 
         // Check if player can wrap around right side of game-div.
         }else if(core_storage_data['wrap'] === 1
@@ -186,7 +186,7 @@ function player_move(){
             player_x = 0;
 
             // Set new player button to player color.
-            document.getElementById(195 + player_x).style.backgroundColor = color_player;
+            document.getElementById(195 + player_x).style.backgroundColor = core_storage_data['color-positive'];
         }
     }
 }
@@ -236,7 +236,7 @@ function repo_init(){
         }
 
         var color = loop_counter == 201
-          ? color_player
+          ? core_storage_data['color-positive']
           : color_empty;
 
         output +=
@@ -259,7 +259,7 @@ function start(){
     do{
         document.getElementById(loop_counter).style.backgroundColor = color_empty;
     }while(loop_counter--);
-    document.getElementById(201).style.backgroundColor = color_player;
+    document.getElementById(201).style.backgroundColor = core_storage_data['color-positive'];
 
     document.getElementById('score').innerHTML = 0;
     document.getElementById('start-button').value = 'End [ESC]';
@@ -348,8 +348,6 @@ function time_interval(mode){
 
 var color_empty = 'rgb(42, 42, 42)';
 var color_orange = 'rgb(190, 100, 0)';
-var color_player = 'rgb(32, 102, 32)';
-var color_purple = 'rgb(102, 51, 102)';
 var falling_coins = [];
 var frame_orange = 0;
 var frame_purple = 0;
