@@ -6,7 +6,9 @@ function coin_fall(){
         if(falling_coins[coin]['y'] < 15){
             // If coin is at a y position to be caught and it is directly above the player.
             if(falling_coins[coin]['y'] === 14
-              && document.getElementById(195 + falling_coins[coin]['x']).style.backgroundColor === core_storage_data['color-positive']){
+              && document.getElementById(195 + falling_coins[coin]['x']).style.backgroundColor === core_hex_to_rgb({
+                'hex': core_storage_data['color-positive'],
+              })){
                 // Set button color to empty.
                 document.getElementById(182 + falling_coins[coin]['x']).style.backgroundColor = color_empty;
 
