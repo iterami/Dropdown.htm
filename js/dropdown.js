@@ -23,8 +23,9 @@ function coin_fall(){
                       'id': 'boop',
                     });
 
-                    document.getElementById('score').innerHTML = parseInt(
-                      document.getElementById('score').innerHTML,
+                    var element = document.getElementById('score');
+                    element.innerHTML = parseInt(
+                      element.innerHTML,
                       10
                     ) + falling_coins[coin]['value'];
 
@@ -63,8 +64,9 @@ function coin_fall(){
             }else{
                 // If missing an orange coin decreases score, decrease score.
                 if(core_storage_data['orange-miss'] == 2){
-                    document.getElementById('score').innerHTML = parseInt(
-                      document.getElementById('score').innerHTML,
+                    var element = document.getElementById('score');
+                    element.innerHTML = parseInt(
+                      element.innerHTML,
                       10
                     ) - 1;
                 }
@@ -264,8 +266,9 @@ function start(){
     document.getElementById(201).style.backgroundColor = core_storage_data['color-positive'];
 
     document.getElementById('score').innerHTML = 0;
-    document.getElementById('start-button').value = 'End [ESC]';
-    document.getElementById('start-button').onclick = stop;
+    var element = document.getElementById('start-button');
+    element.value = 'End [ESC]';
+    element.onclick = stop;
     falling_coins.length = 0;
     frame_orange = 9;
     frame_purple = 0;
@@ -320,8 +323,9 @@ function stop(){
     window.clearInterval(interval_player);
     window.clearInterval(interval_time);
 
-    document.getElementById('start-button').onclick = start;
-    document.getElementById('start-button').value = 'Start [H]';
+    var element = document.getElementById('start-button');
+    element.onclick = start;
+    element.value = 'Start [H]';
 }
 
 function time_interval(mode){
