@@ -11,6 +11,11 @@ function repo_init(){
           'duration': .1,
         },
       },
+      'info-events': {
+        'start-button': {
+          'todo': start,
+        },
+      },
       'keybinds': {
         65: {},
         68: {},
@@ -56,6 +61,4 @@ function repo_init(){
     document.getElementById('game-div').innerHTML = output + '<br>';
 
     stop();
-
-    document.getElementById('start-button').onclick = start;
 }
