@@ -206,9 +206,13 @@ function start(){
     document.getElementById(201).style.backgroundColor = core_storage_data['color-positive'];
 
     document.getElementById('score').innerHTML = 0;
-    var element = document.getElementById('start-button');
-    element.value = 'End [ESC]';
-    element.onclick = stop;
+    core_html_modify({
+      'id': 'start-button',
+      'properties': {
+        'onclick': stop,
+        'value': 'End [ESC]',
+      },
+    });
     falling_coins.length = 0;
     frame_orange = 9;
     frame_purple = 0;
@@ -263,9 +267,13 @@ function stop(){
     window.clearInterval(interval_player);
     window.clearInterval(interval_time);
 
-    var element = document.getElementById('start-button');
-    element.onclick = start;
-    element.value = 'Start [H]';
+    core_html_modify({
+      'id': 'start-button',
+      'properties': {
+        'onclick': start,
+        'value': 'Start [H]',
+      },
+    });
 }
 
 function time_interval(mode){
