@@ -299,13 +299,3 @@ function time_interval(mode){
         : .1)
       ).toFixed(1);
 }
-
-var color_empty = 'rgb(42, 42, 42)';
-var color_orange = 'rgb(190, 100, 0)';
-var falling_coins = [];
-var frame_orange = 0;
-var frame_purple = 0;
-var interval_coins = 0;
-var interval_player = 0;
-var interval_time = 0;
-var player_x = 6;

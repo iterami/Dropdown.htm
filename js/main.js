@@ -11,6 +11,17 @@ function repo_init(){
           'duration': .1,
         },
       },
+      'globals': {
+        'color_empty': 'rgb(42, 42, 42)',
+        'color_orange': 'rgb(190, 100, 0)',
+        'falling_coins': [],
+        'frame_orange': 0,
+        'frame_purple': 0,
+        'interval_coins': 0,
+        'interval_player': 0,
+        'interval_time': 0,
+        'player_x': 6,
+      },
       'info-events': {
         'start-button': {
           'todo': start,
