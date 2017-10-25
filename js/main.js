@@ -11,6 +11,11 @@ function repo_init(){
           'duration': .1,
         },
       },
+      'events': {
+        'start-button': {
+          'onclick': start,
+        },
+      },
       'globals': {
         'color_empty': 'rgb(42, 42, 42)',
         'color_orange': 'rgb(190, 100, 0)',
@@ -21,11 +26,6 @@ function repo_init(){
         'interval_player': 0,
         'interval_time': 0,
         'player_x': 6,
-      },
-      'info-events': {
-        'start-button': {
-          'todo': start,
-        },
       },
       'keybinds': {
         65: {},
