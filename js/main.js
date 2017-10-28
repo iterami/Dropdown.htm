@@ -1,9 +1,5 @@
 'use strict';
 
-function repo_escape(){
-    stop();
-}
-
 function repo_init(){
     core_repo_init({
       'audios': {
@@ -22,9 +18,6 @@ function repo_init(){
         'falling_coins': [],
         'frame_orange': 0,
         'frame_purple': 0,
-        'interval_coins': 0,
-        'interval_player': 0,
-        'interval_time': 0,
         'player_x': 6,
       },
       'keybinds': {

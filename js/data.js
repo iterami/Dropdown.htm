@@ -226,12 +226,13 @@ function start(){
         document.getElementById('time-max-span').style.display = core_storage_data['max'] > 0
           ? 'inline'
           : 'none';
-        interval_time = window.setInterval(
-          function(){
+        core_interval_modify({
+          'id': 'time',
+          'interval': 100,
+          'todo': function(){
               time_interval(1);
           },
-          100
-        );
+        });
 
     // Max points mode.
     }else{
@@ -240,32 +241,32 @@ function start(){
         document.getElementById('score-max').innerHTML = core_storage_data['max'] > 0
           ? ' / ' + core_storage_data['max']
           : '';
-        interval_time = window.setInterval(
-          function(){
+        core_interval_modify({
+          'id': 'time',
+          'interval': 100,
+          'todo': function(){
               time_interval(0);
           },
-          100
-        );
+        });
     }
 
-    interval_coins = window.setInterval(
-        coin_fall,
-        core_storage_data['ms-per-coin-move'] > 0
-          ? core_storage_data['ms-per-coin-move']
-          : 100
-    );
-    interval_player = window.setInterval(
-        player_move,
-        core_storage_data['ms-per-coin-move'] > 0
-          ? core_storage_data['ms-per-coin-move']
-          : 100
-    );
+    var interval = core_storage_data['ms-per-coin-move'] > 0
+      ? core_storage_data['ms-per-coin-move']
+      : 100;
+    core_interval_modify({
+      'id': 'coins',
+      'interval': interval,
+      'todo': coin_fall,
+    });
+    core_interval_modify({
+      'id': 'player',
+      'interval': interval,
+      'todo': player_move,
+    });
 }
 
 function stop(){
-    window.clearInterval(interval_coins);
-    window.clearInterval(interval_player);
-    window.clearInterval(interval_time);
+    core_interval_pause_all();
 
     core_html_modify({
       'id': 'start-button',
