@@ -15,7 +15,7 @@ function coin_fall(){
                 // If it is a purple coins and catching purple coins ends the game, end the game.
                 if(falling_coins[coin]['value'] < 0
                   && core_storage_data['purple-catch'] === 0){
-                    stop();
+                    core_interval_pause_all();
 
                 // Else adjust the score by the point value of the coin.
                 }else{
@@ -59,7 +59,7 @@ function coin_fall(){
         if(falling_coins[coin]['value'] === 1){
             // If missing an orange coin causes game to end, end the game.
             if(core_storage_data['orange-miss'] === 1){
-                stop();
+                core_interval_pause_all();
 
             }else{
                 // If missing an orange coin decreases score, decrease score.
@@ -196,7 +196,9 @@ function player_move(){
 }
 
 function start(){
-    core_storage_save();
+    if(core_menu_open){
+        core_escape();
+    }
 
     // Reset colors of buttons.
     var loop_counter = 207;
@@ -206,13 +208,6 @@ function start(){
     document.getElementById(201).style.backgroundColor = core_storage_data['color-positive'];
 
     document.getElementById('score').innerHTML = 0;
-    core_html_modify({
-      'id': 'start-button',
-      'properties': {
-        'onclick': stop,
-        'value': 'End [ESC]',
-      },
-    });
     falling_coins.length = 0;
     frame_orange = 9;
     frame_purple = 0;
@@ -226,13 +221,6 @@ function start(){
         document.getElementById('time-max-span').style.display = core_storage_data['max'] > 0
           ? 'inline'
           : 'none';
-        core_interval_modify({
-          'id': 'time',
-          'interval': 100,
-          'todo': function(){
-              time_interval(1);
-          },
-        });
 
     // Max points mode.
     }else{
@@ -241,38 +229,23 @@ function start(){
         document.getElementById('score-max').innerHTML = core_storage_data['max'] > 0
           ? ' / ' + core_storage_data['max']
           : '';
-        core_interval_modify({
-          'id': 'time',
-          'interval': 100,
-          'todo': function(){
-              time_interval(0);
-          },
-        });
     }
 
-    var interval = core_storage_data['ms-per-coin-move'] > 0
-      ? core_storage_data['ms-per-coin-move']
-      : 100;
     core_interval_modify({
       'id': 'coins',
-      'interval': interval,
+      'interval': core_storage_data['ms-per-coin-move'],
       'todo': coin_fall,
     });
     core_interval_modify({
       'id': 'player',
-      'interval': interval,
+      'interval': core_storage_data['ms-per-player-move'],
       'todo': player_move,
     });
-}
-
-function stop(){
-    core_interval_pause_all();
-
-    core_html_modify({
-      'id': 'start-button',
-      'properties': {
-        'onclick': start,
-        'value': 'Start [H]',
+    core_interval_modify({
+      'id': 'time',
+      'interval': 100,
+      'todo': function(){
+          time_interval(core_storage_data['game-mode']);
       },
     });
 }
@@ -282,13 +255,13 @@ function time_interval(mode){
     if(mode === 1
       && parseFloat(document.getElementById('time').innerHTML) <= 0
       && core_storage_data['max'] > 0){
-        stop();
+        core_interval_pause_all();
         return;
 
     // Max points mode game over.
     }else if(core_storage_data['max'] > 0
       && parseInt(document.getElementById('score').innerHTML, 10) >= core_storage_data['max']){
-        stop();
+        core_interval_pause_all();
         return;
     }
 

@@ -20,6 +20,7 @@ function repo_init(){
         'frame_purple': 0,
         'player_x': 6,
       },
+      'info': '<input id=start-button type=button value=Restart>',
       'keybinds': {
         65: {},
         68: {},
@@ -64,5 +65,5 @@ function repo_init(){
     }
     document.getElementById('game-div').innerHTML = output + '<br>';
 
-    stop();
+    start();
 }
