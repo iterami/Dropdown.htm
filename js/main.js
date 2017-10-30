@@ -9,7 +9,10 @@ function repo_init(){
       },
       'events': {
         'start-button': {
-          'onclick': start,
+          'onclick': function(){
+              core_escape();
+              start();
+          },
         },
       },
       'globals': {
@@ -31,6 +34,7 @@ function repo_init(){
           },
         },
       },
+      'menu': true,
       'storage': {
         'frames-per-purple': 9,
         'game-mode': 1,
@@ -64,6 +68,4 @@ function repo_init(){
           + '" type=button>';
     }
     document.getElementById('game-div').innerHTML = output + '<br>';
-
-    start();
 }

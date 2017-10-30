@@ -196,10 +196,6 @@ function player_move(){
 }
 
 function start(){
-    if(core_menu_open){
-        core_escape();
-    }
-
     // Reset colors of buttons.
     var loop_counter = 207;
     do{
