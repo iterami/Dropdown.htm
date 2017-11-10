@@ -25,8 +25,6 @@ function repo_init(){
       },
       'info': '<input id=start-button type=button value=Restart>',
       'keybinds': {
-        65: {},
-        68: {},
         72: {
           'todo': function(){
               stop();

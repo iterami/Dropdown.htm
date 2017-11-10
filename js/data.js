@@ -145,7 +145,7 @@ function coin_fall(){
 }
 
 function player_move(){
-    if(core_keys[65]['state']){
+    if(core_keys[core_storage_data['move-←']]['state']){
         if(player_x > 0){
             // Set current player button to empty color.
             document.getElementById(195 + player_x).style.backgroundColor = color_empty;
@@ -169,7 +169,7 @@ function player_move(){
             document.getElementById(195 + player_x).style.backgroundColor = core_storage_data['color-positive'];
         }
 
-    }else if(core_keys[68]['state']){
+    }else if(core_keys[core_storage_data['move-→']]['state']){
         if(player_x < 12){
             // Set current player button to empty color.
             document.getElementById(195 + player_x).style.backgroundColor = color_empty;
