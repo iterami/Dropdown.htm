@@ -24,7 +24,7 @@ function coin_fall(){
                     });
 
                     var element = document.getElementById('score');
-                    element.innerHTML = parseInt(
+                    element.innerHTML = Number.parseInt(
                       element.innerHTML,
                       10
                     ) + falling_coins[coin]['value'];
@@ -65,7 +65,7 @@ function coin_fall(){
                 // If missing an orange coin decreases score, decrease score.
                 if(core_storage_data['orange-miss'] == 2){
                     var element = document.getElementById('score');
-                    element.innerHTML = parseInt(
+                    element.innerHTML = Number.parseInt(
                       element.innerHTML,
                       10
                     ) - 1;
