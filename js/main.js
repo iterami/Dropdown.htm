@@ -46,14 +46,14 @@ function repo_init(){
     });
 
     // Setup game div.
-    var output = '';
-    for(var loop_counter = 0; loop_counter < 208; loop_counter++){
+    let output = '';
+    for(let loop_counter = 0; loop_counter < 208; loop_counter++){
         if(loop_counter % 13 === 0
           && loop_counter !== 0){
             output += '<br>';
         }
 
-        var color = loop_counter == 201
+        let color = loop_counter == 201
           ? core_storage_data['color-positive']
           : color_empty;
 
