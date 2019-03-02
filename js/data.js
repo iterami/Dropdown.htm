@@ -199,7 +199,11 @@ function start(){
     // Reset colors of buttons.
     let loop_counter = 207;
     do{
-        document.getElementById(loop_counter).style.backgroundColor = color_empty;
+        let element = document.getElementById(loop_counter);
+
+        element.style.backgroundColor = color_empty;
+        element.style.height = core_storage_data['height'];
+        element.style.width = core_storage_data['width'];
     }while(loop_counter--);
     document.getElementById(201).style.backgroundColor = core_storage_data['color-positive'];
 
