@@ -19,7 +19,7 @@ function coin_fall(){
 
                 // Else adjust the score by the point value of the coin.
                 }else{
-                    core_audio_start({
+                    audio_start({
                       'id': 'boop',
                     });
 

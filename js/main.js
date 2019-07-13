@@ -2,11 +2,6 @@
 
 function repo_init(){
     core_repo_init({
-      'audios': {
-        'boop': {
-          'duration': .1,
-        },
-      },
       'events': {
         'start-button': {
           'onclick': function(){
@@ -52,6 +47,13 @@ function repo_init(){
         + '<tr><td><select id=purple-catch><option value=0>End Game</option><option selected value=1>Score-1</option></select><td>Purple Coin Catch'
         + '<tr><td><select id=wrap><option value=0>—</option><option value=2>←</option><option value=3>→</option><option value=1>↔</option></select><td>Wrap</table>',
       'title': 'Dropdown.htm',
+    });
+    audio_create({
+      'audios': {
+        'boop': {
+          'duration': .1,
+        },
+      },
     });
 
     // Setup game div.
