@@ -9,7 +9,6 @@ function coin_fall(){
               && document.getElementById(195 + falling_coins[coin]['x']).style.backgroundColor === core_hex_to_rgb({
                 'hex': core_storage_data['color-positive'],
               })){
-                // Set button color to empty.
                 document.getElementById(182 + falling_coins[coin]['x']).style.backgroundColor = color_empty;
 
                 // If it is a purple coins and catching purple coins ends the game, end the game.
@@ -29,13 +28,11 @@ function coin_fall(){
                       10
                     ) + falling_coins[coin]['value'];
 
-                    // Remove the coin.
                     falling_coins.splice(
                       coin,
                       1
                     );
 
-                    // Restart coin_fall function.
                     coin_fall();
                     return;
                 }
@@ -79,12 +76,10 @@ function coin_fall(){
                   1
                 );
 
-                // Restart function.
                 coin_fall();
              }
 
         }else{
-            // Delete and ignore purple coin.
             let id = falling_coins[coin]['x'] + 13 * falling_coins[coin]['y'];
             document.getElementById(id).style.backgroundColor = color_empty;
             falling_coins.splice(
@@ -92,7 +87,6 @@ function coin_fall(){
               1
             );
 
-            // Restart function.
             coin_fall();
         }
         return;
@@ -150,7 +144,6 @@ function player_move(){
             // Set current player button to empty color.
             document.getElementById(195 + player_x).style.backgroundColor = color_empty;
 
-            // Update player position.
             player_x -= 1;
 
             // Set new player button to player color.
@@ -162,7 +155,6 @@ function player_move(){
             // Set current player button to empty color.
             document.getElementById(195 + player_x).style.backgroundColor = color_empty;
 
-            // Update player position.
             player_x = 12;
 
             // Set new player button to player color.
@@ -174,7 +166,6 @@ function player_move(){
             // Set current player button to empty color.
             document.getElementById(195 + player_x).style.backgroundColor = color_empty;
 
-            // Update player position.
             player_x += 1;
 
             // Set new player button to player color.
@@ -186,7 +177,6 @@ function player_move(){
             // Set current player button to empty color.
             document.getElementById(195 + player_x).style.backgroundColor = color_empty;
 
-            // Update player position.
             player_x = 0;
 
             // Set new player button to player color.
