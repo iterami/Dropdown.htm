@@ -64,14 +64,20 @@ function repo_init(){
             output += '<br>';
         }
 
-        let color = loop_counter == 201
-          ? core_storage_data['color-positive']
-          : color_empty;
+        let color = color_empty;
+        let value = '';
+
+        if(loop_counter === 201){
+            color = core_storage_data['color-positive'];
+            value = '•';
+        }
 
         output +=
           '<input class=gridbutton disabled id=' + loop_counter
           + ' style="background:' + color
-          + '" type=button>';
+          + '" type=button'
+          + (value.length > 0 ? ' value=' + value : '')
+          + '>';
     }
     document.getElementById('game-div').innerHTML = output + '<br>';
 }
