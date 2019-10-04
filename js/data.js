@@ -9,7 +9,9 @@ function coin_fall(){
               && document.getElementById(195 + falling_coins[coin]['x']).style.backgroundColor === core_hex_to_rgb({
                 'hex': core_storage_data['color-positive'],
               })){
-                document.getElementById(182 + falling_coins[coin]['x']).style.backgroundColor = color_empty;
+                let element = document.getElementById(182 + falling_coins[coin]['x']);
+                element.style.backgroundColor = color_empty;
+                element.value = '';
 
                 // If it is a purple coins and catching purple coins ends the game, end the game.
                 if(falling_coins[coin]['value'] < 0
@@ -22,9 +24,9 @@ function coin_fall(){
                       'id': 'boop',
                     });
 
-                    let element = document.getElementById('score');
-                    element.innerHTML = Number.parseInt(
-                      element.innerHTML,
+                    let score = document.getElementById('score');
+                    score.innerHTML = Number.parseInt(
+                      score.innerHTML,
                       10
                     ) + falling_coins[coin]['value'];
 
@@ -39,15 +41,20 @@ function coin_fall(){
             }
 
             // Update coin Y value.
-            let id = falling_coins[coin]['x'] + 13 * falling_coins[coin]['y'];
-            document.getElementById(id).style.backgroundColor = color_empty;
+            let element = document.getElementById(falling_coins[coin]['x'] + 13 * falling_coins[coin]['y']);
+            element.style.backgroundColor = color_empty;
+            element.value = '';
             falling_coins[coin]['y'] += 1;
 
             // Draw coin at new Y position.
-            id = falling_coins[coin]['x'] + 13 * falling_coins[coin]['y'];
-            document.getElementById(id).style.backgroundColor = (falling_coins[coin]['value'] === 1)
+            element = document.getElementById(falling_coins[coin]['x'] + 13 * falling_coins[coin]['y']);
+            let type = falling_coins[coin]['value'] === 1;
+            element.style.backgroundColor = type
               ? color_orange
               : core_storage_data['color-negative'];
+            element.value = type
+              ? '+'
+              : '-';
 
             continue;
         }
@@ -69,8 +76,9 @@ function coin_fall(){
                 }
 
                 // Delete orange coin.
-                let id = falling_coins[coin]['x'] + 13 * falling_coins[coin]['y'];
-                document.getElementById(id).style.backgroundColor = color_empty;
+                let id = document.getElementById(falling_coins[coin]['x'] + 13 * falling_coins[coin]['y']);
+                element.style.backgroundColor = color_empty;
+                element.value = '';
                 falling_coins.splice(
                   coin,
                   1
@@ -80,8 +88,9 @@ function coin_fall(){
              }
 
         }else{
-            let id = falling_coins[coin]['x'] + 13 * falling_coins[coin]['y'];
-            document.getElementById(id).style.backgroundColor = color_empty;
+            let id = document.getElementById(falling_coins[coin]['x'] + 13 * falling_coins[coin]['y']);
+            element.style.backgroundColor = color_empty;
+            element.value = '';
             falling_coins.splice(
               coin,
               1
@@ -107,7 +116,9 @@ function coin_fall(){
           'y': 0,
         });
 
-        document.getElementById(new_purple_x).style.backgroundColor = core_storage_data['color-negative'];
+        let element = document.getElementById(new_purple_x);
+        element.style.backgroundColor = core_storage_data['color-negative'];
+        element.value = '-';
         frame_purple = -1;
     }
 
@@ -126,7 +137,9 @@ function coin_fall(){
           'y': 0,
         });
 
-        document.getElementById(new_orange_x).style.backgroundColor = color_orange;
+        let element = document.getElementById(new_orange_x);
+        element.style.backgroundColor = color_orange;
+        element.value = '+';
         frame_orange = -1;
     }
 
@@ -135,19 +148,25 @@ function coin_fall(){
     frame_purple += 1;
 
     // Draw player button just in case it was overwritten.
-    document.getElementById(195 + player_x).style.backgroundColor = core_storage_data['color-positive'];
+    let element = document.getElementById(195 + player_x);
+    element.style.backgroundColor = core_storage_data['color-positive'];
+    element.value = '•';
 }
 
 function player_move(){
     if(core_keys[core_storage_data['move-←']]['state']){
         if(player_x > 0){
             // Set current player button to empty color.
-            document.getElementById(195 + player_x).style.backgroundColor = color_empty;
+            let element = document.getElementById(195 + player_x);
+            element.style.backgroundColor = color_empty;
+            element.value = '';
 
             player_x -= 1;
 
             // Set new player button to player color.
-            document.getElementById(195 + player_x).style.backgroundColor = core_storage_data['color-positive'];
+            element = document.getElementById(195 + player_x);
+            element.style.backgroundColor = core_storage_data['color-positive'];
+            element.value = '•';
 
         // Check if player can wrap around left side of game-div.
         }else if(core_storage_data['wrap'] === 1
@@ -158,35 +177,45 @@ function player_move(){
             player_x = 12;
 
             // Set new player button to player color.
-            document.getElementById(195 + player_x).style.backgroundColor = core_storage_data['color-positive'];
+            element = document.getElementById(195 + player_x);
+            element.style.backgroundColor = core_storage_data['color-positive'];
+            element.value = '•';
         }
 
     }else if(core_keys[core_storage_data['move-→']]['state']){
         if(player_x < 12){
             // Set current player button to empty color.
-            document.getElementById(195 + player_x).style.backgroundColor = color_empty;
+            let element = document.getElementById(195 + player_x);
+            element.style.backgroundColor = color_empty;
+            element.value = '';
 
             player_x += 1;
 
             // Set new player button to player color.
-            document.getElementById(195 + player_x).style.backgroundColor = core_storage_data['color-positive'];
+            element = document.getElementById(195 + player_x);
+            element.style.backgroundColor = core_storage_data['color-positive'];
+            element.value = '•';
 
         // Check if player can wrap around right side of game-div.
         }else if(core_storage_data['wrap'] === 1
           || core_storage_data['wrap'] === 3){
             // Set current player button to empty color.
-            document.getElementById(195 + player_x).style.backgroundColor = color_empty;
+            let element = document.getElementById(195 + player_x);
+            element.style.backgroundColor = color_empty;
+            element.value = '';
 
             player_x = 0;
 
             // Set new player button to player color.
-            document.getElementById(195 + player_x).style.backgroundColor = core_storage_data['color-positive'];
+            element = document.getElementById(195 + player_x);
+            element.style.backgroundColor = core_storage_data['color-positive'];
+            element.value = '•';
         }
     }
 }
 
 function start(){
-    // Reset colors of buttons.
+    // Reset buttons.
     let loop_counter = 207;
     do{
         let element = document.getElementById(loop_counter);
@@ -194,8 +223,11 @@ function start(){
         element.style.backgroundColor = color_empty;
         element.style.height = core_storage_data['height'];
         element.style.width = core_storage_data['width'];
+        element.value = '';
     }while(loop_counter--);
-    document.getElementById(201).style.backgroundColor = core_storage_data['color-positive'];
+    let element = document.getElementById(201);
+    element.style.backgroundColor = core_storage_data['color-positive'];
+    element.value = '•';
 
     document.getElementById('score').innerHTML = 0;
     falling_coins.length = 0;
