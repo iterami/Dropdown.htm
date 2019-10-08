@@ -1,5 +1,11 @@
 'use strict';
 
+function repo_escape(){
+    if(!core_intervals['player']){
+        core_repo_reset();
+    }
+}
+
 function repo_init(){
     core_repo_init({
       'events': {
