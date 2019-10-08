@@ -1,7 +1,8 @@
 'use strict';
 
 function repo_escape(){
-    if(!core_intervals['player']){
+    if(!core_intervals['player']
+      && !core_menu_open){
         core_repo_reset();
     }
 }
