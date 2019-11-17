@@ -172,7 +172,9 @@ function player_move(){
         }else if(core_storage_data['wrap'] === 1
           || core_storage_data['wrap'] === 2){
             // Set current player button to empty color.
-            document.getElementById(195 + player_x).style.backgroundColor = color_empty;
+            let element = document.getElementById(195 + player_x);
+            element.style.backgroundColor = color_empty;
+            element.value = '';
 
             player_x = 12;
 
