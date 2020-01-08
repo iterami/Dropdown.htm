@@ -25,8 +25,8 @@ function coin_fall(){
                     });
 
                     let score = document.getElementById('score');
-                    score.innerHTML = Number.parseInt(
-                      score.innerHTML,
+                    score.textContent = Number.parseInt(
+                      score.textContent,
                       10
                     ) + falling_coins[coin]['value'];
 
@@ -69,8 +69,8 @@ function coin_fall(){
                 // If missing an orange coin decreases score, decrease score.
                 if(core_storage_data['orange-miss'] === 2){
                     let element = document.getElementById('score');
-                    element.innerHTML = Number.parseInt(
-                      element.innerHTML,
+                    element.textContent = Number.parseInt(
+                      element.textContent,
                       10
                     ) - 1;
                 }
@@ -231,7 +231,7 @@ function start(){
     element.style.backgroundColor = core_storage_data['color-positive'];
     element.value = '•';
 
-    document.getElementById('score').innerHTML = 0;
+    document.getElementById('score').textContent = 0;
     falling_coins.length = 0;
     frame_orange = 9;
     frame_purple = 0;
