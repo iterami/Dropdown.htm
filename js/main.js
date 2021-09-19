@@ -17,6 +17,7 @@ function repo_init(){
       'globals': {
         'color_empty': 'rgb(42, 42, 42)',
         'color_orange': 'rgb(190, 100, 0)',
+        'color_positive': '',
         'falling_coins': [],
         'frame_orange': 0,
         'frame_purple': 0,

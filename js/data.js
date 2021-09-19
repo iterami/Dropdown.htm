@@ -6,9 +6,7 @@ function coin_fall(){
         if(falling_coins[coin]['y'] < 15){
             // If coin is at a y position to be caught and it is directly above the player.
             if(falling_coins[coin]['y'] === 14
-              && document.getElementById(195 + falling_coins[coin]['x']).style.backgroundColor === core_hex_to_rgb({
-                'hex': core_storage_data['color-positive'],
-              })){
+              && document.getElementById(195 + falling_coins[coin]['x']).style.backgroundColor === color_positive){
                 const element = document.getElementById(182 + falling_coins[coin]['x']);
                 element.style.backgroundColor = color_empty;
                 element.value = '';
@@ -231,7 +229,12 @@ function start(){
     element.style.backgroundColor = core_storage_data['color-positive'];
     element.value = '•';
 
+    const rgb = core_hex_to_rgb({
+      'hex': core_storage_data['color-positive'],
+    });
+
     document.getElementById('score').textContent = 0;
+    color_positive = 'rgb(' + rgb['red'] + ', ' + rgb['green'] + ', ' + rgb['blue'] + ')';
     falling_coins.length = 0;
     frame_orange = 9;
     frame_purple = 0;
