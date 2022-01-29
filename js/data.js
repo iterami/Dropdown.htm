@@ -2,21 +2,17 @@
 
 function coin_fall(){
     for(const coin in falling_coins){
-        // If coin is not at the bottom of the game-div.
         if(falling_coins[coin]['y'] < 15){
-            // If coin is at a y position to be caught and it is directly above the player.
             if(falling_coins[coin]['y'] === 14
               && document.getElementById(195 + falling_coins[coin]['x']).style.backgroundColor === color_positive){
                 const element = document.getElementById(182 + falling_coins[coin]['x']);
                 element.style.backgroundColor = color_empty;
                 element.value = '';
 
-                // If it is a purple coins and catching purple coins ends the game, end the game.
                 if(falling_coins[coin]['value'] < 0
                   && core_storage_data['purple-catch'] === 0){
                     core_interval_pause_all();
 
-                // Else adjust the score by the point value of the coin.
                 }else{
                     audio_start({
                       'id': 'boop',
@@ -38,13 +34,11 @@ function coin_fall(){
                 }
             }
 
-            // Update coin Y value.
             let element = document.getElementById(falling_coins[coin]['x'] + 13 * falling_coins[coin]['y']);
             element.style.backgroundColor = color_empty;
             element.value = '';
             falling_coins[coin]['y'] += 1;
 
-            // Draw coin at new Y position.
             element = document.getElementById(falling_coins[coin]['x'] + 13 * falling_coins[coin]['y']);
             const type = falling_coins[coin]['value'] === 1;
             element.style.backgroundColor = type
@@ -57,14 +51,11 @@ function coin_fall(){
             continue;
         }
 
-        // If it is an orange coin.
         if(falling_coins[coin]['value'] === 1){
-            // If missing an orange coin causes game to end, end the game.
             if(core_storage_data['orange-miss'] === 1){
                 core_interval_pause_all();
 
             }else{
-                // If missing an orange coin decreases score, decrease score.
                 if(core_storage_data['orange-miss'] === 2){
                     const element = document.getElementById('score');
                     element.textContent = Number.parseInt(
@@ -73,7 +64,6 @@ function coin_fall(){
                     ) - 1;
                 }
 
-                // Delete orange coin.
                 const element = document.getElementById(falling_coins[coin]['x'] + 13 * falling_coins[coin]['y']);
                 element.style.backgroundColor = color_empty;
                 element.value = '';
@@ -101,7 +91,6 @@ function coin_fall(){
 
     let new_purple_x = -1;
 
-    // If there are purple buttons and it is time to add one...
     if(core_storage_data['frames-per-purple'] > 0
       && frame_purple === core_storage_data['frames-per-purple']){
         new_purple_x = core_random_integer({
@@ -120,7 +109,6 @@ function coin_fall(){
         frame_purple = -1;
     }
 
-    // If it is time to add an orange button...
     if(frame_orange === 9){
         let new_orange_x = new_purple_x;
         do{
@@ -141,11 +129,9 @@ function coin_fall(){
         frame_orange = -1;
     }
 
-    // Increase frame counters.
     frame_orange += 1;
     frame_purple += 1;
 
-    // Draw player button just in case it was overwritten.
     const element = document.getElementById(195 + player_x);
     element.style.backgroundColor = core_storage_data['color-positive'];
     element.value = '•';
@@ -154,29 +140,24 @@ function coin_fall(){
 function player_move(){
     if(core_keys[core_storage_data['move-←']]['state']){
         if(player_x > 0){
-            // Set current player button to empty color.
             let element = document.getElementById(195 + player_x);
             element.style.backgroundColor = color_empty;
             element.value = '';
 
             player_x -= 1;
 
-            // Set new player button to player color.
             element = document.getElementById(195 + player_x);
             element.style.backgroundColor = core_storage_data['color-positive'];
             element.value = '•';
 
-        // Check if player can wrap around left side of game-div.
         }else if(core_storage_data['wrap'] === 1
           || core_storage_data['wrap'] === 2){
-            // Set current player button to empty color.
             const element = document.getElementById(195 + player_x);
             element.style.backgroundColor = color_empty;
             element.value = '';
 
             player_x = 12;
 
-            // Set new player button to player color.
             element = document.getElementById(195 + player_x);
             element.style.backgroundColor = core_storage_data['color-positive'];
             element.value = '•';
@@ -184,29 +165,24 @@ function player_move(){
 
     }else if(core_keys[core_storage_data['move-→']]['state']){
         if(player_x < 12){
-            // Set current player button to empty color.
             let element = document.getElementById(195 + player_x);
             element.style.backgroundColor = color_empty;
             element.value = '';
 
             player_x += 1;
 
-            // Set new player button to player color.
             element = document.getElementById(195 + player_x);
             element.style.backgroundColor = core_storage_data['color-positive'];
             element.value = '•';
 
-        // Check if player can wrap around right side of game-div.
         }else if(core_storage_data['wrap'] === 1
           || core_storage_data['wrap'] === 3){
-            // Set current player button to empty color.
             const element = document.getElementById(195 + player_x);
             element.style.backgroundColor = color_empty;
             element.value = '';
 
             player_x = 0;
 
-            // Set new player button to player color.
             element = document.getElementById(195 + player_x);
             element.style.backgroundColor = core_storage_data['color-positive'];
             element.value = '•';
@@ -215,7 +191,6 @@ function player_move(){
 }
 
 function start(){
-    // Reset buttons.
     let loop_counter = 207;
     do{
         const element = document.getElementById(loop_counter);

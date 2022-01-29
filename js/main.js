@@ -44,9 +44,9 @@ function repo_init(){
       },
       'storage-menu': '<table><tr><td><input id=height><td>Button Height'
         + '<tr><td><input id=width><td>Button Width'
-        + '<tr><td><input id=frames-per-purple><td>Frames/Purple_Coin'
-        + '<tr><td><input id=ms-per-coin-move><td>ms/Coin_Move'
-        + '<tr><td><input id=ms-per-player-move><td>ms/Player_Move'
+        + '<tr><td><input id=frames-per-purple min=1 type=number><td>Frames/Purple_Coin'
+        + '<tr><td><input id=ms-per-coin-move min=1 type=number><td>ms/Coin_Move'
+        + '<tr><td><input id=ms-per-player-move min=1 type=number><td>ms/Player_Move'
         + '<tr><td><select id=orange-miss><option value=0>Disappear</option><option selected value=1>End Game</option><option value=2>Score-1</option></select><td>Orange Coin Miss'
         + '<tr><td><select id=purple-catch><option value=0>End Game</option><option selected value=1>Score-1</option></select><td>Purple Coin Catch'
         + '<tr><td><select id=wrap><option value=0>—</option><option value=2>←</option><option value=3>→</option><option value=1>↔</option></select><td>Wrap</table>',
@@ -60,7 +60,6 @@ function repo_init(){
       },
     });
 
-    // Setup game div.
     let output = '';
     for(let loop_counter = 0; loop_counter < 208; loop_counter++){
         if(loop_counter % 13 === 0
