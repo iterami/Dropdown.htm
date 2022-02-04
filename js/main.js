@@ -42,11 +42,11 @@ function repo_init(){
         'width': '25px',
         'wrap': 0,
       },
-      'storage-menu': '<table><tr><td><input id=height><td>Button Height'
-        + '<tr><td><input id=width><td>Button Width'
-        + '<tr><td><input id=frames-per-purple min=1 step=any type=number><td>Frames/Purple_Coin'
-        + '<tr><td><input id=ms-per-coin-move min=1 step=any type=number><td>ms/Coin_Move'
-        + '<tr><td><input id=ms-per-player-move min=1 step=any type=number><td>ms/Player_Move'
+      'storage-menu': '<table><tr><td><input class=mini id=height><td>Button Height'
+        + '<tr><td><input class=mini id=width><td>Button Width'
+        + '<tr><td><input class=mini id=frames-per-purple min=1 step=any type=number><td>Frames/Purple_Coin'
+        + '<tr><td><input class=mini id=ms-per-coin-move min=1 step=any type=number><td>ms/Coin_Move'
+        + '<tr><td><input class=mini id=ms-per-player-move min=1 step=any type=number><td>ms/Player_Move'
         + '<tr><td><select id=orange-miss><option value=0>Disappear</option><option selected value=1>End Game</option><option value=2>Score-1</option></select><td>Orange Coin Miss'
         + '<tr><td><select id=purple-catch><option value=0>End Game</option><option selected value=1>Score-1</option></select><td>Purple Coin Catch'
         + '<tr><td><select id=wrap><option value=0>—</option><option value=2>←</option><option value=3>→</option><option value=1>↔</option></select><td>Wrap</table>',
