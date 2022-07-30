@@ -49,7 +49,7 @@ function repo_init(){
         + '<tr><td><input class=mini id=ms-per-player-move min=1 step=any type=number><td>ms/Player_Move'
         + '<tr><td><select id=orange-miss><option value=0>Disappear</option><option selected value=1>End Game</option><option value=2>Score-1</option></select><td>Orange Coin Miss'
         + '<tr><td><select id=purple-catch><option value=0>End Game</option><option selected value=1>Score-1</option></select><td>Purple Coin Catch'
-        + '<tr><td><select id=wrap><option value=0>—</option><option value=2>←</option><option value=3>→</option><option value=1>↔</option></select><td>Wrap</table>',
+        + '<tr><td><select id=wrap><option value=0>No</option><option value=1>Both</option><option value=2>Left</option><option value=3>Right</option></select><td>Wrap</table>',
       'title': 'Dropdown.htm',
     });
     audio_create({

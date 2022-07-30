@@ -152,7 +152,7 @@ function player_move(){
 
         }else if(core_storage_data['wrap'] === 1
           || core_storage_data['wrap'] === 2){
-            const element = document.getElementById(195 + player_x);
+            let element = document.getElementById(195 + player_x);
             element.style.backgroundColor = color_empty;
             element.value = '';
 
@@ -177,7 +177,7 @@ function player_move(){
 
         }else if(core_storage_data['wrap'] === 1
           || core_storage_data['wrap'] === 3){
-            const element = document.getElementById(195 + player_x);
+            let element = document.getElementById(195 + player_x);
             element.style.backgroundColor = color_empty;
             element.value = '';
 
