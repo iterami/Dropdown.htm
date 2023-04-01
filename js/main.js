@@ -82,5 +82,7 @@ function repo_init(){
           + (value.length ? ' value=' + value : '')
           + '>';
     }
-    document.getElementById('game-div').innerHTML = output + '<br>';
+    const gamediv = document.getElementById('game-div');
+    gamediv.innerHTML = output + '<br>';
+    gamediv.style.minWidth = '360px';
 }
