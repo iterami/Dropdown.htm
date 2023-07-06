@@ -42,8 +42,8 @@ function repo_init(){
         'width': '25px',
         'wrap': 0,
       },
-      'storage-menu': '<table><tr><td><input class=mini id=height><td>Button Height'
-        + '<tr><td><input class=mini id=width><td>Button Width'
+      'storage-menu': '<table><tr><td><input class=mini id=height type=text><td>Button Height'
+        + '<tr><td><input class=mini id=width type=text><td>Button Width'
         + '<tr><td><input class=mini id=frames-per-purple min=1 step=any type=number><td>Frames/Purple_Coin'
         + '<tr><td><input class=mini id=ms-per-coin-move min=1 step=any type=number><td>ms/Coin_Move'
         + '<tr><td><input class=mini id=ms-per-player-move min=1 step=any type=number><td>ms/Player_Move'
