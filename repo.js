@@ -43,7 +43,7 @@ function coin_fall(){
             const type = falling_coins[coin]['value'] === 1;
             element.style.backgroundColor = type
               ? color_orange
-              : core_storage_data['color-negative'];
+              : color_negative;
             element.value = type
               ? '+'
               : '-';
@@ -104,7 +104,7 @@ function coin_fall(){
         });
 
         const element = document.getElementById(new_purple_x);
-        element.style.backgroundColor = core_storage_data['color-negative'];
+        element.style.backgroundColor = color_negative;
         element.value = '-';
         frame_purple = -1;
     }
@@ -133,7 +133,7 @@ function coin_fall(){
     frame_purple += 1;
 
     const element = document.getElementById(195 + player_x);
-    element.style.backgroundColor = core_storage_data['color-positive'];
+    element.style.backgroundColor = color_positive;
     element.value = '•';
 }
 
@@ -147,7 +147,7 @@ function player_move(){
             player_x -= 1;
 
             element = document.getElementById(195 + player_x);
-            element.style.backgroundColor = core_storage_data['color-positive'];
+            element.style.backgroundColor = color_positive;
             element.value = '•';
 
         }else if(core_storage_data['wrap'] === 1
@@ -159,7 +159,7 @@ function player_move(){
             player_x = 12;
 
             element = document.getElementById(195 + player_x);
-            element.style.backgroundColor = core_storage_data['color-positive'];
+            element.style.backgroundColor = color_positive;
             element.value = '•';
         }
 
@@ -172,7 +172,7 @@ function player_move(){
             player_x += 1;
 
             element = document.getElementById(195 + player_x);
-            element.style.backgroundColor = core_storage_data['color-positive'];
+            element.style.backgroundColor = color_positive;
             element.value = '•';
 
         }else if(core_storage_data['wrap'] === 1
@@ -184,7 +184,7 @@ function player_move(){
             player_x = 0;
 
             element = document.getElementById(195 + player_x);
-            element.style.backgroundColor = core_storage_data['color-positive'];
+            element.style.backgroundColor = color_positive;
             element.value = '•';
         }
     }
@@ -207,7 +207,8 @@ function repo_init(){
       'globals': {
         'color_empty': 'rgb(42, 42, 42)',
         'color_orange': 'rgb(190, 100, 0)',
-        'color_positive': '',
+        'color_negative': '#663366',
+        'color_positive': 'rgb(32, 102, 32)',
         'falling_coins': [],
         'frame_orange': 0,
         'frame_purple': 0,
@@ -261,7 +262,7 @@ function repo_init(){
         let value = '';
 
         if(loop_counter === 201){
-            color = core_storage_data['color-positive'];
+            color = color_positive;
             value = '•';
         }
 
@@ -288,15 +289,14 @@ function start(){
         element.value = '';
     }while(loop_counter--);
     const element = document.getElementById(201);
-    element.style.backgroundColor = core_storage_data['color-positive'];
+    element.style.backgroundColor = color_positive;
     element.value = '•';
 
     const rgb = core_hex_to_rgb({
-      'hex': core_storage_data['color-positive'],
+      'hex': '#206620',
     });
 
     document.getElementById('score').textContent = 0;
-    color_positive = 'rgb(' + rgb['red'] + ', ' + rgb['green'] + ', ' + rgb['blue'] + ')';
     falling_coins.length = 0;
     frame_orange = 9;
     frame_purple = 0;
