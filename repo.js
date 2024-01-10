@@ -292,9 +292,7 @@ function start(){
     element.style.backgroundColor = color_positive;
     element.value = '•';
 
-    const rgb = core_hex_to_rgb({
-      'hex': '#206620',
-    });
+    const rgb = core_hex_to_rgb('#206620');
 
     document.getElementById('score').textContent = 0;
     falling_coins.length = 0;
