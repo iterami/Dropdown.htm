@@ -7,7 +7,7 @@ function coin_fall(){
               && document.getElementById(195 + falling_coins[coin]['x']).style.backgroundColor === color_positive){
                 const element = document.getElementById(182 + falling_coins[coin]['x']);
                 element.style.backgroundColor = color_empty;
-                element.value = '';
+                element.textContent = '';
 
                 if(falling_coins[coin]['value'] < 0
                   && core_storage_data['purple-catch'] === 0){
@@ -36,7 +36,7 @@ function coin_fall(){
 
             let element = document.getElementById(falling_coins[coin]['x'] + 13 * falling_coins[coin]['y']);
             element.style.backgroundColor = color_empty;
-            element.value = '';
+            element.textContent = '';
             falling_coins[coin]['y'] += 1;
 
             element = document.getElementById(falling_coins[coin]['x'] + 13 * falling_coins[coin]['y']);
@@ -44,7 +44,7 @@ function coin_fall(){
             element.style.backgroundColor = type
               ? color_orange
               : color_negative;
-            element.value = type
+            element.textContent = type
               ? '+'
               : '-';
 
@@ -66,7 +66,7 @@ function coin_fall(){
 
                 const element = document.getElementById(falling_coins[coin]['x'] + 13 * falling_coins[coin]['y']);
                 element.style.backgroundColor = color_empty;
-                element.value = '';
+                element.textContent = '';
                 falling_coins.splice(
                   coin,
                   1
@@ -78,7 +78,7 @@ function coin_fall(){
         }else{
             const element = document.getElementById(falling_coins[coin]['x'] + 13 * falling_coins[coin]['y']);
             element.style.backgroundColor = color_empty;
-            element.value = '';
+            element.textContent = '';
             falling_coins.splice(
               coin,
               1
@@ -105,7 +105,7 @@ function coin_fall(){
 
         const element = document.getElementById(new_purple_x);
         element.style.backgroundColor = color_negative;
-        element.value = '-';
+        element.textContent = '-';
         frame_purple = -1;
     }
 
@@ -125,7 +125,7 @@ function coin_fall(){
 
         const element = document.getElementById(new_orange_x);
         element.style.backgroundColor = color_orange;
-        element.value = '+';
+        element.textContent = '+';
         frame_orange = -1;
     }
 
@@ -134,7 +134,7 @@ function coin_fall(){
 
     const element = document.getElementById(195 + player_x);
     element.style.backgroundColor = color_positive;
-    element.value = '•';
+    element.textContent = '•';
 }
 
 function player_move(){
@@ -142,50 +142,50 @@ function player_move(){
         if(player_x > 0){
             let element = document.getElementById(195 + player_x);
             element.style.backgroundColor = color_empty;
-            element.value = '';
+            element.textContent = '';
 
             player_x -= 1;
 
             element = document.getElementById(195 + player_x);
             element.style.backgroundColor = color_positive;
-            element.value = '•';
+            element.textContent = '•';
 
         }else if(core_storage_data['wrap'] === 1
           || core_storage_data['wrap'] === 2){
             let element = document.getElementById(195 + player_x);
             element.style.backgroundColor = color_empty;
-            element.value = '';
+            element.textContent = '';
 
             player_x = 12;
 
             element = document.getElementById(195 + player_x);
             element.style.backgroundColor = color_positive;
-            element.value = '•';
+            element.textContent = '•';
         }
 
     }else if(core_keys[core_storage_data['move-→']]['state']){
         if(player_x < 12){
             let element = document.getElementById(195 + player_x);
             element.style.backgroundColor = color_empty;
-            element.value = '';
+            element.textContent = '';
 
             player_x += 1;
 
             element = document.getElementById(195 + player_x);
             element.style.backgroundColor = color_positive;
-            element.value = '•';
+            element.textContent = '•';
 
         }else if(core_storage_data['wrap'] === 1
           || core_storage_data['wrap'] === 3){
             let element = document.getElementById(195 + player_x);
             element.style.backgroundColor = color_empty;
-            element.value = '';
+            element.textContent = '';
 
             player_x = 0;
 
             element = document.getElementById(195 + player_x);
             element.style.backgroundColor = color_positive;
-            element.value = '•';
+            element.textContent = '•';
         }
     }
 }
@@ -259,18 +259,18 @@ function repo_init(){
         }
 
         let color = color_empty;
-        let value = '';
+        let textContent = '';
 
         if(loop_counter === 201){
             color = color_positive;
-            value = '•';
+            textContent = '•';
         }
 
         output +=
           '<button class=gridbutton disabled id=' + loop_counter
           + ' style="background-color:' + color
           + '" type=button>'
-          + (value.length ? value : '')
+          + (textContent.length ? textContent : '')
           + '</button>';
     }
     const gamediv = document.getElementById('game-div');
@@ -286,11 +286,11 @@ function start(){
         element.style.backgroundColor = color_empty;
         element.style.height = core_storage_data['height'];
         element.style.width = core_storage_data['width'];
-        element.value = '';
+        element.textContent = '';
     }while(loop_counter--);
     const element = document.getElementById(201);
     element.style.backgroundColor = color_positive;
-    element.value = '•';
+    element.textContent = '•';
 
     const rgb = core_hex_to_rgb('#206620');
 
