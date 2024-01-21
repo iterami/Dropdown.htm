@@ -214,7 +214,7 @@ function repo_init(){
         'frame_purple': 0,
         'player_x': 6,
       },
-      'info': '<input id=start-button type=button value=Restart>',
+      'info': '<button id=start-button type=button>Restart</button>',
       'menu': true,
       'reset': function(){
           stop();
@@ -267,11 +267,11 @@ function repo_init(){
         }
 
         output +=
-          '<input class=gridbutton disabled id=' + loop_counter
+          '<button class=gridbutton disabled id=' + loop_counter
           + ' style="background-color:' + color
-          + '" type=button'
-          + (value.length ? ' value=' + value : '')
-          + '>';
+          + '" type=button>'
+          + (value.length ? value : '')
+          + '</button>';
     }
     const gamediv = document.getElementById('game-div');
     gamediv.innerHTML = output + '<br>';
