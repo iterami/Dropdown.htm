@@ -14,9 +14,7 @@ function coin_fall(){
                     core_interval_pause_all();
 
                 }else{
-                    audio_start({
-                      'id': 'boop',
-                    });
+                    audio_start('boop');
 
                     const score = document.getElementById('score');
                     score.textContent = Number.parseInt(
@@ -242,13 +240,6 @@ function repo_init(){
         + '<tr><td><select id=purple-catch><option value=0>End Game<option selected value=1>Score-1</select><td>Purple Coin Catch'
         + '<tr><td><select id=wrap><option value=0>No<option value=1>Both<option value=2>Left<option value=3>Right</select><td>Wrap</table>',
       'title': 'Dropdown.htm',
-    });
-    audio_create({
-      'audios': {
-        'boop': {
-          'duration': .1,
-        },
-      },
     });
 
     let output = '';
