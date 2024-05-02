@@ -223,12 +223,12 @@ function repo_init(){
       },
       'storage': {
         'frames-per-purple': 9,
-        'height': '25px',
+        'height': 25,
         'ms-per-coin-move': 100,
         'ms-per-player-move': 100,
         'orange-miss': 1,
         'purple-catch': 1,
-        'width': '25px',
+        'width': 25,
         'wrap': 0,
       },
       'storage-menu': '<table><tr><td><input class=mini id=height type=text><td>Button Height'
@@ -262,8 +262,10 @@ function reset(){
         const element = document.getElementById(loop_counter);
 
         element.style.backgroundColor = color_empty;
-        element.style.height = core_storage_data['height'];
-        element.style.width = core_storage_data['width'];
+        element.style.fontSize = Math.ceil(core_storage_data['height'] / 2) + 'px';
+        element.style.height = core_storage_data['height'] + 'px';
+        element.style.lineHeight = Math.ceil(core_storage_data['height'] / 2) + 'px';
+        element.style.width = core_storage_data['width'] + 'px';
         element.textContent = '';
     }while(loop_counter--);
     const element = document.getElementById(201);
@@ -272,6 +274,7 @@ function reset(){
 
     const rgb = core_hex_to_rgb('#206620');
 
+    document.getElementById('game-div').style.lineHeight = core_storage_data['height'] + 'px';
     document.getElementById('score').textContent = 0;
     falling_coins.length = 0;
     frame_orange = 9;
