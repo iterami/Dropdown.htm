@@ -244,32 +244,19 @@ function repo_init(){
 
     let output = '';
     for(let loop_counter = 0; loop_counter < 208; loop_counter++){
-        if(loop_counter % 13 === 0
-          && loop_counter !== 0){
+        if(loop_counter % 13 === 0 && loop_counter !== 0){
             output += '<br>';
         }
 
-        let color = color_empty;
-        let textContent = '';
-
-        if(loop_counter === 201){
-            color = color_positive;
-            textContent = '•';
-        }
-
-        output +=
-          '<button class=gridbutton disabled id=' + loop_counter
-          + ' style="background-color:' + color
-          + '" type=button>'
-          + (textContent.length ? textContent : '')
-          + '</button>';
+        output += '<button class=gridbutton disabled id=' + loop_counter + ' type=button></button>';
     }
     const gamediv = document.getElementById('game-div');
     gamediv.innerHTML = output + '<br>';
     gamediv.style.minWidth = '360px';
+    reset();
 }
 
-function start(){
+function reset(){
     let loop_counter = 207;
     do{
         const element = document.getElementById(loop_counter);
@@ -290,6 +277,10 @@ function start(){
     frame_orange = 9;
     frame_purple = 0;
     player_x = 6;
+}
+
+function start(){
+    reset();
 
     core_interval_modify({
       'id': 'coins',
