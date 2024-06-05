@@ -258,7 +258,9 @@ function repo_init(){
 function reset(){
     let loop_counter = 207;
     do{
-        core_elements[loop_counter] = document.getElementById(loop_counter);
+        if(!core_elements[loop_counter]){
+            core_elements[loop_counter] = document.getElementById(loop_counter);
+        }
 
         core_elements[loop_counter].style.backgroundColor = color_empty;
         core_elements[loop_counter].style.fontSize = Math.ceil(core_storage_data['height'] / 2) + 'px';
