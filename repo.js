@@ -4,7 +4,7 @@ function coin_fall(){
     for(const coin in falling_coins){
         if(falling_coins[coin]['y'] < 15){
             if(falling_coins[coin]['y'] === 14
-              && document.getElementById(195 + falling_coins[coin]['x']).style.backgroundColor === color_positive){
+              && core_elements[195 + falling_coins[coin]['x']].style.backgroundColor === color_positive){
                 const element = core_elements[182 + falling_coins[coin]['x']];
                 element.style.backgroundColor = color_empty;
                 element.textContent = '';
