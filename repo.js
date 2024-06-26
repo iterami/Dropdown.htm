@@ -88,7 +88,7 @@ function coin_fall(){
     let new_purple_x = -1;
 
     if(core_storage_data['frames-per-purple'] > 0
-      && frame_purple === core_storage_data['frames-per-purple']){
+      && frame_purple === Math.floor(core_storage_data['frames-per-purple'])){
         new_purple_x = core_random_integer({
           'max': 13,
         });
@@ -229,7 +229,7 @@ function repo_init(){
       },
       'storage-menu': '<table><tr><td><input class=mini id=height type=text><td>Button Height'
         + '<tr><td><input class=mini id=width type=text><td>Button Width'
-        + '<tr><td><input class=mini id=frames-per-purple min=1 step=any type=number><td>Frames/Purple_Coin'
+        + '<tr><td><input class=mini id=frames-per-purple min=1 step=1 type=number><td>Frames/Purple_Coin'
         + '<tr><td><input class=mini id=ms-per-coin-move min=1 step=any type=number><td>ms/Coin_Move'
         + '<tr><td><input class=mini id=ms-per-player-move min=1 step=any type=number><td>ms/Player_Move'
         + '<tr><td><select id=orange-miss><option value=0>Disappear<option selected value=1>End Game<option value=2>Score-1</select><td>Orange Coin Miss'
