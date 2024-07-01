@@ -6,7 +6,7 @@ function coin_fall(){
             if(falling_coins[coin]['y'] === 14
               && core_elements[195 + falling_coins[coin]['x']].style.backgroundColor === color_positive){
                 const element = core_elements[182 + falling_coins[coin]['x']];
-                element.style.backgroundColor = color_empty;
+                element.style.backgroundColor = '';
                 element.textContent = '';
 
                 if(falling_coins[coin]['value'] < 0
@@ -32,7 +32,7 @@ function coin_fall(){
             }
 
             let element = core_elements[falling_coins[coin]['x'] + 13 * falling_coins[coin]['y']];
-            element.style.backgroundColor = color_empty;
+            element.style.backgroundColor = '';
             element.textContent = '';
             falling_coins[coin]['y'] += 1;
 
@@ -61,7 +61,7 @@ function coin_fall(){
                 }
 
                 const element = core_elements[falling_coins[coin]['x'] + 13 * falling_coins[coin]['y']];
-                element.style.backgroundColor = color_empty;
+                element.style.backgroundColor = '';
                 element.textContent = '';
                 falling_coins.splice(
                   coin,
@@ -73,7 +73,7 @@ function coin_fall(){
 
         }else{
             const element = core_elements[falling_coins[coin]['x'] + 13 * falling_coins[coin]['y']];
-            element.style.backgroundColor = color_empty;
+            element.style.backgroundColor = '';
             element.textContent = '';
             falling_coins.splice(
               coin,
@@ -135,7 +135,7 @@ function player_move(){
     if(core_keys[core_storage_data['move-←']]['state']){
         if(player_x > 0){
             let element = core_elements[195 + player_x];
-            element.style.backgroundColor = color_empty;
+            element.style.backgroundColor = '';
             element.textContent = '';
 
             player_x -= 1;
@@ -147,7 +147,7 @@ function player_move(){
         }else if(core_storage_data['wrap'] === 1
           || core_storage_data['wrap'] === 2){
             let element = core_elements[195 + player_x];
-            element.style.backgroundColor = color_empty;
+            element.style.backgroundColor = '';
             element.textContent = '';
 
             player_x = 12;
@@ -160,7 +160,7 @@ function player_move(){
     }else if(core_keys[core_storage_data['move-→']]['state']){
         if(player_x < 12){
             let element = core_elements[195 + player_x];
-            element.style.backgroundColor = color_empty;
+            element.style.backgroundColor = '';
             element.textContent = '';
 
             player_x += 1;
@@ -172,7 +172,7 @@ function player_move(){
         }else if(core_storage_data['wrap'] === 1
           || core_storage_data['wrap'] === 3){
             let element = core_elements[195 + player_x];
-            element.style.backgroundColor = color_empty;
+            element.style.backgroundColor = '';
             element.textContent = '';
 
             player_x = 0;
@@ -199,7 +199,6 @@ function repo_init(){
         },
       },
       'globals': {
-        'color_empty': 'rgb(42, 42, 42)',
         'color_orange': 'rgb(190, 100, 0)',
         'color_negative': '#663366',
         'color_positive': 'rgb(32, 102, 32)',
@@ -262,7 +261,7 @@ function reset(){
             core_elements[loop_counter] = document.getElementById(loop_counter);
         }
 
-        core_elements[loop_counter].style.backgroundColor = color_empty;
+        core_elements[loop_counter].style.backgroundColor = '';
         core_elements[loop_counter].style.fontSize = Math.ceil(core_storage_data['height'] / 2) + 'px';
         core_elements[loop_counter].style.height = core_storage_data['height'] + 'px';
         core_elements[loop_counter].style.lineHeight = Math.ceil(core_storage_data['height'] / 2) + 'px';
