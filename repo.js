@@ -271,11 +271,9 @@ function reset(){
     core_elements[201].style.backgroundColor = color_positive;
     core_elements[201].textContent = '•';
 
-    const rgb = core_hex_to_rgb('#206620');
-
     core_elements['game-div'].style.lineHeight = core_storage_data['height'] + 'px';
     core_elements['score'].textContent = 0;
-    falling_coins.length = 0;
+    core_object_reset(falling_coins);
     frame_orange = 9;
     frame_purple = 0;
     player_x = 6;
