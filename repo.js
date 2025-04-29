@@ -15,11 +15,12 @@ function coin_fall(){
 
                 }else{
                     audio_start('boop');
-
-                    core_elements['score'].textContent = Number.parseInt(
-                      core_elements['score'].textContent,
-                      10
-                    ) + falling_coins[coin]['value'];
+                    score += falling_coins[coin]['value'];
+                    core_ui_update({
+                      'ids': {
+                        'score': score,
+                      },
+                    });
 
                     falling_coins.splice(
                       coin,
@@ -54,10 +55,12 @@ function coin_fall(){
 
             }else{
                 if(core_storage_data['orange-miss'] === 2){
-                    core_elements['score'].textContent = Number.parseInt(
-                      Number(core_elements['score'].textContent),
-                      10
-                    ) - 1;
+                    score--;
+                    core_ui_update({
+                      'ids': {
+                        'score': score,
+                      },
+                    });
                 }
 
                 const element = core_elements[falling_coins[coin]['x'] + 13 * falling_coins[coin]['y']];
@@ -206,6 +209,7 @@ function repo_init(){
         'frame_orange': 0,
         'frame_purple': 0,
         'player_x': 6,
+        'score': 0,
       },
       'info': '<button id=start-button type=button>Restart</button>',
       'menu': true,
@@ -231,7 +235,6 @@ function repo_init(){
       'title': 'Dropdown.htm',
       'ui-elements': [
         'game-div',
-        'score',
       ],
     });
 
@@ -266,7 +269,7 @@ function reset(){
     core_elements[201].textContent = '•';
 
     core_elements['game-div'].style.lineHeight = core_storage_data['height'] + 'px';
-    core_elements['score'].textContent = 0;
+    score = 0;
     core_object_reset(falling_coins);
     frame_orange = 9;
     frame_purple = 0;
@@ -274,6 +277,10 @@ function reset(){
 }
 
 function start(){
+    if(score !== 0
+      && !globalThis.confirm('Start new game?')){
+        return;
+    }
     if(core_menu_open){
         core_escape(false);
     }
