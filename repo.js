@@ -187,7 +187,7 @@ function player_move(){
 function repo_escape(){
     if(!core_intervals['player']
       && !core_menu_open){
-        core_repo_reset();
+        start();
     }
 }
 
@@ -195,7 +195,7 @@ function repo_init(){
     core_repo_init({
       'events': {
         'start-button': {
-          'onclick': core_repo_reset,
+          'onclick': start,
         },
       },
       'globals': {
@@ -209,13 +209,6 @@ function repo_init(){
       },
       'info': '<button id=start-button type=button>Restart</button>',
       'menu': true,
-      'reset': function(){
-          stop();
-          if(core_menu_open){
-              core_escape();
-          }
-          start();
-      },
       'storage': {
         'frames-per-purple': 9,
         'height': 25,
@@ -226,6 +219,7 @@ function repo_init(){
         'width': 25,
         'wrap': 0,
       },
+      'storage-controls': true,
       'storage-menu': '<table><tr><td><input class=mini id=height min=1 step=any type=number><td>Button Height'
         + '<tr><td><input class=mini id=width min=1 step=any type=number><td>Button Width'
         + '<tr><td><input class=mini id=frames-per-purple min=1 step=1 type=number><td>Frames/Purple_Coin'
@@ -280,6 +274,9 @@ function reset(){
 }
 
 function start(){
+    if(core_menu_open){
+        core_escape(false);
+    }
     reset();
 
     core_interval_modify({
