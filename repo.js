@@ -135,7 +135,24 @@ function coin_fall(){
 }
 
 function player_move(){
-    if(core_keys[core_storage_data['move-←']]['state']){
+    let move_left = false;
+    let move_right = false;
+    if(core_mobile){
+        if(core_mouse['down-0']){
+            if(core_mouse['movement-x'] > 0){
+                move_right = true;
+
+            }else if(core_mouse['movement-x'] < 0){
+                move_left = true;
+            }
+        }
+
+    }else{
+        move_left = core_keys[core_storage_data['move-←']]['state'];
+        move_right = core_keys[core_storage_data['move-→']]['state'];
+    }
+
+    if(move_left){
         if(player_x > 0){
             let element = core_elements[195 + player_x];
             element.style.backgroundColor = '';
@@ -160,7 +177,7 @@ function player_move(){
             element.textContent = '•';
         }
 
-    }else if(core_keys[core_storage_data['move-→']]['state']){
+    }else if(move_right){
         if(player_x < 12){
             let element = core_elements[195 + player_x];
             element.style.backgroundColor = '';
@@ -213,6 +230,9 @@ function repo_init(){
       },
       'info': '<button id=start-button type=button>Restart</button>',
       'menu': true,
+      'mousebinds': core_mobile
+        ? {}
+        : void 0,
       'storage': {
         'frames-per-purple': 9,
         'height': 25,
