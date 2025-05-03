@@ -139,10 +139,11 @@ function player_move(){
     let move_right = false;
     if(core_mobile){
         if(core_mouse['down-0']){
-            if(core_mouse['movement-x'] > 0){
+            const middle = globalThis.innerWidth / 2;
+            if(core_mouse['x'] > middle){
                 move_right = true;
 
-            }else if(core_mouse['movement-x'] < 0){
+            }else if(core_mouse['x'] < middle){
                 move_left = true;
             }
         }
