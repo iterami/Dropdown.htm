@@ -138,12 +138,12 @@ function player_move(){
     let move_left = false;
     let move_right = false;
     if(core_mobile){
-        if(core_mouse['down-0']){
+        if(core_pointer['down-0']){
             const middle = globalThis.innerWidth / 2;
-            if(core_mouse['x'] > middle){
+            if(core_pointer['x'] > middle){
                 move_right = true;
 
-            }else if(core_mouse['x'] < middle){
+            }else if(core_pointer['x'] < middle){
                 move_left = true;
             }
         }
@@ -231,7 +231,7 @@ function repo_init(){
       },
       'info': '<button id=start-button type=button>Restart</button>',
       'menu': true,
-      'mousebinds': core_mobile
+      'pointerbinds': core_mobile
         ? {}
         : void 0,
       'storage': {
