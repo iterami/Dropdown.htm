@@ -135,22 +135,15 @@ function coin_fall(){
 }
 
 function player_move(){
-    let move_left = false;
-    let move_right = false;
-    if(core_mobile){
-        if(core_pointer['down-0']){
-            const middle = globalThis.innerWidth / 2;
-            if(core_pointer['x'] > middle){
-                move_right = true;
+    let move_left = core_keys[core_storage_data['move-←']]['state'];
+    let move_right = core_keys[core_storage_data['move-→']]['state'];
+    if(core_pointer['down-0']){
+        if(core_pointer['x'] > globalThis.innerWidth / 2){
+            move_right = true;
 
-            }else if(core_pointer['x'] < middle){
-                move_left = true;
-            }
+        }else{
+            move_left = true;
         }
-
-    }else{
-        move_left = core_keys[core_storage_data['move-←']]['state'];
-        move_right = core_keys[core_storage_data['move-→']]['state'];
     }
 
     if(move_left){
@@ -231,9 +224,7 @@ function repo_init(){
       },
       'info': '<button id=start-button type=button>Restart</button>',
       'menu': true,
-      'pointerbinds': core_mobile
-        ? {}
-        : void 0,
+      'pointerbinds': {},
       'storage': {
         'frames-per-purple': 9,
         'height': 25,
