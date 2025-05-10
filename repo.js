@@ -138,7 +138,7 @@ function player_move(){
     let move_left = core_keys[core_storage_data['move-←']]['state'];
     let move_right = core_keys[core_storage_data['move-→']]['state'];
     if(core_pointer['down-0']){
-        if(core_pointer['x'] > globalThis.innerWidth / 2){
+        if(core_pointer['x'] > core_elements[195 + player_x].offsetLeft){
             move_right = true;
 
         }else{
