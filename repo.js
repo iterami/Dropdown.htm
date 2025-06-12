@@ -92,9 +92,7 @@ function coin_fall(){
 
     if(core_storage_data['frames-per-purple'] > 0
       && frame_purple === Math.floor(core_storage_data['frames-per-purple'])){
-        new_purple_x = core_random_integer({
-          'max': 13,
-        });
+        new_purple_x = core_random_integer(13);
 
         falling_coins.push({
           'value': -1,
@@ -110,9 +108,7 @@ function coin_fall(){
     if(frame_orange === 9){
         let new_orange_x = new_purple_x;
         do{
-            new_orange_x = core_random_integer({
-              'max': 13,
-            });
+            new_orange_x = core_random_integer(13);
         }while(new_orange_x === new_purple_x);
 
         falling_coins.push({
