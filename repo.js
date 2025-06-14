@@ -250,7 +250,7 @@ function repo_init(){
         + '<tr><td><select id=wrap><option value=0>No<option value=1>Both<option value=2>Left<option value=3>Right</select><td>Wrap</table>',
       'title': 'Dropdown.htm',
       'ui-elements': [
-        'game-div',
+        'game',
       ],
     });
 
@@ -262,8 +262,8 @@ function repo_init(){
 
         output += '<button class=gridbutton disabled id=' + loop_counter + ' type=button></button>';
     }
-    core_elements['game-div'].innerHTML = output + '<br>';
-    core_elements['game-div'].style.minWidth = '360px';
+    core_elements['game'].innerHTML = output + '<br>';
+    core_elements['game'].style.minWidth = '360px';
     reset();
 }
 
@@ -284,7 +284,7 @@ function reset(){
     core_elements[201].style.backgroundColor = color_positive;
     core_elements[201].textContent = '•';
 
-    core_elements['game-div'].style.lineHeight = core_storage_data['height'] + 'px';
+    core_elements['game'].style.lineHeight = core_storage_data['height'] + 'px';
     score = 0;
     core_object_reset(falling_coins);
     frame_orange = 9;
