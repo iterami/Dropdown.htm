@@ -2,20 +2,20 @@
 
 function coin_fall(){
     for(const coin in falling_coins){
-        if(falling_coins[coin]['y'] < 15){
-            if(falling_coins[coin]['y'] === 14
-              && core_elements[195 + falling_coins[coin]['x']].style.backgroundColor === color_positive){
-                const element = core_elements[182 + falling_coins[coin]['x']];
+        if(falling_coins[coin].y < 15){
+            if(falling_coins[coin].y === 14
+              && core_elements[195 + falling_coins[coin].x].style.backgroundColor === color_positive){
+                const element = core_elements[182 + falling_coins[coin].x];
                 element.style.backgroundColor = '';
                 element.textContent = '';
 
-                if(falling_coins[coin]['value'] < 0
-                  && core_storage_data['purple-catch'] === 0){
+                if(falling_coins[coin].value < 0
+                  && core_storage_data.purple_catch === 0){
                     core_interval_pause_all();
 
                 }else{
                     audio_start('boop');
-                    score += falling_coins[coin]['value'];
+                    score += falling_coins[coin].value;
                     core_ui_update({
                       'ids': {
                         'score': score,
@@ -32,13 +32,13 @@ function coin_fall(){
                 }
             }
 
-            let element = core_elements[falling_coins[coin]['x'] + 13 * falling_coins[coin]['y']];
+            let element = core_elements[falling_coins[coin].x + 13 * falling_coins[coin].y];
             element.style.backgroundColor = '';
             element.textContent = '';
-            falling_coins[coin]['y'] += 1;
+            falling_coins[coin].y += 1;
 
-            element = core_elements[falling_coins[coin]['x'] + 13 * falling_coins[coin]['y']];
-            const type = falling_coins[coin]['value'] === 1;
+            element = core_elements[falling_coins[coin].x + 13 * falling_coins[coin].y];
+            const type = falling_coins[coin].value === 1;
             element.style.backgroundColor = type
               ? color_orange
               : color_negative;
@@ -49,12 +49,12 @@ function coin_fall(){
             continue;
         }
 
-        if(falling_coins[coin]['value'] === 1){
-            if(core_storage_data['orange-miss'] === 1){
+        if(falling_coins[coin].value === 1){
+            if(core_storage_data.orange_miss === 1){
                 core_interval_pause_all();
 
             }else{
-                if(core_storage_data['orange-miss'] === 2){
+                if(core_storage_data.orange_miss === 2){
                     score--;
                     core_ui_update({
                       'ids': {
@@ -63,7 +63,7 @@ function coin_fall(){
                     });
                 }
 
-                const element = core_elements[falling_coins[coin]['x'] + 13 * falling_coins[coin]['y']];
+                const element = core_elements[falling_coins[coin].x + 13 * falling_coins[coin].y];
                 element.style.backgroundColor = '';
                 element.textContent = '';
                 falling_coins.splice(
@@ -75,7 +75,7 @@ function coin_fall(){
              }
 
         }else{
-            const element = core_elements[falling_coins[coin]['x'] + 13 * falling_coins[coin]['y']];
+            const element = core_elements[falling_coins[coin].x + 13 * falling_coins[coin].y];
             element.style.backgroundColor = '';
             element.textContent = '';
             falling_coins.splice(
@@ -90,8 +90,8 @@ function coin_fall(){
 
     let new_purple_x = -1;
 
-    if(core_storage_data['frames-per-purple'] > 0
-      && frame_purple === Math.floor(core_storage_data['frames-per-purple'])){
+    if(core_storage_data.frames_per_purple > 0
+      && frame_purple === Math.floor(core_storage_data.frames_per_purple)){
         new_purple_x = core_random_integer(13);
 
         falling_coins.push({
@@ -131,14 +131,14 @@ function coin_fall(){
 }
 
 function player_move(){
-    let move_left = core_keys[core_storage_data['move-←']]['state'];
-    let move_right = core_keys[core_storage_data['move-→']]['state'];
+    let move_left = core_keys[core_storage_data['move-←']].state;
+    let move_right = core_keys[core_storage_data['move-→']].state;
     if(core_pointer['down-0']){
         const position = core_elements[195 + player_x].offsetLeft;
-        if(core_pointer['x'] > position + core_storage_data['width']){
+        if(core_pointer.x > position + core_storage_data.width){
             move_right = true;
 
-        }else if(core_pointer['x'] < position){
+        }else if(core_pointer.x < position){
             move_left = true;
         }
     }
@@ -155,8 +155,8 @@ function player_move(){
             element.style.backgroundColor = color_positive;
             element.textContent = '•';
 
-        }else if(core_storage_data['wrap'] === 1
-          || core_storage_data['wrap'] === 2){
+        }else if(core_storage_data.wrap === 1
+          || core_storage_data.wrap === 2){
             let element = core_elements[195 + player_x];
             element.style.backgroundColor = '';
             element.textContent = '';
@@ -180,8 +180,8 @@ function player_move(){
             element.style.backgroundColor = color_positive;
             element.textContent = '•';
 
-        }else if(core_storage_data['wrap'] === 1
-          || core_storage_data['wrap'] === 3){
+        }else if(core_storage_data.wrap === 1
+          || core_storage_data.wrap === 3){
             let element = core_elements[195 + player_x];
             element.style.backgroundColor = '';
             element.textContent = '';
@@ -196,7 +196,7 @@ function player_move(){
 }
 
 function repo_escape(){
-    if(!core_intervals['player']
+    if(!core_intervals.player
       && !core_menu_open){
         start();
     }
@@ -212,7 +212,7 @@ function repo_init(){
         },
       },
       'events': {
-        'start-button': {
+        'start_button': {
           'onclick': start,
         },
       },
@@ -226,27 +226,27 @@ function repo_init(){
         'player_x': 6,
         'score': 0,
       },
-      'info': '<button id=start-button type=button>Restart</button>',
+      'info': '<button id=start_button type=button>Restart</button>',
       'menu': true,
       'pointerbinds': {},
       'storage': {
-        'frames-per-purple': 9,
+        'frames_per_purple': 9,
         'height': 25,
-        'ms-per-coin-move': 100,
-        'ms-per-player-move': 100,
-        'orange-miss': 1,
-        'purple-catch': 1,
+        'ms_per_coin_move': 100,
+        'ms_per_player_move': 100,
+        'orange_miss': 1,
+        'purple_catch': 1,
         'width': 25,
         'wrap': 0,
       },
       'storage-controls': true,
       'storage-menu': '<table><tr><td><input class=mini id=height min=1 step=any type=number><td>Button Height'
         + '<tr><td><input class=mini id=width min=1 step=any type=number><td>Button Width'
-        + '<tr><td><input class=mini id=frames-per-purple min=1 step=1 type=number><td>Frames/Purple_Coin'
-        + '<tr><td><input class=mini id=ms-per-coin-move min=1 step=any type=number><td>ms/Coin_Move'
-        + '<tr><td><input class=mini id=ms-per-player-move min=1 step=any type=number><td>ms/Player_Move'
-        + '<tr><td><select id=orange-miss><option value=0>Disappear<option selected value=1>End Game<option value=2>Score-1</select><td>Orange Coin Miss'
-        + '<tr><td><select id=purple-catch><option value=0>End Game<option selected value=1>Score-1</select><td>Purple Coin Catch'
+        + '<tr><td><input class=mini id=frames_per_purple min=1 step=1 type=number><td>Frames/Purple_Coin'
+        + '<tr><td><input class=mini id=ms_per_coin_move min=1 step=any type=number><td>ms/Coin_Move'
+        + '<tr><td><input class=mini id=ms_per_player_move min=1 step=any type=number><td>ms/Player_Move'
+        + '<tr><td><select id=orange_miss><option value=0>Disappear<option selected value=1>End Game<option value=2>Score-1</select><td>Orange Coin Miss'
+        + '<tr><td><select id=purple_catch><option value=0>End Game<option selected value=1>Score-1</select><td>Purple Coin Catch'
         + '<tr><td><select id=wrap><option value=0>No<option value=1>Both<option value=2>Left<option value=3>Right</select><td>Wrap</table>',
       'title': 'Dropdown.htm',
       'ui-elements': [
@@ -262,8 +262,8 @@ function repo_init(){
 
         output += '<button class=gridbutton disabled id=' + loop_counter + ' type=button></button>';
     }
-    core_elements['game'].innerHTML = output + '<br>';
-    core_elements['game'].style.minWidth = '360px';
+    core_elements.game.innerHTML = output + '<br>';
+    core_elements.game.style.minWidth = '360px';
     reset();
 }
 
@@ -275,16 +275,16 @@ function reset(){
         }
 
         core_elements[loop_counter].style.backgroundColor = '';
-        core_elements[loop_counter].style.fontSize = Math.ceil(core_storage_data['height'] / 2) + 'px';
-        core_elements[loop_counter].style.height = core_storage_data['height'] + 'px';
-        core_elements[loop_counter].style.lineHeight = Math.ceil(core_storage_data['height'] / 2) + 'px';
-        core_elements[loop_counter].style.width = core_storage_data['width'] + 'px';
+        core_elements[loop_counter].style.fontSize = Math.ceil(core_storage_data.height / 2) + 'px';
+        core_elements[loop_counter].style.height = core_storage_data.height + 'px';
+        core_elements[loop_counter].style.lineHeight = Math.ceil(core_storage_data.height / 2) + 'px';
+        core_elements[loop_counter].style.width = core_storage_data.width + 'px';
         core_elements[loop_counter].textContent = '';
     }while(loop_counter--);
     core_elements[201].style.backgroundColor = color_positive;
     core_elements[201].textContent = '•';
 
-    core_elements['game'].style.lineHeight = core_storage_data['height'] + 'px';
+    core_elements.game.style.lineHeight = core_storage_data.height + 'px';
     score = 0;
     core_object_reset(falling_coins);
     frame_orange = 9;
@@ -304,12 +304,12 @@ function start(){
 
     core_interval_modify({
       'id': 'coins',
-      'interval': core_storage_data['ms-per-coin-move'],
+      'interval': core_storage_data.ms_per_coin_move,
       'todo': coin_fall,
     });
     core_interval_modify({
       'id': 'player',
-      'interval': core_storage_data['ms-per-player-move'],
+      'interval': core_storage_data.ms_per_player_move,
       'todo': player_move,
     });
 }
