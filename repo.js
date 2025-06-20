@@ -249,7 +249,7 @@ function repo_init(){
         + '<tr><td><select id=purple_catch><option value=0>End Game<option selected value=1>Score-1</select><td>Purple Coin Catch'
         + '<tr><td><select id=wrap><option value=0>No<option value=1>Both<option value=2>Left<option value=3>Right</select><td>Wrap</table>',
       'title': 'Dropdown.htm',
-      'ui-elements': [
+      'ui_elements': [
         'game',
       ],
     });
