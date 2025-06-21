@@ -240,7 +240,7 @@ function repo_init(){
         'wrap': 0,
       },
       'storage_controls': true,
-      'storage-menu': '<table><tr><td><input class=mini id=height min=1 step=any type=number><td>Button Height'
+      'storage_menu': '<table><tr><td><input class=mini id=height min=1 step=any type=number><td>Button Height'
         + '<tr><td><input class=mini id=width min=1 step=any type=number><td>Button Width'
         + '<tr><td><input class=mini id=frames_per_purple min=1 step=1 type=number><td>Frames/Purple_Coin'
         + '<tr><td><input class=mini id=ms_per_coin_move min=1 step=any type=number><td>ms/Coin_Move'
