@@ -133,7 +133,7 @@ function coin_fall(){
 function player_move(){
     let move_left = core_keys[core_storage_data['move-←']].state;
     let move_right = core_keys[core_storage_data['move-→']].state;
-    if(core_pointer['down-0']){
+    if(core_pointer.down_0){
         const position = core_elements[195 + player_x].offsetLeft;
         if(core_pointer.x > position + core_storage_data.width){
             move_right = true;
