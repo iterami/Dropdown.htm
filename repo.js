@@ -143,55 +143,33 @@ function player_move(){
         }
     }
 
+    const old_x = player_x;
     if(move_left){
         if(player_x > 0){
-            let element = core_elements[195 + player_x];
-            element.style.backgroundColor = '';
-            element.textContent = '';
-
             player_x -= 1;
-
-            element = core_elements[195 + player_x];
-            element.style.backgroundColor = color_positive;
-            element.textContent = '•';
 
         }else if(core_storage_data.wrap === 1
           || core_storage_data.wrap === 2){
-            let element = core_elements[195 + player_x];
-            element.style.backgroundColor = '';
-            element.textContent = '';
-
             player_x = 12;
-
-            element = core_elements[195 + player_x];
-            element.style.backgroundColor = color_positive;
-            element.textContent = '•';
         }
 
     }else if(move_right){
         if(player_x < 12){
-            let element = core_elements[195 + player_x];
-            element.style.backgroundColor = '';
-            element.textContent = '';
-
             player_x += 1;
-
-            element = core_elements[195 + player_x];
-            element.style.backgroundColor = color_positive;
-            element.textContent = '•';
 
         }else if(core_storage_data.wrap === 1
           || core_storage_data.wrap === 3){
-            let element = core_elements[195 + player_x];
-            element.style.backgroundColor = '';
-            element.textContent = '';
-
             player_x = 0;
-
-            element = core_elements[195 + player_x];
-            element.style.backgroundColor = color_positive;
-            element.textContent = '•';
         }
+    }
+    if(player_x !== old_x){
+        const old_element = core_elements[195 + old_x];
+        old_element.style.backgroundColor = '';
+        old_element.textContent = '';
+
+        const new_element = core_elements[195 + player_x];
+        new_element.style.backgroundColor = color_positive;
+        new_element.textContent = '•';
     }
 }
 
