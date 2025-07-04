@@ -209,17 +209,17 @@ function repo_init(){
       'pointerbinds': {},
       'storage': {
         'frames_per_purple': 9,
-        'height': 25,
+        'height': '25px',
         'ms_per_coin_move': 100,
         'ms_per_player_move': 100,
         'orange_miss': 1,
         'purple_catch': 1,
-        'width': 25,
+        'width': '25px',
         'wrap': 0,
       },
       'storage_controls': true,
-      'storage_menu': '<table><tr><td><input class=mini id=height min=1 step=any type=number><td>Button Height'
-        + '<tr><td><input class=mini id=width min=1 step=any type=number><td>Button Width'
+      'storage_menu': '<table><tr><td><input class=mini id=height type=text><td>Button Height'
+        + '<tr><td><input class=mini id=width type=text><td>Button Width'
         + '<tr><td><input class=mini id=frames_per_purple min=1 step=1 type=number><td>Frames/Purple_Coin'
         + '<tr><td><input class=mini id=ms_per_coin_move min=1 step=any type=number><td>ms/Coin_Move'
         + '<tr><td><input class=mini id=ms_per_player_move min=1 step=any type=number><td>ms/Player_Move'
@@ -241,7 +241,6 @@ function repo_init(){
         output += '<button class=gridbutton disabled id=' + loop_counter + ' type=button></button>';
     }
     core_elements.game.innerHTML = output + '<br>';
-    core_elements.game.style.minWidth = '360px';
     reset();
 }
 
@@ -253,16 +252,19 @@ function reset(){
         }
 
         core_elements[loop_counter].style.backgroundColor = '';
-        core_elements[loop_counter].style.fontSize = Math.ceil(core_storage_data.height / 2) + 'px';
-        core_elements[loop_counter].style.height = core_storage_data.height + 'px';
-        core_elements[loop_counter].style.lineHeight = Math.ceil(core_storage_data.height / 2) + 'px';
-        core_elements[loop_counter].style.width = core_storage_data.width + 'px';
+        core_elements[loop_counter].style.height = core_storage_data.height;
+        core_elements[loop_counter].style.width = core_storage_data.width;
         core_elements[loop_counter].textContent = '';
+
+        const half = Math.ceil(core_elements[loop_counter].offsetWidth / 2) + 'px';
+        core_elements[loop_counter].style.fontSize = half;
+        core_elements[loop_counter].style.lineHeight = half;
     }while(loop_counter--);
     core_elements[201].style.backgroundColor = color_positive;
     core_elements[201].textContent = '•';
 
-    core_elements.game.style.lineHeight = core_storage_data.height + 'px';
+    core_elements.game.style.lineHeight = core_storage_data.height;
+    core_elements.game.style.minWidth = (core_elements[0].offsetWidth * 13 + 26) + 'px';
     score = 0;
     core_object_reset(falling_coins);
     frame_orange = 9;
@@ -276,7 +278,7 @@ function start(){
         return;
     }
     if(core_menu_open){
-        core_escape(false);
+        core_escape();
     }
     reset();
 
