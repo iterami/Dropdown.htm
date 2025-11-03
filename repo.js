@@ -245,6 +245,17 @@ function repo_init(){
 }
 
 function reset(){
+    score = 0;
+    core_ui_update({
+      'ids': {
+        'score': score,
+      },
+    });
+    core_object_reset(falling_coins);
+    frame_orange = 9;
+    frame_purple = 0;
+    player_x = 6;
+
     let loop_counter = 207;
     do{
         if(!core_elements[loop_counter]){
@@ -265,11 +276,6 @@ function reset(){
 
     core_elements.game.style.lineHeight = core_storage_data.height;
     core_elements.game.style.minWidth = (core_elements[0].offsetWidth * 13 + 26) + 'px';
-    score = 0;
-    core_object_reset(falling_coins);
-    frame_orange = 9;
-    frame_purple = 0;
-    player_x = 6;
 }
 
 function start(){
