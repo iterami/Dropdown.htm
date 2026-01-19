@@ -134,11 +134,11 @@ function player_move(){
     let move_left = core_keys[core_storage_data.move_left].state;
     let move_right = core_keys[core_storage_data.move_right].state;
     if(core_pointer.down_0){
-        const position = core_elements[195 + player_x].offsetLeft;
-        if(core_pointer.x > position + core_storage_data.width){
+        const position = core_elements[195 + player_x];
+        if(core_pointer.x > position.offsetLeft + position.clientWidth){
             move_right = true;
 
-        }else if(core_pointer.x < position){
+        }else if(core_pointer.x < position.offsetLeft){
             move_left = true;
         }
     }
