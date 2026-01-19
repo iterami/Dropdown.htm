@@ -3,32 +3,36 @@
 function coin_fall(){
     for(const coin in falling_coins){
         if(falling_coins[coin].y < 15){
-            if(falling_coins[coin].y === 14
-              && core_elements[195 + falling_coins[coin].x].style.backgroundColor === color_positive){
-                const element = core_elements[182 + falling_coins[coin].x];
-                element.style.backgroundColor = '';
-                element.textContent = '';
+            if(falling_coins[coin].y === 14){
+                const rgb = core_hex_to_rgb(core_storage_data.player_color);
+                const color = 'rgb(' + rgb.red + ', ' + rgb.green + ', ' + rgb.blue + ')';
 
-                if(falling_coins[coin].value < 0
-                  && core_storage_data.purple_catch === 0){
-                    core_interval_pause_all();
+                if(core_elements[195 + falling_coins[coin].x].style.backgroundColor === color){
+                    const element = core_elements[182 + falling_coins[coin].x];
+                    element.style.backgroundColor = '';
+                    element.textContent = '';
 
-                }else{
-                    audio_start('boop');
-                    score += falling_coins[coin].value;
-                    core_ui_update({
-                      'ids': {
-                        'score': score,
-                      },
-                    });
+                    if(falling_coins[coin].value < 0
+                      && core_storage_data.negative_catch === 0){
+                        core_interval_pause_all();
 
-                    falling_coins.splice(
-                      coin,
-                      1
-                    );
+                    }else{
+                        audio_start('boop');
+                        score += falling_coins[coin].value;
+                        core_ui_update({
+                          'ids': {
+                            'score': score,
+                          },
+                        });
 
-                    coin_fall();
-                    return;
+                        falling_coins.splice(
+                          coin,
+                          1
+                        );
+
+                        coin_fall();
+                        return;
+                    }
                 }
             }
 
@@ -40,8 +44,8 @@ function coin_fall(){
             element = core_elements[falling_coins[coin].x + 13 * falling_coins[coin].y];
             const type = falling_coins[coin].value === 1;
             element.style.backgroundColor = type
-              ? color_orange
-              : color_negative;
+              ? core_storage_data.positive_color
+              : core_storage_data.negative_color;
             element.textContent = type
               ? '+'
               : '-';
@@ -50,11 +54,14 @@ function coin_fall(){
         }
 
         if(falling_coins[coin].value === 1){
-            if(core_storage_data.orange_miss === 1){
+            if(core_storage_data.positive_miss === 1){
+                audio_start('boop');
                 core_interval_pause_all();
+                return;
 
             }else{
-                if(core_storage_data.orange_miss === 2){
+                if(core_storage_data.positive_miss === 2){
+                    audio_start('boop');
                     score--;
                     core_ui_update({
                       'ids': {
@@ -62,71 +69,56 @@ function coin_fall(){
                       },
                     });
                 }
-
-                const element = core_elements[falling_coins[coin].x + 13 * falling_coins[coin].y];
-                element.style.backgroundColor = '';
-                element.textContent = '';
-                falling_coins.splice(
-                  coin,
-                  1
-                );
-
-                coin_fall();
-             }
-
-        }else{
-            const element = core_elements[falling_coins[coin].x + 13 * falling_coins[coin].y];
-            element.style.backgroundColor = '';
-            element.textContent = '';
-            falling_coins.splice(
-              coin,
-              1
-            );
-
-            coin_fall();
+            }
         }
+
+        const element = core_elements[falling_coins[coin].x + 13 * falling_coins[coin].y];
+        element.style.backgroundColor = '';
+        element.textContent = '';
+        falling_coins.splice(
+          coin,
+          1
+        );
+
+        coin_fall();
         return;
     }
 
-    let new_purple_x = -1;
+    let new_negative_x = -1;
 
-    if(core_storage_data.frames_per_purple > 0
-      && frame_purple === Math.floor(core_storage_data.frames_per_purple)){
-        new_purple_x = core_random_integer(13);
+    if(core_storage_data.frames_per_negative > 0
+      && frame_negative++ === Math.floor(core_storage_data.frames_per_negative)){
+        new_negative_x = core_random_integer(13);
 
         falling_coins.push({
           'value': -1,
-          'x': new_purple_x,
+          'x': new_negative_x,
           'y': 0,
         });
 
-        core_elements[new_purple_x].style.backgroundColor = color_negative;
-        core_elements[new_purple_x].textContent = '-';
-        frame_purple = -1;
+        core_elements[new_negative_x].style.backgroundColor = core_storage_data.negative_color;
+        core_elements[new_negative_x].textContent = '-';
+        frame_negative = 0;
     }
-
-    if(frame_orange === 9){
-        let new_orange_x = new_purple_x;
+    if(frame_positive++ === core_storage_data.frames_per_positive){
+        let new_positive_x = new_negative_x;
         do{
-            new_orange_x = core_random_integer(13);
-        }while(new_orange_x === new_purple_x);
+            new_positive_x = core_random_integer(13);
+        }while(new_positive_x === new_negative_x);
 
         falling_coins.push({
           'value': 1,
-          'x': new_orange_x,
+          'x': new_positive_x,
           'y': 0,
         });
 
-        core_elements[new_orange_x].style.backgroundColor = color_orange;
-        core_elements[new_orange_x].textContent = '+';
-        frame_orange = -1;
+        core_elements[new_positive_x].style.backgroundColor = core_storage_data.positive_color;
+        core_elements[new_positive_x].textContent = '+';
+        frame_positive = 0;
     }
 
-    frame_orange += 1;
-    frame_purple += 1;
-
     const element = core_elements[195 + player_x];
-    element.style.backgroundColor = color_positive;
+    element.style.backgroundColor = core_storage_data.player_color;
     element.textContent = '•';
 }
 
@@ -168,7 +160,7 @@ function player_move(){
         old_element.textContent = '';
 
         const new_element = core_elements[195 + player_x];
-        new_element.style.backgroundColor = color_positive;
+        new_element.style.backgroundColor = core_storage_data.player_color;
         new_element.textContent = '•';
     }
 }
@@ -196,12 +188,9 @@ function repo_init(){
         },
       },
       'globals': {
-        'color_orange': 'rgb(190, 100, 0)',
-        'color_negative': '#663366',
-        'color_positive': 'rgb(32, 102, 32)',
         'falling_coins': [],
-        'frame_orange': 0,
-        'frame_purple': 0,
+        'frame_negative': 0,
+        'frame_positive': 0,
         'player_x': 6,
         'score': 0,
       },
@@ -209,23 +198,31 @@ function repo_init(){
       'menu': true,
       'pointerbinds': {},
       'storage': {
-        'frames_per_purple': 9,
+        'frames_per_negative': 9,
+        'frames_per_positive': 10,
         'height': '25px',
         'ms_per_coin_move': 100,
         'ms_per_player_move': 100,
-        'orange_miss': 1,
-        'purple_catch': 1,
+        'negative_catch': 1,
+        'negative_color': '#663366',
+        'player_color': '#206620',
+        'positive_color': '#be6400',
+        'positive_miss': 1,
         'width': '25px',
         'wrap': 0,
       },
       'storage_controls': true,
       'storage_menu': '<table><tr><td><input class=mini id=height type=text><td>Button Height'
         + '<tr><td><input class=mini id=width type=text><td>Button Width'
-        + '<tr><td><input class=mini id=frames_per_purple min=1 step=1 type=number><td>Frames/Purple_Coin'
+        + '<tr><td><input class=mini id=frames_per_negative min=0 step=1 type=number><td>Frames/Negative_Coin'
+        + '<tr><td><input class=mini id=frames_per_positive min=1 step=1 type=number><td>Frames/Positive_Coin'
         + '<tr><td><input class=mini id=ms_per_coin_move min=1 step=any type=number><td>ms/Coin_Move'
         + '<tr><td><input class=mini id=ms_per_player_move min=1 step=any type=number><td>ms/Player_Move'
-        + '<tr><td><select id=orange_miss><option value=0>Disappear<option selected value=1>End Game<option value=2>Score-1</select><td>Orange Coin Miss'
-        + '<tr><td><select id=purple_catch><option value=0>End Game<option selected value=1>Score-1</select><td>Purple Coin Catch'
+        + '<tr><td><select id=negative_catch><option value=0>End Game<option selected value=1>Score-1</select><td>Negative Coin Catch'
+        + '<tr><td><input id=negative_color type=color><td>Negative Coin Color'
+        + '<tr><td><input id=player_color type=color><td>Player Color'
+        + '<tr><td><select id=positive_miss><option value=0>Disappear<option selected value=1>End Game<option value=2>Score-1</select><td>Positive Coin Miss'
+        + '<tr><td><input id=positive_color type=color><td>Positive Coin Color'
         + '<tr><td><select id=wrap><option value=0>No<option value=1>Both<option value=2>Left<option value=3>Right</select><td>Wrap</table>',
       'title': 'Dropdown.htm',
       'ui_elements': [
@@ -253,8 +250,8 @@ function reset(){
       },
     });
     core_object_reset(falling_coins);
-    frame_orange = 9;
-    frame_purple = 0;
+    frame_negative = 0;
+    frame_positive = core_storage_data.frames_per_positive;
     player_x = 6;
 
     let loop_counter = 207;
@@ -272,7 +269,7 @@ function reset(){
         core_elements[loop_counter].style.fontSize = half;
         core_elements[loop_counter].style.lineHeight = half;
     }while(loop_counter--);
-    core_elements[201].style.backgroundColor = color_positive;
+    core_elements[201].style.backgroundColor = core_storage_data.player_color;
     core_elements[201].textContent = '•';
 
     core_elements.game.style.lineHeight = core_storage_data.height;
