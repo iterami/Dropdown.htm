@@ -281,10 +281,10 @@ function start(){
       && !globalThis.confirm('Start new game?')){
         return;
     }
+    reset();
     if(core_menu_open){
         core_escape();
     }
-    reset();
 
     core_interval_modify({
       'id': 'coins',
