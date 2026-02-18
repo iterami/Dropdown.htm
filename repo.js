@@ -194,7 +194,7 @@ function repo_init(){
         'player_x': 6,
         'score': 0,
       },
-      'info': '<button id=start type=button>Start New Game</button>',
+      'info': '<button class=medium id=start type=button>Start New Game</button>',
       'menu': true,
       'pointerbinds': {},
       'storage': {
