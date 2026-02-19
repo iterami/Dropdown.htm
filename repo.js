@@ -14,7 +14,7 @@ function coin_fall(){
 
                     if(falling_coins[coin].value < 0
                       && core_storage_data.negative_catch === 0){
-                        core_interval_pause_all();
+                        core_interval_lock_all();
 
                     }else{
                         audio_start('boop');
@@ -56,7 +56,7 @@ function coin_fall(){
         if(falling_coins[coin].value === 1){
             if(core_storage_data.positive_miss === 1){
                 audio_start('boop');
-                core_interval_pause_all();
+                core_interval_lock_all();
                 return;
 
             }else{
