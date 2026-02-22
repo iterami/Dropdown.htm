@@ -238,7 +238,7 @@ function repo_init(){
 
         output += '<button class=gridbutton disabled id=' + loop_counter + ' type=button></button>';
     }
-    core_elements.game.innerHTML = output + '<br>';
+    core_elements.game.innerHTML = output;
 }
 
 function reset(){
