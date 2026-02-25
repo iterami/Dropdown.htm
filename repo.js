@@ -101,10 +101,9 @@ function coin_fall(){
         frame_negative = 0;
     }
     if(frame_positive++ === core_storage_data.frames_per_positive){
-        let new_positive_x = new_negative_x;
-        do{
-            new_positive_x = core_random_integer(13);
-        }while(new_positive_x === new_negative_x);
+        const choices = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12];
+        choices.splice(new_negative_x, 1);
+        const new_positive_x = core_random_splice(choices);
 
         falling_coins.push({
           'value': 1,
@@ -231,12 +230,12 @@ function repo_init(){
     });
 
     let output = '';
-    for(let loop_counter = 0; loop_counter < 208; loop_counter++){
-        if(loop_counter % 13 === 0 && loop_counter !== 0){
+    for(let i = 0; i < 208; i++){
+        if(i % 13 === 0 && i !== 0){
             output += '<br>';
         }
 
-        output += '<button class=gridbutton disabled id=' + loop_counter + ' type=button></button>';
+        output += '<button class=gridbutton disabled id=' + i + ' type=button></button>';
     }
     core_elements.game.innerHTML = output;
 }
@@ -253,21 +252,20 @@ function reset(){
     frame_positive = core_storage_data.frames_per_positive;
     player_x = 6;
 
-    let loop_counter = 207;
-    do{
-        if(!core_elements[loop_counter]){
-            core_elements[loop_counter] = document.getElementById(loop_counter);
+    for(let i = 0; i < 208; i++){
+        if(!core_elements[i]){
+            core_elements[i] = document.getElementById(i);
         }
 
-        core_elements[loop_counter].style.backgroundColor = '';
-        core_elements[loop_counter].style.height = core_storage_data.height;
-        core_elements[loop_counter].style.width = core_storage_data.width;
-        core_elements[loop_counter].textContent = '';
+        core_elements[i].style.backgroundColor = '';
+        core_elements[i].style.height = core_storage_data.height;
+        core_elements[i].style.width = core_storage_data.width;
+        core_elements[i].textContent = '';
 
-        const half = Math.ceil(core_elements[loop_counter].offsetWidth / 2) + 'px';
-        core_elements[loop_counter].style.fontSize = half;
-        core_elements[loop_counter].style.lineHeight = half;
-    }while(loop_counter--);
+        const half = Math.ceil(core_elements[i].offsetWidth / 2) + 'px';
+        core_elements[i].style.fontSize = half;
+        core_elements[i].style.lineHeight = half;
+    }
     core_elements[201].style.backgroundColor = core_storage_data.player_color;
     core_elements[201].textContent = '•';
 
