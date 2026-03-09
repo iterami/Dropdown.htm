@@ -279,9 +279,7 @@ function start(){
         return;
     }
     reset();
-    if(core_menu_open){
-        core_escape(false);
-    }
+    core_escape(false);
 
     core_interval_modify({
       'id': 'coins',
