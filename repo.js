@@ -238,6 +238,10 @@ function repo_init(){
         output += '<button class=gridbutton disabled id=' + i + ' type=button></button>';
     }
     core_elements.game.innerHTML = output;
+
+    for(let i = 0; i < 208; i++){
+        core_elements[i] = document.getElementById(i);
+    }
 }
 
 function reset(){
@@ -253,10 +257,6 @@ function reset(){
     player_x = 6;
 
     for(let i = 0; i < 208; i++){
-        if(!core_elements[i]){
-            core_elements[i] = document.getElementById(i);
-        }
-
         core_elements[i].style.backgroundColor = '';
         core_elements[i].style.height = core_storage_data.height;
         core_elements[i].style.width = core_storage_data.width;
