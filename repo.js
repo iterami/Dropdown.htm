@@ -242,6 +242,8 @@ function repo_init(){
     for(let i = 0; i < 208; i++){
         core_elements[i] = document.getElementById(i);
     }
+
+    update_css();
 }
 
 function reset(){
@@ -269,8 +271,7 @@ function reset(){
     core_elements[201].style.backgroundColor = core_storage_data.player_color;
     core_elements[201].textContent = '•';
 
-    core_elements.game.style.lineHeight = core_storage_data.height;
-    core_elements.game.style.minWidth = (core_elements[0].offsetWidth * 13 + 26) + 'px';
+    update_css();
 }
 
 function start(){
@@ -291,4 +292,9 @@ function start(){
       'interval': core_storage_data.ms_per_player_move,
       'todo': player_move,
     });
+}
+
+function update_css(){
+    core_elements.game.style.lineHeight = core_storage_data.height;
+    core_elements.game.style.minWidth = (core_elements[0].offsetWidth * 13 + 26) + 'px';
 }
