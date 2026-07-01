@@ -62,10 +62,9 @@ function coin_fall(){
             }else{
                 if(core_storage_data.positive_miss === 2){
                     audio_start('boop');
-                    score--;
                     core_ui_update({
                       'ids': {
-                        'score': score,
+                        'score': --score,
                       },
                     });
                 }
@@ -226,6 +225,7 @@ function repo_init(){
         + '<tr><td><input id=positive_color type=color><td>Positive Coin Color'
         + '<tr><td><select id=wrap><option value=0>No<option value=1>Both<option value=2>Left<option value=3>Right</select><td>Wrap</table>',
       'title': 'Dropdown.htm',
+      'ui': ' <span id=score></span>',
       'ui_elements': [
         'game',
       ],
