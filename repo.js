@@ -174,13 +174,11 @@ function repo_escape(){
 
 function repo_init(){
     core_repo_init({
-      'beforeunload': {
-        'todo': function(event){
-            if(score !== 0){
-                core_escape(true);
-                event.preventDefault();
-            }
-        },
+      'beforeunload': function(event){
+          if(score !== 0){
+              core_escape(true);
+              event.preventDefault();
+          }
       },
       'events': {
         'start': {
@@ -226,9 +224,7 @@ function repo_init(){
         + '<tr><td><select id=wrap><option value=0>No<option value=1>Both<option value=2>Left<option value=3>Right</select><td>Wrap</table>',
       'title': 'Dropdown.htm',
       'ui': ' <span id=score></span>',
-      'ui_elements': [
-        'game',
-      ],
+      'ui_elements': ['game'],
     });
 
     let output = '';
